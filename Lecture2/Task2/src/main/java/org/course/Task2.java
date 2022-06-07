@@ -5,21 +5,20 @@ public class Task2 {
     public Task2() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] students) {
         int maxChar = 0;
         String maxName = "";
         double meanValue;
         String result;
         String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
-        String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
-                "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
+//        String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
+//                "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
         for (int i = 0; i < teachers.length; i++) {
-            int numberOfTeacher = i;
-            System.out.println("Ментор "+ ++numberOfTeacher +":");
+            System.out.println("Ментор "+ (i+1) +":");
             System.out.println(teachers[i]);
             System.out.println("Студенты:");
             boolean comma = false;
-            for (int j = i; j < students.length; j = j + 4) {
+            for (int j = i; j < students.length; j += teachers.length) {
                 if (comma) {
                     System.out.print(", ");
                 }
