@@ -19,7 +19,7 @@ public class Task2 {
             out.println("Mentor 1: " + teachers[i]);
             out.print("Students: ");
             for (int j = i; j < students.length; j=j+teachers.length) {
-                stud_list = (j==i) ?  stud_list = students[j] : String.join(delimiter, stud_list, students[j]);
+                stud_list = (j==i) ?  students[j] : String.join(delimiter, stud_list, students[j]);
                 if (max < students[j].length()){
                     max=students[j].length();
                     max_name = students[j];
