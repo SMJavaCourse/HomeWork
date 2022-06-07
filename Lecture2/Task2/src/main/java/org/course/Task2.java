@@ -26,5 +26,17 @@ public class Task2 {
         value = value/10;
         String result = String.format("%.2f", value);
         System.out.println("В среднем на каждого ментора приходится " + result + " студента");
+        String m = teachers[0];
+        for (int n=1; teachers.length>n; ++n){
+            if (teachers[n].length()>=m.length()){
+                m=teachers[n];
+            }
+        }
+        for (int nn=1; students.length>nn; ++nn){
+            if (students[nn].length()>=m.length()){
+                m=students[nn];
+            }
+        }
+        System.out.println("А совсем-совсем дольше всех пишет имя " + m);
     }
 }
