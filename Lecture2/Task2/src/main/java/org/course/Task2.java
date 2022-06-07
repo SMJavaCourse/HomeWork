@@ -11,10 +11,11 @@ public class Task2 {
         String delimiter = ", ";
         int max = 0;
         String max_name = "";
+        String[] students = new String[args.length];
         String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
         /*String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};*/
-        String[] students = getStudents();
+        System.arraycopy(args, 0, students, 0, args.length);
         for (int i = 0; i < teachers.length; i++) {
             out.println("Mentor 1: " + teachers[i]);
             out.print("Students: ");
@@ -31,16 +32,4 @@ public class Task2 {
         out.println("В среднем на каждого ментора приходится по "+ (double)students.length/teachers.length +" студента");
         out.println("Во всей группе самое длинное имя у "+ max_name +". Длина имени равна "+ max);
         }
-    public static String[] getStudents(){
-        Scanner in = new Scanner(System.in);
-        out.println("Введите кол-во обучающихся : ");
-        int size = in.nextInt();
-        String[] stud = new String[size];
-        in.nextLine();
-        for (int i = 0; i < stud.length; ++i) {
-            out.println("Введите имя студента номер " + (i + 1) +":");
-            stud[i] = in.nextLine();
-        }
-        return stud;
-    }
 }
