@@ -1,10 +1,10 @@
 package org.course;
 
-import java.util.*;
+import java.util.Scanner;
 
-import static java.lang.System.*;
+import static java.lang.System.out;
 
-public class Task2 {
+public class Task2Dialog {
 
     public static void main(String[] args) {
         String stud_list = "";
