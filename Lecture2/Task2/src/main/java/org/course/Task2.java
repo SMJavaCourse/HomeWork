@@ -3,18 +3,16 @@ package org.course;
 import java.util.*;
 
 import static java.lang.System.*;
-
+/*String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
+                "Моисеев Артём", "Гагаева Мария", "Малышева Карина",
+                "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};*/
 public class Task2 {
 
     public static void main(String[] args) {
-        String stud_list = "";
-        String delimiter = ", ";
+        String stud_list = "", max_name = "", delimiter = ", ";
         int max = 0;
-        String max_name = "";
         String[] students = new String[args.length];
         String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
-        /*String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
-                "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};*/
         System.arraycopy(args, 0, students, 0, args.length);
         for (int i = 0; i < teachers.length; i++) {
             out.println("Mentor 1: " + teachers[i]);
