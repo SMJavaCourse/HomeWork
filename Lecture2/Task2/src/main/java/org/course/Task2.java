@@ -1,7 +1,5 @@
 package org.course;
 
-import java.util.Arrays;
-
 public class Task2 {
 
     public static void main(String[] args) {
@@ -12,32 +10,23 @@ public class Task2 {
         double overline = students.length / teachersSize;
         System.out.println("Среднее количество студентов: " + overline);
         String maxLength = "";
-        for (int j = 0; j < students.length; j++) {
-            if (students[j].length() > maxLength.length())
-                maxLength = students[j];
-        }
-        for (int j = 0; j < teachers.length; j++) {
-            if (students[j].length() > maxLength.length())
-                maxLength = teachers[j];
-        }
-        System.out.println("Самое длинное значение:" + maxLength);
         for (int i = 0; i < teachers.length; i++) {
-            System.out.println("Группа № " + i);
+            System.out.println("\n Группа № " + i + ":");
             System.out.println("Ментор: " + teachers[i]);
-            int mod = students.length % teachers.length;
-            int arraySize;
-            if (i <= (mod - 1)) {
-                arraySize = (students.length / teachers.length + 1);
-            } else {
-                arraySize = (students.length / teachers.length);
-            }
-            String[] mentorStudents = new String[arraySize];
             for (int count = i, studentsCount = 0; count < students.length; count = (count + teachers.length), studentsCount++) {
-                String studentsName = students[count];
-                mentorStudents[studentsCount] = studentsName;
+                maxLength = teachers[i];
+                if (students[count].length() > maxLength.length()) {
+                    maxLength = students[count];
+                }
+                if (count != i) {
+                    System.out.print(", ");
+                }
+                System.out.print(students[count]);
+
+
             }
-            String mentorStudentsArrayString = Arrays.toString(mentorStudents);
-            System.out.println("Студенты: " + mentorStudentsArrayString);
+            System.out.println("\nСамое длинное значение в группе: " + maxLength);
+
         }
 
     }
