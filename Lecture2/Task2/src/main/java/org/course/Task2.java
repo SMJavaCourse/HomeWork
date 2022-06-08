@@ -9,16 +9,16 @@ import static java.lang.System.*;
 public class Task2 {
 
     public static void main(String[] args) {
-        String stud_list = "", max_name = "", delimiter = ", ";
+        String stud_list = "", max_name = "";
         int max = 0;
         String[] students = new String[args.length];
         String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
         System.arraycopy(args, 0, students, 0, args.length);
         for (int i = 0; i < teachers.length; i++) {
-            out.println("Mentor 1: " + teachers[i]);
-            out.print("Students: ");
+            out.println("Ментор 1: " + teachers[i]);
+            out.print("Студенты: ");
             for (int j = i; j < students.length; j=j+teachers.length) {
-                stud_list = (j==i) ?  students[j] : String.join(delimiter, stud_list, students[j]);
+                stud_list = (j==i) ?  students[j] : String.join(", ", stud_list, students[j]);
                 if (max < students[j].length()){
                     max=students[j].length();
                     max_name = students[j];
