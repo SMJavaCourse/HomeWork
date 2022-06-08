@@ -16,18 +16,16 @@ public class Task2 {
             System.out.println("Ментор "+ (i+1) +":");
             System.out.println(teachers[i]);
             System.out.println("Студенты:");
-            boolean comma = false;
             for (int j = i; j < students.length; j += teachers.length) {
-                if (comma) {
+                if (j != i) {
                     System.out.print(", ");
                 }
                 System.out.print(students[j]);
-                comma = true;
                 if (students[j].length() > maxName.length()) {
                     maxName = students[j];
                 }
             }
-            System.out.println(".");
+            System.out.println(System.lineSeparator());
         }
         meanValue = (double)students.length / (double)teachers.length;
         result = String.format("%.2f", meanValue);
