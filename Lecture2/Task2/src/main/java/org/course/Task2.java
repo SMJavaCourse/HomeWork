@@ -17,11 +17,12 @@ public class Task2 {
         for (int i = 0; i < teachers.length; i++) {
             out.println("Ментор 1: " + teachers[i]);
             out.print("Студенты: ");
-            for (int j = i; j < students.length; j=j+teachers.length) {
-                stud_list = (j==i) ?  students[j] : String.join(", ", stud_list, students[j]);
-                if (max < students[j].length()){
-                    max=students[j].length();
-                    max_name = students[j];
+            for (int j = i; j < students.length; j = j+teachers.length) {
+                String student = students[j];
+                stud_list = (j==i) ?  student : String.join(", ", stud_list, student);
+                if (max < student.length()){
+                    max = student.length();
+                    max_name = student;
                 }
             }
             out.println(stud_list);
