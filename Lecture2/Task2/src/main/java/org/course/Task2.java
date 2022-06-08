@@ -6,7 +6,6 @@ public class Task2 {
     }
 
     public static void main(String[] students) {
-        int maxChar = 0;
         String maxName = "";
         double meanValue;
         String result;
@@ -24,17 +23,15 @@ public class Task2 {
                 }
                 System.out.print(students[j]);
                 comma = true;
+                if (students[j].length() > maxName.length()) {
+                    maxName = students[j];
+                }
             }
             System.out.println(".");
         }
         meanValue = (double)students.length / (double)teachers.length;
         result = String.format("%.2f", meanValue);
-        for (String student : students) {
-            if (student.length() > maxChar) {
-                maxChar = student.length();
-                maxName = student;
-            }
-        }
-        System.out.println("В среднем на каждого ментора приходится по " + result + " студента Во всей группе самое длинное имя у '" + maxName + "'");
+        System.out.println("В среднем на каждого ментора приходится по " + result + " студента " + System.lineSeparator() +
+                "Во всей группе самое длинное имя у '" + maxName + "'");
     }
 }
