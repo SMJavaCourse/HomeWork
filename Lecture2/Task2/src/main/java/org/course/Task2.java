@@ -8,13 +8,17 @@ public class Task2 {
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
         double teachersSize = teachers.length;
         double overline = students.length / teachersSize;
-        System.out.println("Среднее количество студентов: " + overline);
+        System.out.printf("Среднее количество студентов: %.2f %n", overline);
         String maxLength = "";
+        String maxStudentLenght= "";
         for (int i = 0; i < teachers.length; i++) {
-            System.out.println("\n Группа № " + i + ":");
+            System.out.println("\nГруппа № " + i + ":");
             System.out.println("Ментор: " + teachers[i]);
-            for (int count = i, studentsCount = 0; count < students.length; count = (count + teachers.length), studentsCount++) {
+            for (int count = i; count < students.length; count = (count + teachers.length)) {
                 maxLength = teachers[i];
+                if (students[count].length()>maxStudentLenght.length()){
+                    maxStudentLenght= students[count];
+                }
                 if (students[count].length() > maxLength.length()) {
                     maxLength = students[count];
                 }
@@ -22,13 +26,10 @@ public class Task2 {
                     System.out.print(", ");
                 }
                 System.out.print(students[count]);
-
-
             }
             System.out.println("\nСамое длинное значение в группе: " + maxLength);
-
         }
-
+        System.out.println("\nВаще самое длинное: " + maxStudentLenght +" =)");
     }
 }
 
