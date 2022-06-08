@@ -9,17 +9,17 @@ public class Task2 {
 
         for (int i=0; i < teachers.length; ++i) {
             System.out.println("Ментор " + (i+1) + ":" + "\n" + teachers[i] + "\n" + "Студенты:");
-            String l = teachers[i];
+            String longestName = teachers[i];
 
-            for (int f=i; students.length>f; f=f+teachers.length) {
+            for (int f=i; f<students.length; f=f+teachers.length) {
                 System.out.println(students[f]);
                 if (students[f].length()>students[i].length()) {
-                    l = students[f];
+                    longestName = students[f];
                 } else if (students[i].length()> teachers[i].length()) {
-                    l = students[i];
+                    longestName = students[i];
                 }
             }
-            System.out.println("-----------Дольше всех в группе своё имя пишет " + l + "-----------");
+            System.out.println("-----------Дольше всех в группе своё имя пишет " + longestName + "-----------");
             System.out.println("\n");
         }
         float value = students.length*10/ teachers.length;
@@ -32,9 +32,9 @@ public class Task2 {
                 m=teachers[n];
             }
         }
-        for (int nn=1; students.length>nn; ++nn){
-            if (students[nn].length()>=m.length()){
-                m=students[nn];
+        for (int i=0; students.length>i; ++i){
+            if (students[i].length()>=m.length()){
+                m=students[i];
             }
         }
         System.out.println("А совсем-совсем дольше всех пишет имя " + m);
