@@ -9,14 +9,13 @@ public class Task2 {
         double teachersSize = teachers.length;
         double overline = students.length / teachersSize;
         System.out.printf("Среднее количество студентов: %.2f", overline);
-        String maxGroupNameLength = "";
-        String maxStudentsLength = "";
+        String maxGroupNameLength = null;
+        String maxStudentsLength = null;
         for (int i = 0; i < teachers.length; i++) {
-            System.out.println("\nГруппа № " + i + ":");
-            System.out.println("Ментор: " + teachers[i]);
+            System.out.println("\nМентор № "+(i+1)+" " + teachers[i]);
             maxGroupNameLength = teachers[i];
-            for (int count = i; count < students.length; count = (count + teachers.length)) {
-                if (students[count].length() > maxStudentsLength.length()) {
+            for (int count = i; count < students.length; count += teachers.length) {
+                if (maxStudentsLength == null || students[count].length() > maxStudentsLength.length()) {
                     maxStudentsLength = students[count];
                 }
                 if (students[count].length() > maxGroupNameLength.length()) {
