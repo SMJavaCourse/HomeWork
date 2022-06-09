@@ -3,8 +3,8 @@ package org.course;
 public class Task2 {
 
     public static void main(String[] args) {
-        String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
-        String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
+        String[] teachers = new String[]{"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
+        String[] students = new String[]{"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
         appointer(teachers, students);
         averageStudents(teachers, students);
@@ -13,10 +13,13 @@ public class Task2 {
 
     private static void appointer(String[] teachers, String[] students) {
         for (int i = 0, mentorNumber = 1; i < teachers.length; i++, mentorNumber++) {
-            System.out.println("Ментор " + mentorNumber + ". \n" + teachers[i]);
+            System.out.println("Ментор " + mentorNumber + ": \n" + teachers[i]);
             System.out.println("Студенты:");
             for (int j = i; j < students.length; j = j + teachers.length) {
-                System.out.print(students[j] + ", ");
+                if (j == i)
+                    System.out.print(students[j]);
+                else
+                    System.out.print(", " + students[j]);
             }
             System.out.println();
         }
@@ -30,7 +33,7 @@ public class Task2 {
 
     private static void longestName(String[] students) {
         int maxLength = 0;
-        String longestName = "";
+        String longestName = null;
         for (String student : students) {
             if (student.length() > maxLength) {
                 maxLength = student.length();
