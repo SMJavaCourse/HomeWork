@@ -5,13 +5,12 @@ public class Task2 {
     public static void main(String[] teachers) {
         String[] students = new String[]{"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
-        double teachersSize = teachers.length;
-        double overline = students.length / teachersSize;
+        double overline = students.length / (double) teachers.length;
         System.out.printf("Среднее количество студентов: %.2f", overline);
         String maxGroupNameLength = null;
         String maxStudentsLength = null;
         for (int i = 0; i < teachers.length; i++) {
-            System.out.println("\nМентор № "+(i+1)+" " + teachers[i]);
+            System.out.println("\nМентор № " + (i + 1) + " " + teachers[i]);
             maxGroupNameLength = teachers[i];
             for (int count = i; count < students.length; count += teachers.length) {
                 if (maxStudentsLength == null || students[count].length() > maxStudentsLength.length()) {
