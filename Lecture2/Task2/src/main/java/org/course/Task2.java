@@ -1,18 +1,21 @@
 package org.course;
 
+
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class Task2 {
 
     public static void main(String[] args) {
+
         String[] teachers = new String[] {"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"}; // 5
         String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"}; // 11
 
-        System.out.println("\nСамое длинное имя у студента " + maxNameLength(students));
-        System.out.println("\nВ среднем на учителя приходится " + studentsAverage(students, teachers));
-        System.out.print("\n*** Список студентов для каждого учителя ***");
         getStudentsForEachTeacher(students, teachers);
+        System.out.println("\nВ среднем на каждого ментора приходится по " + studentsAverage(students, teachers) + " студента");
+        System.out.println("\nВо всей группе самое длинное имя у \'" + maxNameLength(students) + "\'");
+
     }
     public static void getStudentsForEachTeacher(String[] students, String[] teachers) {
         int studentIndex = 0;
@@ -31,7 +34,7 @@ public class Task2 {
                 index++;
                 studentIndex++;
             }
-            System.out.println("\nСписок студентов для учителя " + arrayTeacherAndStudents[0] + ": ");
+            System.out.println("\nМентор " + (t+1) + ": \n" + arrayTeacherAndStudents[0] + "\nСтуденты: ");
             Arrays.stream(arrayTeacherAndStudents).toList().subList(1, arrayTeacherAndStudents.length).stream()
                     .filter(e -> e!=null)
                     .forEach(e -> System.out.println(e));
@@ -50,7 +53,9 @@ public class Task2 {
         return maxName;
     }
 
-    public static double studentsAverage(String[] students, String[] teachers) {
-        return (double) students.length / teachers.length;
+    public static String studentsAverage(String[] students, String[] teachers) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double ave = (double) students.length / teachers.length;
+        return df.format(ave);
     }
 }
