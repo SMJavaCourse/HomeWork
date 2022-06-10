@@ -16,14 +16,28 @@ public class Task2 {
     }
     public static void getStudentsForEachTeacher(String[] students, String[] teachers) {
         int studentIndex = 0;
-
+        int arrSize = ((float)students.length/ (float) teachers.length)-(float)(students.length/ teachers.length) == 0 ?
+                students.length/ teachers.length + 1 : students.length/ teachers.length + 2;
+        String[] arrayTeacherAndStudents =
+                new String[arrSize];
+        int index = 1;
         for (int t = 0; t < teachers.length; t++) {
-            System.out.println("\nСписок студентов для учителя " + teachers[t]);
+            arrayTeacherAndStudents[0] = teachers[t];
             for (int s = studentIndex; s < students.length; s++) {
-                System.out.println(students[s]);
+                if (index == arrSize) {continue;}
+                if (index == arrSize-1 && t > 0) {continue;}
+                arrayTeacherAndStudents[index] = students[s];
                 s+=3;
+                index++;
+                studentIndex++;
             }
-            studentIndex++;
+            System.out.println("\nСписок студентов для учителя " + arrayTeacherAndStudents[0] + ": ");
+            Arrays.stream(arrayTeacherAndStudents).toList().subList(1, arrayTeacherAndStudents.length).stream()
+                    .filter(e -> e!=null)
+                    .forEach(e -> System.out.println(e));
+            studentIndex = t+1;
+            index = 1;
+            arrayTeacherAndStudents = new String[arrSize];
         }
     }
 
