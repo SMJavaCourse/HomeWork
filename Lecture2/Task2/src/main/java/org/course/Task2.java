@@ -1,11 +1,29 @@
 package org.course;
 
+import java.util.Objects;
+
 public class Task2 {
 
     public static void main(String[] args) {
         String[] teachers = new String[]{"Белецкий Денис", "Брук Марк", "Ёлкин Александр", "Лозицкий Дмитрий", "Южаков Станислав"};
         String[] students = new String[]{"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
+        for (int i = 0; i < args.length; i++) {
+            if (Objects.equals(args[i], "students")) {
+                System.out.println("Студенты:");
+                for (int j = 0; j < students.length; j++) {
+                    System.out.println(students[j]);
+                }
+            } else if (Objects.equals(args[i], "teachers")) {
+                System.out.println("Менторы:");
+                for (int j = 0; j < teachers.length; j++) {
+                    System.out.println(teachers[j]);
+                }
+            }
+            if (args.length != 0) {
+                System.exit(0);
+            }
+        }
         appointer(teachers, students);
         averageStudents(teachers, students);
         longestName(students);
