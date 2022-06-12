@@ -7,41 +7,32 @@ public class Task2 {
         String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
                 "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
 
-        String groups [][] = new String[teachers.length][];
-        for (int i = 0; i< teachers.length; ++i) {
-
-            int l = ((students.length - i - 1) / teachers.length) + 2;
-
-            groups[i] = new String[l];
-            groups[i][0] = teachers[i];
-
+        for (int j=0; j< teachers.length; j++){
+            System.out.println("Ментор " +  (j+1) + ": ");
+            System.out.println(teachers[j]);
+            System.out.println("Студенты: ");
+            for (int i = j; i< students.length; i=i + teachers.length){
+                System.out.print(students[i] +", ");
+            }
+            System.out.println();
         }
+
+        float a = (float) students.length/ (float) teachers.length;
+        System.out.println();
+        System.out.println("В среднем на каждого ментора приходится по: " + a + " студента");
+
         String max = students[0];
-        for (int j=0; j< students.length; ++j) {
-            int gi = j % teachers.length;
-            groups[gi][1 + (j - gi) / teachers.length] = students[j];
-            if (max.length()<students[j].length()){
-            max = students[j];
-            }
-        }
+        for (int i = 1; i < students.length; i++) {
+            if (max.length()<students[i].length()) {
+                max=students[i];
+            }}
 
-        for (int i = 0; i < groups.length; ++i) {
-            System.out.println("Ментор " + (i+1) + ":");
-            System.out.println(groups[i][0]);
-            System.out.println("Студенты:");
+        System.out.println("Во всей группе самое длинное имя у: " + max);
 
-            for (int j = 0; j < groups[i].length - 1; ++j) {
 
-                System.out.print(groups[i][j + 1] + ", ");
-            }
-        System.out.println();
-        }
 
-        float d = (float) (students.length) / (float)(teachers.length);
-
-        System.out.printf("В среднем на каждого ментора приходится по: %.2f студента", d);
-        System.out.println();
-        System.out.println("Во всей группе самое длинное имя у " + max);
     }
-
 }
+
+
+
