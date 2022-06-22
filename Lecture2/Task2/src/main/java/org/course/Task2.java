@@ -1,5 +1,7 @@
 package org.course;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static java.lang.System.*;
@@ -30,5 +32,8 @@ public class Task2 {
         }
         out.println("В среднем на каждого ментора приходится по "+ (double)students.length/teachers.length +" студента");
         out.println("Во всей группе самое длинное имя у "+ max_name +". Длина имени равна "+ max);
+        Date date = new Date();
+        DateFormat df = new SimpleDateFormat("dd.mm.yyyy, EE");
+        System.out.println((String) df.format(date));
         }
 }
