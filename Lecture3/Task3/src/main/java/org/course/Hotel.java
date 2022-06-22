@@ -1,6 +1,6 @@
 package org.course;
 
-public class Hotel {
+public class Hotel extends Apartment implements Sout{
     private String name;
     private Apartment[] apartments;
 
@@ -12,10 +12,10 @@ public class Hotel {
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public Apartment[] getRooms() {
         return apartments;
