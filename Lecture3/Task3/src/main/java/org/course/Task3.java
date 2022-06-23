@@ -12,9 +12,8 @@ public class Task3 {
         room1.isInternet = false;
         room1.isCondei = false;
         room1.isShashl = false;
-        room1.v = 2;
-
-
+        room1.capacity = 2;
+        room1.facilities = new Facility[]{Facility.BALCONY};
 
         Room room2 = new Room();
         room2.num = 2;
@@ -26,7 +25,7 @@ public class Task3 {
         room2.isInternet = true;
         room2.isCondei = true;
         room2.isShashl = false;
-        room2.v = 4;
+        room2.capacity = 4;
 
 
         Room room3 = new Room();
@@ -39,7 +38,7 @@ public class Task3 {
         room3.isInternet = true;
         room3.isCondei = true;
         room3.isShashl = false;
-        room3.v = 4;
+        room3.capacity = 4;
 
 
         Room room4 = new Room();
@@ -52,7 +51,7 @@ public class Task3 {
         room4.isInternet = false;
         room4.isCondei = false;
         room4.isShashl = false;
-        room4.v = 6;
+        room4.capacity = 6;
 
 
         Room room5 = new Room();
@@ -65,7 +64,7 @@ public class Task3 {
         room5.isInternet = true;
         room5.isCondei = false;
         room5.isShashl = false;
-        room5.v = 6;
+        room5.capacity = 6;
 
         Room room6 = new Room();
         room6.num = 10;
@@ -77,7 +76,7 @@ public class Task3 {
         room6.isInternet = false;
         room6.isCondei = false;
         room6.isShashl = true;
-        room6.v = 2;
+        room6.capacity = 2;
 
         Room room7 = new Room();
         room7.num = 20;
@@ -89,7 +88,7 @@ public class Task3 {
         room7.isInternet = false;
         room7.isCondei = false;
         room7.isShashl = false;
-        room7.v = 4;
+        room7.capacity = 4;
 
         Room room8 = new Room();
         room8.num = 30;
@@ -101,16 +100,14 @@ public class Task3 {
         room8.isInternet = false;
         room8.isCondei = false;
         room8.isShashl = false;
-        room8.v = 6;
+        room8.capacity = 6;
 
 
-        Hotel hotel1 = new Hotel("У мамы лучше", new Room[]{room1,room2,room3,room4,room5});
+        Hotel hotel1 = new Hotel("У мамы лучше", new Room[]{room1, room2, room3, room4, room5});
         hotel1.print();
         System.out.println();
-        Hotel hotel2 = new Hotel("Шашлычок", new Room[]{room6,room7,room8});
+        Hotel hotel2 = new Hotel("Шашлычок", new Room[]{room6, room7, room8});
         hotel2.print();
-
-
 
     }
 }

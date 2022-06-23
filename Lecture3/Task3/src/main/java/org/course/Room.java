@@ -6,13 +6,15 @@ public class Room {
     public float price;
     public String time;
 
-    public int v;
+    public int capacity;
 
     public boolean isBal;
     public boolean isClean;
     public boolean isInternet;
     public boolean isCondei;
     public boolean isShashl;
+
+    public Facility[] facilities = new Facility[0];
 
     public void print() {
         String a = "";
@@ -33,7 +35,7 @@ public class Room {
         System.out.print(a);
         System.out.println(" (комната номер: " + num + ")");
         System.out.println("    Цена: " + price + " р/сутки");
-        System.out.println("    Вместимость до " + v + " человек");
+        System.out.println("    Вместимость до " + capacity + " человек");
         System.out.println("    Время заселение/выселения: " + time);
         String s = "Дополнительный услуги: ";
         if (isBal){
@@ -63,8 +65,6 @@ public class Room {
         }
         System.out.println(s);
         System.out.println();
-
-
 
 
 
