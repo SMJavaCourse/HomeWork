@@ -6,7 +6,7 @@ public class Room {
     public float price;
     public String time;
 
-    public int capacity;
+    private int capacity;
 
     public boolean isBal;
     public boolean isClean;
@@ -15,6 +15,20 @@ public class Room {
     public boolean isShashl;
 
     public Facility[] facilities = new Facility[0];
+
+    public Room(int room, float price) {
+        this.room = room;
+        this.price = price;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
 
     public void print() {
         String a = "";
