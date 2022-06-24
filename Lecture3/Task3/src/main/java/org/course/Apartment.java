@@ -2,12 +2,11 @@ package main.java.org.course;
 
 import java.time.LocalTime;
 
-public abstract class Apartment {
+public abstract class Apartment implements Apartments {
     private boolean balcony;
     private boolean internet;
     private boolean conditioner;
     private boolean cleaning;
-
     private boolean grillMeat;
 
     private float price;
@@ -34,37 +33,29 @@ public abstract class Apartment {
         this.roomNumber = roomNumber;
     }
 
-    public Apartment setCheckinTime(LocalTime checkinTime) {
+    public void setCheckinTime(LocalTime checkinTime) {
         this.checkinTime = checkinTime;
-        return this;
     }
 
     public LocalTime getCheckinTime() {
         return checkinTime;
     }
 
-    public static void printAparts(Apartment[] apartments) {
-        for (int i = 0; i < apartments.length; i++) {
-            System.out.println(apartments[i].toString());
-        }
-    }
-
     public boolean isGrillMeat() {
         return grillMeat;
     }
 
-    public Apartment setGrillMeat(boolean grillMeat) {
-        this.grillMeat = grillMeat;
+    public Apartment addGrillMeat() {
+        this.grillMeat = true;
         return this;
     }
-
 
     public boolean isBalcony() {
         return balcony;
     }
 
-    public Apartment setBalcony(boolean balcony) {
-        this.balcony = balcony;
+    public Apartment addBalcony() {
+        this.balcony = true;
         return this;
     }
 
@@ -72,8 +63,8 @@ public abstract class Apartment {
         return internet;
     }
 
-    public Apartment setInternet(boolean internet) {
-        this.internet = internet;
+    public Apartment addInternet() {
+        this.internet = true;
         return this;
     }
 
@@ -81,8 +72,8 @@ public abstract class Apartment {
         return conditioner;
     }
 
-    public Apartment setConditioner(boolean conditioner) {
-        this.conditioner = conditioner;
+    public Apartment addConditioner() {
+        this.conditioner = true;
         return this;
     }
 
@@ -90,26 +81,22 @@ public abstract class Apartment {
         return cleaning;
     }
 
-    public Apartment setCleaning(boolean cleaning) {
-        this.cleaning = cleaning;
+    public Apartment addCleaning() {
+        this.cleaning = true;
         return this;
     }
 
-//    public float getPrice() {
-//        return price;
-//    }
-//
-//    public Apartment setPrice(float price) {
-//        this.price = price;
-//        return this;
-//    }
-//
-//    public int getPlaces() {
-//        return places;
-//    }
-//
-//    public Apartment setPlaces(int places) {
-//        this.places = places;
-//        return this;
-//    }
+    @Override
+    public String toString() {
+        return getApartmentsTypeName() + " (комната номер " + getRoomNumber() + "): \n" +
+                "\tЦена: " + getPrice() + "\n" +
+                "\tВместительность: " + getPlaces() + "\n" +
+                "\tВремя заселение/выселения: " + getCheckinTime() + "\n" +
+                "\tДополнительные услуги: " + (isBalcony() ? "Балкон " : "") +
+                (isCleaning() ? "Уборка " : "") +
+                (isInternet() ? "Интернет " : "") +
+                (isConditioner() ? "Кондиционер " : "") +
+                (isGrillMeat() ? "Шашлычок в номер:D " : "");
+    }
+
 }
