@@ -1,5 +1,13 @@
 package org.course;
 
+import org.course.features.Feature;
+import org.course.features.construct.AirConditioner;
+import org.course.features.construct.Balcony;
+import org.course.features.nonconstruct.Cleaning;
+import org.course.features.nonconstruct.Internet;
+import org.course.features.nonconstruct.Kebab;
+import org.course.features.nonconstruct.NonConstructFeature;
+
 public abstract class Apartment {
     protected double price;
     private boolean internet;
@@ -10,6 +18,16 @@ public abstract class Apartment {
 
 
     private final int numberOfRoom;
+    private Feature[] feature;
+
+    private final Feature Balcony = new Balcony();
+    private final Feature Internet = new Internet();
+    private final Feature Cleaning = new Cleaning();
+    private final Feature AirConditioner = new AirConditioner();
+    private final Feature Kebab = new Kebab();
+    Feature[] features = new Feature[]{Balcony, Internet, Cleaning, AirConditioner, Kebab};
+
+
 
 
     public Apartment(double price, int numberOfRoom) {
@@ -42,8 +60,9 @@ public abstract class Apartment {
     public String isBalcony() {
         if (balcony) {
             return "Балкон";
-        } else
+        } else {
             return "";
+        }
     }
 
     public void setBalcony(boolean balcony) {

@@ -13,6 +13,11 @@ public class Task2 {
 //        String[] students = new String[] {"Яблоков Дмитрий", "Надолинский Артем", "Салатенков Илья", "Мамутов Сергей",
 //                "Моисеев Артём", "Гагаева Мария", "Малышева Карина", "Федоренко Яна", "Положенцева Анна", "Шипулина Юлия", "Никифоров Максим"};
         for (int i = 0; i < teachers.length; i++) {
+            if (i == 1) {
+                System.out.println("все плохо");
+            }
+        }
+        for (int i = 0; i < teachers.length; i++) {
             System.out.println("Ментор "+ (i+1) +":");
             System.out.println(teachers[i]);
             System.out.println("Студенты:");

@@ -1,5 +1,7 @@
 package org.course;
 
+import org.course.features.nonconstruct.NonConstructFeature;
+
 public class Hotel {
     private String name;
     private Apartment[] apartments;
@@ -34,4 +36,14 @@ public class Hotel {
     public void setRooms(Apartment[] apartments) {
         this.apartments = apartments;
     }
+
+    private static Long getFactorial( int n ) {
+        if (n<2) {
+            return 1L;
+        } else {
+            return n * getFactorial(n-1);
+        }
+
+    }
+
 }
