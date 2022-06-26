@@ -31,7 +31,7 @@ public class Task2 {
         float value = (float) students.length / teachers.length;
         String result = String.format("%.2f", value);
         System.out.println("В среднем на каждого ментора приходится " + result + " студента");
-        String allLongName = teachers[0];
+//        String allLongName = teachers[0];
 //        for (int i = 1; teachers.length > i; ++i) {
 //            if (teachers[i].length() >= allLongName.length()) {
 //                allLongName = teachers[i];

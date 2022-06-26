@@ -1,26 +1,21 @@
 package org.course;
 
-import org.course.hotels.Grill;
-import org.course.hotels.Mother;
+import java.util.Arrays;
 
 public class Task3 {
     public static void main(String[] args) {
-        Mother mother = new Mother("09:00");
-
-        Grill grill = new Grill("12:00");
-
-        mother.soutName();
-        mother.soutTime();
-        mother.countRooms();
-        mother.soutRooms();
-        System.out.println("\n");
+        Apartment[] apartments = new Apartment[2];
+        apartments[0] = new Apartment(1,123);
+        apartments[1] = new Apartment(1,312);
+        Hotel hotel1 = new Hotel("Первый нахъ", apartments);
+        System.out.println(hotel1);
 
 
-
-        grill.soutName();
-        grill.soutTime();
-        grill.countRooms();
-        grill.soutRooms();
+        //проверка, что я не совсем кукухой отлетел и оно должно выводить хоть что то
+        String[] i = new String[2];
+        i[0]="ёпт";
+        i[1]="2";
+        System.out.println(Arrays.toString(i));
     }
 
 }

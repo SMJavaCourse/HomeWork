@@ -2,12 +2,11 @@ package org.course;
 
 public class Hotel {
     private String name;
-//    private Apartment[] apartments;
+    private Apartment[] apartments;
 
-    public Hotel(String name//, Apartment[] apartments
-                 ) {
+    public Hotel(String name, Apartment[] apartments) {
         this.name = name;
-//        this.apartments = apartments;
+        this.apartments = apartments;
     }
 
     public String getName() {
@@ -18,11 +17,12 @@ public class Hotel {
         this.name = name;
     }
 
-//    public Apartment[] getRooms() {
-//        return apartments;
-//    }
+    public Apartment[] getRooms() {
+        return apartments;
+    }
 
- //   public void setRooms(Apartment[] apartments) {
-//        this.apartments = apartments;
-//    }
+    public void setRooms(Apartment[] apartments) {
+        this.apartments = apartments;
+    }
+
 }
