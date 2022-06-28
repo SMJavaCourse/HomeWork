@@ -1,6 +1,6 @@
-package org.course;
+package org.course.old;
 
-public class Hotel implements Sout {
+public class Hotel implements Sout{
     private String name;
     private Apartment[] apartments;
     private String startTime;
