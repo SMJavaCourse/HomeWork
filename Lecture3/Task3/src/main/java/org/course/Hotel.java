@@ -1,9 +1,8 @@
 package org.course;
 
 public class Hotel implements Sout {
-    private String name;
-    private Apartment[] apartments;
-    private String startTime;
+    private final String name;
+    private final Apartment[] apartments;
 
     public Hotel(String name, Apartment[] apartments) {
         this.name = name;

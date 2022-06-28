@@ -1,20 +1,21 @@
 package org.course;
 
 public class Apartment {
-    private int price;
-    private int capacity;
-    private int roomNumber;
-    private String startTime;
-    private String numberOfRooms;
-    private String balcony;
-    private String cleaning;
-    private String internet;
-    private String conditioner;
-    private String meat;
+    private final int price;
+    private final int capacity;
+    private final int roomNumber;
+    private final String numberOfRooms;
+    private final String startTime;
+    private final boolean balcony;
+    private final boolean cleaning;
+    private final boolean internet;
+    private final boolean conditioner;
+    private final boolean meat;
 
-    public Apartment(String numberOfRooms, int price, int roomNumber, int capacity, String startTime, String balcony,
-                     String cleaning, String internet, String conditioner, String meat) {
+    public Apartment(String numberOfRooms, String startTime,int price, int roomNumber, int capacity, boolean balcony,
+                     boolean cleaning, boolean internet, boolean conditioner, boolean meat) {
         this.numberOfRooms = numberOfRooms;
+        this.startTime = startTime;
         this.price = price;
         this.roomNumber = roomNumber;
         this.capacity = capacity;
@@ -23,7 +24,21 @@ public class Apartment {
         this.internet = internet;
         this.conditioner = conditioner;
         this.meat = meat;
-        this.startTime = startTime;
+    }
+    public boolean isBalcony() {
+        return balcony;
+    }
+    public boolean isCleaning() {
+        return cleaning;
+    }
+    public boolean isInternet() {
+        return internet;
+    }
+    public boolean isConditioner() {
+        return conditioner;
+    }
+    public boolean isMeat() {
+        return meat;
     }
 
     public String getNumberOfRooms() {
@@ -32,27 +47,11 @@ public class Apartment {
     public int getRoomNumber(){
         return roomNumber;
     }
-    public String getCleaning() {
-        return cleaning;
-    }
-    public String getInternet() {
-        return internet;
-    }
-    public String getConditioner() {
-        return conditioner;
-    }
-    public String getMeat() {
-        return meat;
-    }
-    public String getBalcony() {
-        return balcony;
-    }
-
     public int getPrice() {
         return price;
     }
-
     public String getStartTime() {
         return startTime;
     }
+
 }

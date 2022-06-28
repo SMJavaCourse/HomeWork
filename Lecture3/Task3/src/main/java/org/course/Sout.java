@@ -11,29 +11,31 @@ public interface Sout {
 
     default void soutRooms(Apartment[] apartments, int numberOfApartments) {
         for (int i = 0; i < numberOfApartments; i++) {
-            ArrayList<String> array = new ArrayList<>();
+
             System.out.println("\t\u2219 " + apartments[i].getNumberOfRooms() + " (комната номер " + apartments[i].getRoomNumber() + "):");
             System.out.println("\t\t\u25e6 " + "Цена: " + apartments[i].getPrice() + " р/сутки");
             System.out.println("\t\t\u25e6 " + "Время заселение/выселения: " + apartments[i].getStartTime());
             System.out.print("\t\t\u25e6 " + "Дополнительные услуги: ");
-            if (apartments[i].getBalcony() != null) {
-                array.add(apartments[i].getBalcony());
+
+            ArrayList<String> arrayOfServices = new ArrayList<>();
+            if (apartments[i].isBalcony()) {
+                arrayOfServices.add("балкон");
             }
-            if (apartments[i].getCleaning() != null) {
-                array.add(apartments[i].getCleaning());
+            if (apartments[i].isCleaning()) {
+                arrayOfServices.add("уборка номера");
             }
-            if (apartments[i].getInternet() != null) {
-                array.add(apartments[i].getInternet());
+            if (apartments[i].isInternet()) {
+                arrayOfServices.add("интернет");
             }
-            if (apartments[i].getConditioner() != null) {
-                array.add(apartments[i].getConditioner());
+            if (apartments[i].isConditioner()) {
+                arrayOfServices.add("кондиционер");
             }
-            if (apartments[i].getMeat() != null) {
-                array.add(apartments[i].getMeat());
+            if (apartments[i].isMeat()) {
+                arrayOfServices.add("шашлычок");
             }
-            for (int j = 0; j < array.size(); j++) {
-                System.out.print(array.get(j));
-                if (j < array.size()-1) {
+            for (int j = 0; j < arrayOfServices.size(); j++) {
+                System.out.print(arrayOfServices.get(j));
+                if (j < arrayOfServices.size()-1) {
                     System.out.print(", ");
                 }
             }
