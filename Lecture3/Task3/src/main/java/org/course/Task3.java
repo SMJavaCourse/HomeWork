@@ -5,8 +5,6 @@ public class Task3 {
     public static String oneRoomApartment = "Однокомнатный номер";
     public static String twoRoomApartment = "Двухкомнатный номер";
     public static String threeRoomApartment = "Трехкомнатный номер";
-    public static String startTime1 = "12:00";
-    public static String startTime2 = "09:00";
 
     public static void main(String[] args) {
 
