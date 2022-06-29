@@ -28,7 +28,7 @@ public class Hotel {
     public void soutTitle(String name, int numberOfApartments) {
         System.out.println("Отель \"" + name + "\"");
         System.out.println("Количество номеров: " + numberOfApartments);
-        System.out.println("Номера:" + "\n");
+        System.out.println("Номера:");
     }
 
     public void soutRooms(String startTime,Apartment[] apartments, int numberOfApartments) {
