@@ -48,6 +48,12 @@ public class Apartment {
     public int getNumberOfRooms() {
         return numberOfRooms;
     }
+    public int getRoomNumber(){
+        return roomNumber;
+    }
+    public int getPrice() {
+        return price;
+    }
     public String getNamesForNumberOfRooms(int numberOfRooms) {
         if (numberOfRooms == 1) {
             return "Однокомнатный номер";
@@ -59,11 +65,5 @@ public class Apartment {
             return "Трёхкомнатный номер";
         }
         return null;
-    }
-    public int getRoomNumber(){
-        return roomNumber;
-    }
-    public int getPrice() {
-        return price;
     }
 }
