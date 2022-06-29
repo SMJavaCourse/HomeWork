@@ -1,5 +1,6 @@
 package main.java.org.course;
 
+
 public interface Hotels {
 
     Apartment[] getAllApartments();
@@ -12,4 +13,7 @@ public interface Hotels {
             System.out.println("\n************************************************\n");
         }
     }
+//    static void printAvailableApartmentByName(Hotel[] hotels, String apartmentName, int places) {}
+
+
 }

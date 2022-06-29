@@ -1,8 +1,11 @@
 package org.course;
 
 
+import org.apache.commons.lang.StringUtils;
+
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Task2 {
 
