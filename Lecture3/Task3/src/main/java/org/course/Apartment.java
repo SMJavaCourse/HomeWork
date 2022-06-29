@@ -4,7 +4,7 @@ public class Apartment {
     private int price;
     private int capacity;
     private int roomNumber;
-    private String numberOfRooms;
+    private int numberOfRooms;
     private boolean balcony;
     private boolean cleaning;
     private boolean internet;
@@ -12,7 +12,7 @@ public class Apartment {
     private boolean meat;
     private boolean jacuzzi;
 
-    public Apartment(String numberOfRooms, int price, int roomNumber, int capacity, boolean balcony,
+    public Apartment(int numberOfRooms, int price, int roomNumber, int capacity, boolean balcony,
                      boolean cleaning, boolean internet, boolean conditioner, boolean meat, boolean jacuzzi) {
         this.numberOfRooms = numberOfRooms;
         this.price = price;
@@ -25,6 +25,7 @@ public class Apartment {
         this.meat = meat;
         this.jacuzzi = jacuzzi;
     }
+
     public boolean isBalcony() {
         return balcony;
     }
@@ -44,8 +45,20 @@ public class Apartment {
         return jacuzzi;
     }
 
-    public String getNumberOfRooms() {
+    public int getNumberOfRooms() {
         return numberOfRooms;
+    }
+    public String getNamesForNumberOfRooms(int numberOfRooms) {
+        if (numberOfRooms == 1) {
+            return "Однокомнатный номер";
+        }
+        if (numberOfRooms == 2) {
+            return "Двухкомнатный номер";
+        }
+        if (numberOfRooms == 3) {
+            return "Трёхкомнатный номер";
+        }
+        return null;
     }
     public int getRoomNumber(){
         return roomNumber;

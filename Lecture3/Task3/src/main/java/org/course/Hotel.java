@@ -34,7 +34,8 @@ public class Hotel {
     public void soutRooms(String startTime,Apartment[] apartments, int numberOfApartments) {
         for (int i = 0; i < numberOfApartments; i++) {
 
-            System.out.println("\t\u2219 " + apartments[i].getNumberOfRooms() + " (комната номер " + apartments[i].getRoomNumber() + "):");
+            System.out.println("\t\u2219 " + apartments[i].getNamesForNumberOfRooms(apartments[i].getNumberOfRooms()) +
+                    " (комната номер " + apartments[i].getRoomNumber() + "):");
             System.out.println("\t\t\u25e6 " + "Цена: " + apartments[i].getPrice() + " р/сутки");
             System.out.println("\t\t\u25e6 " + "Время заселение/выселения: " + startTime);
             System.out.print("\t\t\u25e6 " + "Дополнительные услуги: ");
@@ -56,7 +57,9 @@ public class Hotel {
                 arrayOfServices.add("шашлычок");
             }
             if (apartments[i].isJacuzzi()) {
-                arrayOfServices.add("джакузи");
+                if (apartments[i].getNumberOfRooms() == 3) {
+                    arrayOfServices.add("джакузи");
+                }
             }
             for (int j = 0; j < arrayOfServices.size(); j++) {
                 System.out.print(arrayOfServices.get(j));
