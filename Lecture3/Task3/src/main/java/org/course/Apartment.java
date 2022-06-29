@@ -1,21 +1,20 @@
 package org.course;
 
 public class Apartment {
-    private final int price;
-    private final int capacity;
-    private final int roomNumber;
-    private final String numberOfRooms;
-    private final String startTime;
-    private final boolean balcony;
-    private final boolean cleaning;
-    private final boolean internet;
-    private final boolean conditioner;
-    private final boolean meat;
+    private int price;
+    private int capacity;
+    private int roomNumber;
+    private String numberOfRooms;
+    private boolean balcony;
+    private boolean cleaning;
+    private boolean internet;
+    private boolean conditioner;
+    private boolean meat;
+    private boolean jacuzzi;
 
-    public Apartment(String numberOfRooms, String startTime,int price, int roomNumber, int capacity, boolean balcony,
-                     boolean cleaning, boolean internet, boolean conditioner, boolean meat) {
+    public Apartment(String numberOfRooms, int price, int roomNumber, int capacity, boolean balcony,
+                     boolean cleaning, boolean internet, boolean conditioner, boolean meat, boolean jacuzzi) {
         this.numberOfRooms = numberOfRooms;
-        this.startTime = startTime;
         this.price = price;
         this.roomNumber = roomNumber;
         this.capacity = capacity;
@@ -24,6 +23,7 @@ public class Apartment {
         this.internet = internet;
         this.conditioner = conditioner;
         this.meat = meat;
+        this.jacuzzi = jacuzzi;
     }
     public boolean isBalcony() {
         return balcony;
@@ -40,6 +40,9 @@ public class Apartment {
     public boolean isMeat() {
         return meat;
     }
+    public boolean isJacuzzi() {
+        return jacuzzi;
+    }
 
     public String getNumberOfRooms() {
         return numberOfRooms;
@@ -50,8 +53,4 @@ public class Apartment {
     public int getPrice() {
         return price;
     }
-    public String getStartTime() {
-        return startTime;
-    }
-
 }
