@@ -1,15 +1,10 @@
 package org.course;
 
-import org.course.features.nonconstruct.NonConstructFeature;
-
 public class Hotel {
     private String name;
     private Apartment[] apartments;
     private String checkInTime;
 
-    public void setCheckInTime(String checkInTime) {
-        this.checkInTime = checkInTime;
-    }
 
     public String getCheckInTime() {
         return checkInTime;
@@ -29,7 +24,7 @@ public class Hotel {
         this.name = name;
     }
 
-    public Apartment[] getRooms() {
+    public Apartment[] getApartments() {
         return apartments;
     }
 
@@ -37,13 +32,16 @@ public class Hotel {
         this.apartments = apartments;
     }
 
-    private static Long getFactorial( int n ) {
-        if (n<2) {
-            return 1L;
-        } else {
-            return n * getFactorial(n-1);
+    @Override
+    public String toString() {
+        String text = "Отель: " + this.getName() + System.lineSeparator() +
+                "Время заселения: " + this.getCheckInTime() + System.lineSeparator() +
+                "Количество номеров: " + apartments.length + System.lineSeparator() +
+                "Номера: ";
+        for (int i = 0; i < apartments.length; i++) {
+            text += apartments[i].toString() + System.lineSeparator() +
+                    " - Время заселение/выселения: " + this.getCheckInTime() + System.lineSeparator();
         }
-
+        return text;
     }
-
 }

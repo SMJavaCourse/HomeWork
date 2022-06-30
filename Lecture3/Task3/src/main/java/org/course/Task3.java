@@ -1,57 +1,47 @@
 package org.course;
 
+import org.course.features.construct.AirConditioner;
+import org.course.features.construct.Balcony;
+import org.course.features.nonconstruct.Cleaning;
+import org.course.features.nonconstruct.Internet;
+import org.course.features.nonconstruct.Kebab;
+
 public class Task3 {
     public static void main(String[] args) {
 
         Apartment[] apartmentsHotelGrandMa = new Apartment[5];
-        OneRoomApartment oneRoomApartment = new OneRoomApartment(1000, 13);
-        oneRoomApartment.setBalcony(true);
-        apartmentsHotelGrandMa[0] = new OneRoomApartment(1000, 13);
-        apartmentsHotelGrandMa[0].setBalcony(true);
-        apartmentsHotelGrandMa[1] = new TwoRoomApartment(3000, 12);
-        apartmentsHotelGrandMa[1].setBalcony(true);
-        apartmentsHotelGrandMa[1].setCleaning(true);
-        apartmentsHotelGrandMa[1].setInternet(true);
-        apartmentsHotelGrandMa[1].setAirConditioner(true);
-        apartmentsHotelGrandMa[2] = new TwoRoomApartment(3000,34);
-        apartmentsHotelGrandMa[2].setBalcony(true);
-        apartmentsHotelGrandMa[2].setCleaning(true);
-        apartmentsHotelGrandMa[2].setInternet(true);
-        apartmentsHotelGrandMa[2].setAirConditioner(true);
-        apartmentsHotelGrandMa[3] = new ThreeRoomApartment(2500,45);
-        apartmentsHotelGrandMa[4] = new ThreeRoomApartment(3500,46);
-        apartmentsHotelGrandMa[4].setInternet(true);
-        apartmentsHotelGrandMa[4].setBalcony(true);
+        apartmentsHotelGrandMa[0] = new OneRoomApartment(1000, 12,
+                new Balcony());
+        apartmentsHotelGrandMa[1] = new TwoRoomApartment(3000, 13,
+                new Balcony(),
+                new Internet(),
+                new Cleaning(),
+                new AirConditioner());
+        apartmentsHotelGrandMa[2] = new TwoRoomApartment(3000, 14,
+                new Balcony(),
+                new Internet(),
+                new Cleaning(),
+                new AirConditioner());
+        apartmentsHotelGrandMa[3] = new ThreeRoomApartment(2500,15);
+        apartmentsHotelGrandMa[4] = new ThreeRoomApartment(3500,16,
+                new Balcony(),
+                new Internet());
 
-        Apartment[] apartmentsHotel2 = new Apartment[3];
-        apartmentsHotel2[0] = new OneRoomApartment(1000, 11);
-        apartmentsHotel2[0].setKebab(true);
-        apartmentsHotel2[1] = new OneRoomApartment(2000, 12);
-        apartmentsHotel2[1].setCleaning(true);
-        apartmentsHotel2[1].setBalcony(true);
-        apartmentsHotel2[2] = new OneRoomApartment(4000, 13);
-        apartmentsHotel2[2].setCleaning(true);
+        Apartment[] apartmentsHotelKebab = new Apartment[3];
+        apartmentsHotelKebab[0] = new OneRoomApartment(1000, 11,
+                new Kebab());
+        apartmentsHotelKebab[1] = new TwoRoomApartment(2000, 12,
+                new Cleaning(),
+                new Balcony());
+        apartmentsHotelKebab[2] = new ThreeRoomApartment(4000, 13,
+                new Cleaning());
 
-        Hotel hotel1 = new Hotel("\"У мамы лучше\"", apartmentsHotelGrandMa, "12:00");
-        Hotel hotel2 = new Hotel("\"Шашлычок\"", apartmentsHotel2, "09:00");
-        System.out.println("Отель: " + hotel1.getName());
-        System.out.println("Время заселения: " + hotel1.getCheckInTime());
-
-        Apartment.printApartmentsInfo(apartmentsHotelGrandMa);
-
-        System.out.println("Отель: " + hotel2.getName());
-        System.out.println("Время заселения: " + hotel2.getCheckInTime());
-
-        Apartment.printApartmentsInfo(apartmentsHotel2);
-
-
-
-
-
-
-
-
-
-
+        Hotel hotelGrandMa = new Hotel("\"У мамы лучше\"", apartmentsHotelGrandMa, "12:00");
+        Hotel hotelKebab = new Hotel("\"Шашлычок\"", apartmentsHotelKebab, "09:00");
+//        hotelGrandMa.printHotel();
+//        hotelKebab.printHotel();
+        System.out.println(hotelGrandMa);
+        System.out.println(hotelKebab);
     }
 }
+

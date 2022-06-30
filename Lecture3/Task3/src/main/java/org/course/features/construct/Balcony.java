@@ -7,7 +7,4 @@ public class Balcony implements Feature {
     public String getName() {
         return NAME;
     }
-//    public void setName(String name){
-//        this.name = name;
-//    }
 }
