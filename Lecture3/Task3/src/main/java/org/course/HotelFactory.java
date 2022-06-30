@@ -4,7 +4,8 @@ import java.time.LocalTime;
 
 public class HotelFactory {
     public static Hotel createHotel(String hotelName) {
-        Hotel hotel = new Hotel();
+        HotelBuilder hotelBuilder = new HotelBuilder();
+
         try {
             switch (hotelName) {
                 case "У мамы лучше":
@@ -18,7 +19,7 @@ public class HotelFactory {
                     apartmentsForHotel1[3] = new ApartmentThreeRooms(2500f, 6, 16);
                     apartmentsForHotel1[4] = new ApartmentThreeRooms(3500f, 6, 17)
                             .addBalcony().addInternet();
-                    hotel = new Hotel(hotelName, apartmentsForHotel1, LocalTime.of(12, 0));
+                    hotelBuilder.name(hotelName).apartments(apartmentsForHotel1).checkInTime(LocalTime.of(12, 0));
                     break;
                 case "Шашлычок":
                     Apartment[] apartmentsForHotel2 = new Apartment[3];
@@ -28,13 +29,14 @@ public class HotelFactory {
                             .addBalcony().addCleaning();
                     apartmentsForHotel2[2] = new ApartmentThreeRooms(4000f, 6, 15)
                             .addCleaning();
-                    hotel = new Hotel(hotelName, apartmentsForHotel2, LocalTime.of(9,0));
+                    hotelBuilder.name(hotelName).apartments(apartmentsForHotel2).checkInTime(LocalTime.of(9, 0));
                     break;
+                default:
+                    throw new HotelException("Cannot create hotel with name \"" + hotelName + "\"");
             }
-            throw new HotelException("No hotels in factory");
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
-        return hotel;
+        return hotelBuilder.build();
     }
 }

@@ -16,8 +16,8 @@ public class Task3 {
         Hotel.printAvailableApartmentByHotelName(hotels, "У мамы лучше", 4);
 
         // for test:
-        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);
-        Hotel.printAvailableApartmentByHotelName(hotels, "У мамы лучше", 40);
+//        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);
+//        Hotel.printAvailableApartmentByHotelName(hotels, "У мамы лучше", 40);
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[0], "У мамы лучше", 4);
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[1], "У мамы лучше", 4);
 

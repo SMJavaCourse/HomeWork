@@ -20,14 +20,19 @@ public class Hotel implements Hotels{
         this.name = name;
         this.apartments = apartments;
         this.checkInTime = checkInTime;
-        this.roomsTotalCount = getRoomsTotalCount() + apartments.length;
+        try {
+            if(apartments == null) {
+                throw new HotelException("No apartments");
+            }
+            this.roomsTotalCount = getRoomsTotalCount() + apartments.length;
 
-        for (int i = 0; i < apartments.length; i++) {
-            apartments[i].setCheckinTime(checkInTime);
+            for (Apartment apartment : apartments) {
+                apartment.setCheckinTime(checkInTime);
+            }
+        } catch (HotelException e) {
+            System.out.println(e.getMessage());
         }
 
-    }
-    public Hotel() {
     }
 
     @Override
@@ -66,6 +71,8 @@ public class Hotel implements Hotels{
             System.out.println(e.getContext() + ": " + e.getMessage());
         } catch (HotelException e) {
             System.out.println(e.getContext() + ": " + e.getMessage());
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
         }
         return List.of(new Apartment[0]);
     }

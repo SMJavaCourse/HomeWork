@@ -9,8 +9,12 @@ public interface Apartments {
     void setCheckinTime(LocalTime checkinTime);
 
     static void printApartments(Apartment[] apartments) {
-        for (int i = 0; i < apartments.length; i++) {
-            System.out.println(apartments[i].toString());
+        try {
+            for (Apartment apartment : apartments) {
+                System.out.println(apartment.toString());
+            }
+        } catch (NullPointerException e) {
+            System.out.println("No apartments");
         }
     }
 

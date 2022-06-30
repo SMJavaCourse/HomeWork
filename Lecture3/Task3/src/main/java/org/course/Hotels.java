@@ -6,7 +6,7 @@ public interface Hotels {
     Apartment[] getAllApartments();
     int getRoomsTotalCount();
 
-    static void printHotelInfo(Hotel[] hotels) {
+    static void printHotelInfo(Hotel[] hotels) throws HotelException {
         for (int i = 0; i < hotels.length; i++) {
             System.out.println(hotels[i].toString());
             Apartments.printApartments(hotels[i].getAllApartments());
