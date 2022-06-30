@@ -1,8 +1,8 @@
 package main.java.org.course;
 
-public class ApartmentException extends HotelException {
-    private String context;
-    private int code;
+public class ApartmentException extends Exception {
+    private final String context = "[ApartmentException]";
+    private final int code = 404;
     private String message;
 
     public int getCode() {
@@ -12,10 +12,7 @@ public class ApartmentException extends HotelException {
         return context;
     }
 
-    public ApartmentException(String context, int code, String message) {
-        super(context, code, message);
-        this.context = context;
-        this.code = code;
+    public ApartmentException(String message) {
         this.message = message;
     }
 

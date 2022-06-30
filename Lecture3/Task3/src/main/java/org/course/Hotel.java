@@ -27,6 +27,8 @@ public class Hotel implements Hotels{
         }
 
     }
+    public Hotel() {
+    }
 
     @Override
     public String toString() {
@@ -42,7 +44,7 @@ public class Hotel implements Hotels{
         return roomsTotalCount;
     }
 
-    private static List<Apartment> getAvailableApartmentByHotelName(Hotel[] hotels, String hotelName, int places) throws ApartmentException {
+    private static List<Apartment> getAvailableApartmentByHotelName(Hotel[] hotels, String hotelName, int places) {
         try {
             if (hotels.length != 0 && Arrays.stream(hotels).anyMatch(h -> h != null)) {
                 var listHotels = Arrays.stream(hotels).filter(h -> h.getName().equals(hotelName)).collect(Collectors.toList());
@@ -51,14 +53,14 @@ public class Hotel implements Hotels{
                             .filter(apartment -> apartment.getPlaces() == places)
                             .collect(Collectors.toList());
                     if (list.size() == 0) {
-                        throw new ApartmentException("[ApartmentException]", 404, "No apartments with specified parameters found.");
+                        throw new ApartmentException("No apartments with specified parameters found (places: " + places + ")");
                     }
                     return list;
                 } else {
-                    throw new HotelException("[HotelException]", 404, "No such hotel name.");
+                    throw new HotelException("No such hotel name \"" + hotelName + "\"");
                 }
             } else {
-                throw new HotelException("[HotelException]", 404, "No hotels exists.");
+                throw new HotelException("No hotels exists.");
             }
         } catch (ApartmentException e) {
             System.out.println(e.getContext() + ": " + e.getMessage());
@@ -68,11 +70,12 @@ public class Hotel implements Hotels{
         return List.of(new Apartment[0]);
     }
 
-    public static void printAvailableApartmentByName(Hotel[] hotels, String apartmentName, int places) throws ApartmentException {
+    public static void printAvailableApartmentByHotelName(Hotel[] hotels, String apartmentName, int places) {
         var listApartments = getAvailableApartmentByHotelName(hotels, apartmentName, places);
         if (listApartments.size() != 0) {
             System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");
             listApartments.forEach(System.out::println);
+            System.out.println("\n");
         }
     }
 

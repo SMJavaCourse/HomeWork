@@ -1,8 +1,8 @@
 package main.java.org.course;
 
-public class HotelException extends IndexOutOfBoundsException {
-    private String context;
-    private int code;
+public class HotelException extends Exception {
+    private final String context = "[HotelException]";
+    private final int code = 404;
     private String message;
 
     public int getCode() {
@@ -12,9 +12,7 @@ public class HotelException extends IndexOutOfBoundsException {
         return context;
     }
 
-    public HotelException(String context, int code, String message) {
-        this.context = context;
-        this.code = code;
+    public HotelException(String message) {
         this.message = message;
     }
 
