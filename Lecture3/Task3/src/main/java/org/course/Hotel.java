@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 public class Hotel {
   private String name;
-  private Apartment[] apartments;
 
   private Room[] rooms;
 
