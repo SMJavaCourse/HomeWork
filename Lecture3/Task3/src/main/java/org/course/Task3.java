@@ -5,44 +5,46 @@ public class Task3 {
     public static void main(String[] args) {
 
         Apartment[] allRoomsInHotel1 = new Apartment[5];
-        Apartment room11 = new Apartment(1,1000,1,2,true,
-                false,false,false,false,false);
-        Apartment room12 = new Apartment(2,3000,2,4,true,
-                true,true,true,false,false);
-        Apartment room13 = new Apartment(2,3000,3,4,true,
-                true,true,true,false,false);
-        Apartment room14 = new Apartment(3,2500,4,6,false,
-                false,false,false,false,false);
-        Apartment room15 = new Apartment(3,3500,5,6,true,
-                false,true,false,false,true);
-
-        allRoomsInHotel1[0] = room11;
-        allRoomsInHotel1[1] = room12;
-        allRoomsInHotel1[2] = room13;
-        allRoomsInHotel1[3] = room14;
-        allRoomsInHotel1[4] = room15;
+        allRoomsInHotel1[0] = new OneRoomApartment(10,1000);
+        allRoomsInHotel1[0].setBalcony(true);
+        allRoomsInHotel1[0].setJacuzzi(true);
+        allRoomsInHotel1[1] = new TwoRoomsApartment(20,3000);
+        allRoomsInHotel1[1].setBalcony(true);
+        allRoomsInHotel1[1].setCleaning(true);
+        allRoomsInHotel1[1].setInternet(true);
+        allRoomsInHotel1[1].setConditioner(true);
+        allRoomsInHotel1[2] = new TwoRoomsApartment(30,3000);
+        allRoomsInHotel1[2].setBalcony(true);
+        allRoomsInHotel1[2].setCleaning(true);
+        allRoomsInHotel1[2].setInternet(true);
+        allRoomsInHotel1[2].setConditioner(true);
+        allRoomsInHotel1[3] = new ThreeRoomsApartment(40,2500);
+        allRoomsInHotel1[4] = new ThreeRoomsApartment(50,3500);
+        allRoomsInHotel1[4].setBalcony(true);
+        allRoomsInHotel1[4].setInternet(true);
+        allRoomsInHotel1[4].setJacuzzi(true);
 
         Apartment[] allRoomsInHotel2 = new Apartment[3];
-        Apartment room21 = new Apartment(1,1000,1,2,false,
-                false,false,false,true,true);
-        Apartment room22 = new Apartment(2,2000,2,4,true,
-                true,false,false,false,false);
-        Apartment room23 = new Apartment(3,4000,3,6,false,
-                true,false,false,false,true);
-
-        allRoomsInHotel2[0] = room21;
-        allRoomsInHotel2[1] = room22;
-        allRoomsInHotel2[2] = room23;
+        allRoomsInHotel2[0] = new OneRoomApartment(11,1000);
+        allRoomsInHotel2[0].setMeat(true);
+        allRoomsInHotel2[1] = new TwoRoomsApartment(22,2000);
+        allRoomsInHotel2[1].setBalcony(true);
+        allRoomsInHotel2[1].setCleaning(true);
+        allRoomsInHotel2[2] = new ThreeRoomsApartment(33,4000);
+        allRoomsInHotel2[2].setCleaning(true);
+        allRoomsInHotel2[2].setJacuzzi(true);
 
         Hotel uMamyLuchshe = new Hotel("У мамы лучше","12:00",allRoomsInHotel1);
-        Hotel shashlichek = new Hotel("Шашлычек","09:00",allRoomsInHotel2);
+        Hotel shashlichek = new Hotel("Шашлычок","09:00",allRoomsInHotel2);
+
+        System.out.println(uMamyLuchshe.getRooms().length);
+        System.out.println(shashlichek.getRooms().length);
 
         uMamyLuchshe.soutTitle(uMamyLuchshe.getName(), uMamyLuchshe.getRooms().length);
-        uMamyLuchshe.soutRooms(uMamyLuchshe.getStartTime(),uMamyLuchshe.getRooms(),uMamyLuchshe.getRooms().length);
+        Apartment.soutRooms(uMamyLuchshe.getStartTime(), allRoomsInHotel1,uMamyLuchshe.getRooms().length);
         System.out.println();
         shashlichek.soutTitle(shashlichek.getName(), shashlichek.getRooms().length);
-        shashlichek.soutRooms(shashlichek.getStartTime(), shashlichek.getRooms(),shashlichek.getRooms().length);
-
+        Apartment.soutRooms(shashlichek.getStartTime(), allRoomsInHotel2,shashlichek.getRooms().length);
 
     }
 }
