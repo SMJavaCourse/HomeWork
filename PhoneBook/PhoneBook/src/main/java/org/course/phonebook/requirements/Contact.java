@@ -13,7 +13,7 @@ public interface Contact {
 
     public void setPhone(String phone);
 
-    public String[] getGroup();
+    public String[] getGroups();
 
-    public void setGroup(String[] group);
+    public void setGroups(String[] group);
 }
