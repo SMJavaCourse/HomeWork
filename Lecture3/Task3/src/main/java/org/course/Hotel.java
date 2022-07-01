@@ -37,7 +37,7 @@ public class Hotel {
         String text = "Отель: " + this.getName() + System.lineSeparator() +
                 "Время заселения: " + this.getCheckInTime() + System.lineSeparator() +
                 "Количество номеров: " + apartments.length + System.lineSeparator() +
-                "Номера: ";
+                "Номера: " + System.lineSeparator();
         for (int i = 0; i < apartments.length; i++) {
             text += apartments[i].toString() + System.lineSeparator() +
                     " - Время заселение/выселения: " + this.getCheckInTime() + System.lineSeparator();
