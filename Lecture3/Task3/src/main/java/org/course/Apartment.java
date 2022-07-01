@@ -22,9 +22,7 @@ public abstract class Apartment {
         return numberOfRoom;
     }
 
-    public String getNameOfApartment(){
-        return "";
-    }
+    public abstract String getNameOfApartment();
     @Override
     public String toString() {
         String text =

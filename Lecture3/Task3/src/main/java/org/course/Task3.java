@@ -38,8 +38,6 @@ public class Task3 {
 
         Hotel hotelGrandMa = new Hotel("\"У мамы лучше\"", apartmentsHotelGrandMa, "12:00");
         Hotel hotelKebab = new Hotel("\"Шашлычок\"", apartmentsHotelKebab, "09:00");
-//        hotelGrandMa.printHotel();
-//        hotelKebab.printHotel();
         System.out.println(hotelGrandMa);
         System.out.println(hotelKebab);
     }
