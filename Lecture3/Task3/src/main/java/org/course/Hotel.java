@@ -15,11 +15,11 @@ public class Hotel {
         this.apartments = apartments;
     }
 
-    void HotelInfo() {
-        System.out.println("Отель " + name + ":\nКоличество номеров: " + apartments.length + "\nНомера:");
+    void hotelInfo() {
+        System.out.print("Отель " + name + ":\nКоличество номеров: " + apartments.length + "\nНомера:");
         for (int i = 0; i < apartments.length; i++) {
-            apartments[i].ApartmentInfo();
+            apartments[i].apartmentInfo();
         }
-        System.out.println();
+        System.out.println("\n");
     }
 }
