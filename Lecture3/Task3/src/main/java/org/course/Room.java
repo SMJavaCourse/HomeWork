@@ -6,7 +6,7 @@ public class Room {
     public float price;
     public String time;
 
-    public int v;
+    private final int capacity;
 
     public boolean isBal;
     public boolean isClean;
@@ -14,9 +14,25 @@ public class Room {
     public boolean isCondei;
     public boolean isShashl;
 
+    public Facility[] facilities = new Facility[0];
+
+    public Room(int room, float price, int capacity) {
+        this.room = room;
+        this.price = price;
+        this.capacity = capacity;
+    }
+
+    public Room(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
     public void print() {
         String a = "";
-        switch (room){
+        switch (room) {
             case 1:
                 a = "Однокомнатный номер";
                 break;
@@ -33,39 +49,36 @@ public class Room {
         System.out.print(a);
         System.out.println(" (комната номер: " + num + ")");
         System.out.println("    Цена: " + price + " р/сутки");
-        System.out.println("    Вместимость до " + v + " человек");
+        System.out.println("    Вместимость до " + capacity + " человек");
         System.out.println("    Время заселение/выселения: " + time);
         String s = "Дополнительный услуги: ";
-        if (isBal){
-            s = s+"балкон, ";
+        if (isBal) {
+            s = s + "балкон, ";
 
         }
-        if (isClean){
-            s = s+"уборка номера, ";
+        if (isClean) {
+            s = s + "уборка номера, ";
 
         }
-        if (isClean){
-            s = s+"уборка номера, ";
+        if (isClean) {
+            s = s + "уборка номера, ";
 
         }
-        if (isInternet){
-            s = s+"интернет, ";
+        if (isInternet) {
+            s = s + "интернет, ";
 
 
         }
-        if (isCondei){
-            s = s+"кондиционер, ";
+        if (isCondei) {
+            s = s + "кондиционер, ";
 
         }
-        if (isShashl){
-            s = s+"шашлычок в номер, ";
+        if (isShashl) {
+            s = s + "шашлычок в номер, ";
 
         }
         System.out.println(s);
         System.out.println();
-
-
-
 
 
     }

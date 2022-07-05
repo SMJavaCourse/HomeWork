@@ -32,6 +32,9 @@ public class Hotel {
         System.out.println("Количество номеров: " + rooms.length);
         System.out.println("Номера:");
         for (int i =0; i< rooms.length; i++){
+            if (rooms[i].getCapacity() > 4){
+                System.out.println("Это огромная комната!");
+            }
             rooms[i].print();
 
         }
