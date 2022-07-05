@@ -1,7 +1,5 @@
 package org.course;
 
-import java.util.ArrayList;
-
 public class Hotel {
     private String name;
     private Apartment[] apartments;
@@ -17,17 +15,15 @@ public class Hotel {
         return name;
     }
 
-    public Apartment[] getRooms() {
-        return apartments;
-    }
-
-    public String getStartTime() {
-        return startTime;
-    }
-
-    public void soutTitle(String name, int numberOfApartments) {
-        System.out.println("Отель \"" + name + "\"");
-        System.out.println("Количество номеров: " + numberOfApartments);
-        System.out.println("Номера:");
+    @Override
+    public String toString() {
+        String text = "Отель \"" + name + "\"" + "\n" +
+                "Количество номеров: " + apartments.length + "\n" +
+                "Время заселение/выселения: " + startTime + "\n" +
+                "Номера:" + "\n";
+        for (int i = 0; i < apartments.length; i++) {
+            text += apartments[i].toString();
+        }
+        return text;
     }
 }

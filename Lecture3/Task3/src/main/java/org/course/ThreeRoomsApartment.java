@@ -1,9 +1,11 @@
 package org.course;
 
+import org.course.services.Services;
+
 public class ThreeRoomsApartment extends Apartment{
 
-    public ThreeRoomsApartment(int numberOfRoom, int price) {
-        super(numberOfRoom, price);
+    public ThreeRoomsApartment(int numberOfRoom, int price, Services... services) {
+        super(numberOfRoom, price, services);
     }
 
     public String getName(){
