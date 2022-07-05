@@ -3,6 +3,7 @@ package org.course;
 import org.course.services.Services;
 
 public abstract class Apartment {
+    //TODO убрать наследников
     private String name;
     private int price;
     private int numberOfRoom;

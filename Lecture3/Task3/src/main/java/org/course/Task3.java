@@ -9,10 +9,10 @@ public class Task3 {
         Apartment[] allRoomsInHotel1 = new Apartment[5];
         allRoomsInHotel1[0] = new OneRoomApartment(10,1000, new Balcony());
         allRoomsInHotel1[1] = new TwoRoomsApartment(20,3000, new Balcony(), new Cleaning(),
-                new Internet(), new Conditioner());
+                new Internet(512), new Conditioner());
         allRoomsInHotel1[2] = new TwoRoomsApartment(30,3000);
         allRoomsInHotel1[3] = new ThreeRoomsApartment(40,2500);
-        allRoomsInHotel1[4] = new ThreeRoomsApartment(50,3500, new Balcony(), new Internet(),
+        allRoomsInHotel1[4] = new ThreeRoomsApartment(50,3500, new Balcony(), new Internet(1024),
                 new Jacuzzi());
 
         Apartment[] allRoomsInHotel2 = new Apartment[3];
