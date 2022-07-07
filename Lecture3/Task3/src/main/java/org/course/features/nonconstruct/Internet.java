@@ -7,5 +7,4 @@ public class Internet extends NonConstructFeature {
     public String getName() {
         return NAME;
     }
-
 }

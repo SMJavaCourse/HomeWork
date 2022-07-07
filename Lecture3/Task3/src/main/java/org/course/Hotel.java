@@ -3,7 +3,7 @@ package org.course;
 public class Hotel {
     private String name;
     private Apartment[] apartments;
-    private String checkInTime;
+    private final String checkInTime;
 
 
     public String getCheckInTime() {
