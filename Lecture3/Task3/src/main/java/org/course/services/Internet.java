@@ -5,8 +5,14 @@ public class Internet extends Services {
     //TODO иметь возможность указать скорость соединения, умолчательная 256 Кб\с
     int speed = 256;
 
-    public Internet(Object o) {
-        super();
+    public Internet(int speed) {
+        this.speed = speed;
+    }
+
+    public Internet(String s) {
+    }
+
+    public Internet() {
     }
 
     public String getName(){

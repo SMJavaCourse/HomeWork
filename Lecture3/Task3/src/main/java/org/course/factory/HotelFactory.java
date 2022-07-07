@@ -6,7 +6,7 @@ import org.course.exception.MyException;
 
 public class HotelFactory {
 
-    public Hotel createHotel(String nameOfHotel, Apartment[] apartments) throws MyException {
+    public Hotel createHotel(String nameOfHotel, Apartment[] apartments) {
         try {
             switch (nameOfHotel) {
                 case "У мамы лучше":
