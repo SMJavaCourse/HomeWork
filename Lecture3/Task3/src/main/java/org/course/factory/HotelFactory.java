@@ -14,10 +14,11 @@ public class HotelFactory {
                 case "Шашлычок":
                     return new Hotel("Шашлычок", "09:00", apartments);
             }
-            throw new MyException("Невозможно создать отель \"" + nameOfHotel + "\"");
-        } catch (MyException e) {
-            System.out.println(e.getTextException());
+        } catch (NullPointerException e) {
+            System.out.println("\"Невозможно создать отель \\\"\" + nameOfHotel + \"\\\"\"");
         }
         return null;
     }
+
+
 }

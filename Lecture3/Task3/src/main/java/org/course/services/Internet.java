@@ -9,9 +9,6 @@ public class Internet extends Services {
         this.speed = speed;
     }
 
-    public Internet(String s) {
-    }
-
     public Internet() {
     }
 
