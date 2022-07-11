@@ -17,5 +17,7 @@
         <module>Lecture1/HelloWorld</module>
         <module>Lecture2/Task2</module>
         <module>Lecture3/Task3</module>
+        <module>LectureTask</module>
+        <module>PhoneBook/PhoneBook</module>
     </modules>
 </project>
