@@ -8,7 +8,7 @@ import org.course.features.nonconstruct.Cleaning;
 import org.course.features.nonconstruct.Internet;
 import org.course.features.nonconstruct.Kebab;
 
-public class HotelFactory {
+public final class HotelFactory {
     public static HotelFactory instance;
 
     private HotelFactory( ) {

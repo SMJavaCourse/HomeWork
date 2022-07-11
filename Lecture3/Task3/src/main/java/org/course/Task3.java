@@ -6,15 +6,8 @@ import org.course.test.SecondHotelTest;
 
 public class Task3 {
     public static void main(String[] args) {
-//        HotelFactory hotelFactory = new HotelFactory();
-//        Hotel hotelGrandMa = hotelFactory.createHotel("У мамы лучше");
-//        Hotel hotelKebab = hotelFactory.createHotel("Шашлычок");
-//        System.out.println(hotelGrandMa);
-//        System.out.println(hotelKebab);
-        FirstHotelTest firstHotelTest = new FirstHotelTest();
-        firstHotelTest.testHotel();
-        SecondHotelTest secondHotelTest = new SecondHotelTest();
-        secondHotelTest.testHotel();
+        System.out.println(HotelFactory.getInstance().createHotel("У мамы лучше"));
+        System.out.println(HotelFactory.getInstance().createHotel("Шашлычок"));
     }
 }
 
