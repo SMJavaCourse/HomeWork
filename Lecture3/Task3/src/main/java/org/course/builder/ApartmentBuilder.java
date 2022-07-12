@@ -7,6 +7,7 @@ public class ApartmentBuilder {
     private int numberOfRooms;
     protected double price;
     private int apartmentNumber;
+    private int numberOfPeople;
     private Feature[] features;
 
     public ApartmentBuilder numberOfRooms(int numberOfRooms) {
@@ -23,13 +24,16 @@ public class ApartmentBuilder {
         this.apartmentNumber = apartmentNumber;
         return this;
     }
-
+    public ApartmentBuilder numberOfPeople(int numberOfPeople) {
+        this.numberOfPeople = numberOfPeople;
+        return this;
+    }
     public ApartmentBuilder features(Feature... features) {
         this.features = features;
         return this;
     }
 
     public Apartment build() {
-        return new Apartment(numberOfRooms, price, apartmentNumber, features);
+        return new Apartment(numberOfRooms, price, apartmentNumber, numberOfPeople, features);
     }
 }

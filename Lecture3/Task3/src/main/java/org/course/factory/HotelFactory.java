@@ -2,6 +2,7 @@ package org.course.factory;
 
 import org.course.*;
 import org.course.builder.ApartmentBuilder;
+import org.course.exception.BookingException;
 import org.course.features.construct.AirConditioner;
 import org.course.features.construct.Balcony;
 import org.course.features.nonconstruct.Cleaning;
@@ -21,7 +22,7 @@ public final class HotelFactory {
         return instance;
     }
 
-    public Hotel createHotel(String name)  {
+    public Hotel createHotel(String name) throws BookingException {
 
             ApartmentBuilder builder = new ApartmentBuilder();
             switch (name) {
@@ -29,12 +30,14 @@ public final class HotelFactory {
                     Apartment[] apartmentsHotelGrandMa = new Apartment[5];
                     apartmentsHotelGrandMa[0] = builder
                             .numberOfRooms(1)
+                            .numberOfPeople(2)
                             .price(1000d)
                             .apartmentNumber(12)
                             .features(new Balcony())
                             .build();
                     apartmentsHotelGrandMa[1] = builder
                             .numberOfRooms(2)
+                            .numberOfPeople(4)
                             .price(3000d)
                             .apartmentNumber(13)
                             .features(
@@ -47,12 +50,14 @@ public final class HotelFactory {
                             .apartmentNumber(14)
                             .build();
                     apartmentsHotelGrandMa[3] = builder
+                            .numberOfPeople(6)
                             .numberOfRooms(3)
                             .price(2500d)
                             .apartmentNumber(15)
                             .features()
                             .build();
                     apartmentsHotelGrandMa[4] = builder
+                            .numberOfPeople(6)
                             .price(3500d)
                             .apartmentNumber(16)
                             .features(
@@ -64,12 +69,12 @@ public final class HotelFactory {
 
                 case "Шашлычок" :
                     Apartment[] apartmentsHotelKebab = new Apartment[3];
-                    apartmentsHotelKebab[0] = builder.numberOfRooms(1).price(1000d).apartmentNumber(11).features(new Kebab()).build();
-                    apartmentsHotelKebab[1] = builder.numberOfRooms(2).price(2000d).apartmentNumber(12).features(new Cleaning(), new Balcony()).build();
-                    apartmentsHotelKebab[2] = builder.numberOfRooms(3).price(4000d).apartmentNumber(13).features(new Cleaning()).build();
-                    return new Hotel("\"Шашлычок\"", apartmentsHotelKebab, "09:00");
+                    apartmentsHotelKebab[0] = builder.numberOfRooms(1).numberOfPeople(2).price(1000d).apartmentNumber(11).features(new Kebab()).build();
+                    apartmentsHotelKebab[1] = builder.numberOfRooms(2).numberOfPeople(4).price(2000d).apartmentNumber(12).features(new Cleaning(), new Balcony()).build();
+                    apartmentsHotelKebab[2] = builder.numberOfRooms(3).numberOfPeople(6).price(4000d).apartmentNumber(13).features(new Cleaning()).build();
+                    return new Hotel("Шашлычок", apartmentsHotelKebab, "09:00");
                 default:
-                    throw new RuntimeException();
+                    throw new BookingException("Ты чет не то ввел");
             }
         }
 }

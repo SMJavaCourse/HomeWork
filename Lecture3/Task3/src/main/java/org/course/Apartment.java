@@ -9,12 +9,14 @@ public class Apartment {
     private final int apartmentNumber;
     private final Feature[] features;
     private final int numberOfRooms;
+    private final int numberOfPeople;
     protected double price;
 
-    public Apartment(int numberOfRooms, double price, int apartmentNumber, Feature... features) {
+    public Apartment(int numberOfRooms, double price, int apartmentNumber, int numberOfPeople, Feature... features) {
         this.numberOfRooms = numberOfRooms;
         this.price = price;
         this.apartmentNumber = apartmentNumber;
+        this.numberOfPeople = numberOfPeople;
         this.features = features;
     }
 
@@ -28,6 +30,9 @@ public class Apartment {
 
     public int getApartmentNumber() {
         return apartmentNumber;
+    }
+    public int getNumberOfPeople() {
+        return numberOfPeople;
     }
 
     public String getNameOfApartment() {
@@ -48,6 +53,7 @@ public class Apartment {
         String text =
                 "- " + getNameOfApartment() + " (комната номер: " + getApartmentNumber() + ")" + System.lineSeparator() +
                         " - Цена: " + getPrice() + " (р/сутки)" + System.lineSeparator() +
+                        " - количество человек в номере: " + getNumberOfPeople() + System.lineSeparator() +
                         " - Дополнительные услуги: ";
         if (features.length == 0) {
             text += "дополнительные услуги отсутствуют";
