@@ -1,5 +1,7 @@
 package org.course.phonebook;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.course.phonebook.impl.ContactImpl;
 import org.course.phonebook.impl.PhonebookImpl;
@@ -10,7 +12,8 @@ import java.util.Scanner;
 
 public class Application {
 
-    private static final Phonebook PHONEBOOK = new PhonebookImpl();
+    private static Phonebook phonebook = new PhonebookImpl();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     public static void main(String[] args) {
         fillPhonebook();
@@ -48,17 +51,64 @@ public class Application {
             case "exit":
                 return false;
             case "get":
-                if (commandWithArguments.length < 2) {
-                    System.out.println("Could not find ID of contact");
+                Contact getContact = getContact(commandWithArguments);
+                if (getContact == null) {
                     return true;
                 }
-                if (!NumberUtils.isCreatable(commandWithArguments[1])) {
-                    System.out.println("ID shouldn't be String");
+                System.out.println(getContact);
+                break;
+            case "remove":
+                Contact removeContact = getContact(commandWithArguments);
+                if (removeContact == null) {
                     return true;
                 }
-                int id = Integer.parseInt(commandWithArguments[1]);
-                Contact contact = PHONEBOOK.getContactById(id);
-                System.out.println(contact);
+                System.out.println(phonebook.removeContact(removeContact));
+                break;
+            case "findName":
+                if (!validateNumberOfArgs(commandWithArguments, 2)) {
+                    return true;
+                }
+                Contact[] foundContactsByName = phonebook.findContactsByName(commandWithArguments[1]);
+                for (int i = 0; i < foundContactsByName.length; i++) {
+                    System.out.println(foundContactsByName[i]);
+                }
+                break;
+            case "findPhone":
+                if (!validateNumberOfArgs(commandWithArguments, 2)) {
+                    return true;
+                }
+                Contact[] foundContactsByPhone = phonebook.findContactsByPhone(commandWithArguments[1]);
+                for (int i = 0; i < foundContactsByPhone.length; i++) {
+                    System.out.println(foundContactsByPhone[i]);
+                }
+                break;
+            case "export":
+                try {
+                    String json = MAPPER.writeValueAsString(phonebook.exportPhonebook());
+                    System.out.println(json);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "import":
+                if (!validateNumberOfArgs(commandWithArguments, 2)) {
+                    return true;
+                }
+                try {
+                    phonebook = MAPPER.readValue(commandWithArguments[1], PhonebookImpl.class);
+                    System.out.println("Successful");
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "list":
+                PhonebookImpl phonebook = (PhonebookImpl) Application.phonebook;
+                for (int i = 0; i < phonebook.getContacts().length; i++) {
+                    System.out.println(phonebook.getContacts()[i]);
+                }
+                break;
+            case "fill":
+                fillPhonebook();
                 break;
             default:
                 System.out.println("Unknown command!");
@@ -71,14 +121,34 @@ public class Application {
         contact.setId(5);
         contact.setName("Vasya");
         contact.setPhone("+79119005585");
-        contact = PHONEBOOK.addContact(contact);
+        contact = phonebook.addContact(contact);
         System.out.println(contact);
 
         Contact contact2 = new ContactImpl();
         contact2.setId(10);
         contact2.setName("Petya");
         contact2.setPhone("+79119005580");
-        contact2 = PHONEBOOK.addContact(contact2);
+        contact2 = phonebook.addContact(contact2);
         System.out.println(contact2);
+    }
+
+    private static boolean validateNumberOfArgs(String[] commandWithArguments, int expectedNumOfArgs) {
+        if (commandWithArguments.length < expectedNumOfArgs) {
+            System.out.println("Needs at least " + expectedNumOfArgs + " arguments");
+            return false;
+        }
+        return true;
+    }
+
+    private static Contact getContact(String[] commandWithArguments) {
+        if (!validateNumberOfArgs(commandWithArguments, 2)) {
+            return null;
+        }
+        if (!NumberUtils.isCreatable(commandWithArguments[1])) {
+            System.out.println("ID shouldn't be String");
+            return null;
+        }
+        int id = Integer.parseInt(commandWithArguments[1]);
+        return phonebook.getContactById(id);
     }
 }

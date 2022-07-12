@@ -1,5 +1,9 @@
 package org.course.phonebook.requirements;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.course.phonebook.impl.ContactImpl;
+
+@JsonDeserialize(as = ContactImpl.class)
 public interface Contact {
     public int getId();
 

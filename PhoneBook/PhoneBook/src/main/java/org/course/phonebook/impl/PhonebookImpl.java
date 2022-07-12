@@ -1,5 +1,6 @@
 package org.course.phonebook.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.course.phonebook.requirements.Contact;
 import org.course.phonebook.requirements.Phonebook;
 
@@ -9,7 +10,6 @@ public class PhonebookImpl implements Phonebook {
 
     private String name;
     private Contact[] contacts;
-
 
     @Override
     public String getName() {
@@ -40,8 +40,37 @@ public class PhonebookImpl implements Phonebook {
 
     @Override
     public Contact removeContact(Contact contact) {
-        return null;
+        int index = 10;
+        for (int i = 0; i < this.contacts.length; i++) {
+            if (this.contacts[i].getId() != contact.getId()) {
+                continue;
+            }
+            index = i;
+            break;
+        }
+        this.contacts[index] = this.contacts[contacts.length - 1];
+        Contact[] newContacts = new ContactImpl[contacts.length - 1];
+        System.arraycopy(this.contacts, 0, newContacts, 0, this.contacts.length - 1);
+        this.contacts = newContacts;
+        return contact;
     }
+
+//    @Override
+//    public Contact removeContact(Contact contact) {
+//        int index = 10;
+//        for (int i = 0; i < this.contacts.length; i++) {
+//            if (this.contacts[i].getId() != contact.getId()) {
+//                continue;
+//            }
+//            index = i;
+//            break;
+//        }
+//        Contact[] newContacts = new ContactImpl[contacts.length - 1];
+//        System.arraycopy(this.contacts, 0, newContacts, 0, index);
+//        System.arraycopy(this.contacts, index + 1, newContacts, index, this.contacts.length - index - 1);
+//        this.contacts = newContacts;
+//        return contact;
+//    }
 
     @Override
     public Contact getContactById(int id) {
@@ -56,22 +85,43 @@ public class PhonebookImpl implements Phonebook {
 
     @Override
     public Contact[] findContactsByName(String name) {
-        return new Contact[0];
+        Contact[] foundContacts = new ContactImpl[this.contacts.length];
+        int foundIndex = 0;
+        for (int i = 0; i < this.contacts.length; i++) {
+            if (this.contacts[i].getName().toLowerCase().contains(name.toLowerCase())) {
+                foundContacts[foundIndex] = this.contacts[i];
+                foundIndex++;
+            }
+        }
+        Contact[] returnContacts = new ContactImpl[foundIndex];
+        System.arraycopy(foundContacts, 0, returnContacts, 0, returnContacts.length);
+        return returnContacts;
     }
 
     @Override
     public Contact[] findContactsByPhone(String phone) {
-        return new Contact[0];
+        Contact[] foundContacts = new ContactImpl[this.contacts.length];
+        int foundIndex = 0;
+        for (int i = 0; i < this.contacts.length; i++) {
+            if (this.contacts[i].getPhone().toLowerCase().contains(phone.toLowerCase())) {
+                foundContacts[foundIndex] = this.contacts[i];
+                foundIndex++;
+            }
+        }
+        Contact[] returnContacts = new ContactImpl[foundIndex];
+        System.arraycopy(foundContacts, 0, returnContacts, 0, returnContacts.length);
+        return returnContacts;
     }
 
     @Override
+    @JsonIgnore
     public String[] getGroups() {
         return new String[0];
     }
 
     @Override
     public Phonebook exportPhonebook() {
-        return null;
+        return this;
     }
 
     @Override
