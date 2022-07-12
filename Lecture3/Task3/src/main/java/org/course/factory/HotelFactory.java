@@ -6,17 +6,18 @@ import org.course.exception.MyException;
 
 public class HotelFactory {
 
-    public Hotel createHotel(String nameOfHotel, Apartment[] apartments) {
-        try {
+    public Hotel createHotel(String nameOfHotel, Apartment[] apartments) throws MyException {
+
             switch (nameOfHotel) {
                 case "У мамы лучше":
                     return new Hotel("У мамы лучше", "12:00", apartments);
                 case "Шашлычок":
                     return new Hotel("Шашлычок", "09:00", apartments);
             }
-        } catch (NullPointerException e) {
-            System.out.println("\"Невозможно создать отель \\\"\" + nameOfHotel + \"\\\"\"");
-        }
+            throw new MyException("Ошибка при создании отеля - переданное имя не существует.");
+    }
+
+    public Apartment createApartment() {
         return null;
     }
 

@@ -3,11 +3,10 @@ package org.course;
 import org.course.exception.MyException;
 import org.course.factory.HotelFactory;
 import org.course.services.*;
-
 import org.apache.commons.lang3.StringUtils;
 
+import javax.sound.midi.Soundbank;
 import java.util.Scanner;
-
 import static org.course.Hotel.findHotels;
 
 public class Task3 {
@@ -36,22 +35,29 @@ public class Task3 {
         System.out.println("");
 
         Hotel[] hotels = new Hotel[2];
-        hotels[0] = factory.createHotel("У мамы лучше1", allRoomsInHotel1);
-        hotels[1] = factory.createHotel("", allRoomsInHotel2);
 
-        System.out.println(hotels[0].toString());
-        System.out.println(hotels[1].toString());
+        try {
+            hotels[0] = factory.createHotel("У мамы лучше", allRoomsInHotel1);
+            hotels[1] = factory.createHotel("Шашлычок", allRoomsInHotel2);
+            System.out.println(hotels[0].toString());
+            System.out.println(hotels[1].toString());
+        } catch (MyException e) {
+            System.out.println(e.getTextException() + "\nВыход из программы");
+            System.exit(0);
+        }
 
         Scanner in = new Scanner((System.in));
         boolean exit = false;
-        System.out.println("Поиск вободных номеров:\nвведите запрос в формате \u00ABНазвание отеля N\u00BB, где N - количество гостей:");
+
+        System.out.println("Поиск вободных номеров:\nвведите запрос в формате \u00ABНазвание отеля N\u00BB, " +
+                "где N - количество гостей:");
         while (!exit) {
             String input = in.nextLine().trim();
             if (StringUtils.isBlank(input)) {
                 System.out.println("Пустая строка. Повторите ввод");
                 continue;
             }
-            if ("exit".equalsIgnoreCase(input)) {
+            if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
                 exit = true;
             } else {
                 String[] command = input.split(" ");
@@ -62,14 +68,12 @@ public class Task3 {
                 try {
                     int numberOfGuests = Integer.parseInt(command[command.length - 1]);
                     System.out.println(findHotels(hotels, nameOfHotel.toString().trim(), numberOfGuests));
-                } catch (NumberFormatException e) {
-                    System.out.println("Количество гостей это число, повторите ввод");
                 }
-                catch (NullPointerException e) {
-                    System.out.println("Отели не созданы, негде искать");
-                    exit = true;
+                catch (NumberFormatException e) {
+                    System.out.println("Количество гостей это число, повторите ввод:");
                 }
             }
         }
     }
+
 }
