@@ -1,13 +1,10 @@
-package main.java.org.course;
+package org.course;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public abstract class Apartment implements Apartments {
-    private boolean balcony;
-    private boolean internet;
-    private boolean conditioner;
-    private boolean cleaning;
-    private boolean grillMeat;
+    private List<Services> servicesList;
 
     private float price;
     private int places;
@@ -27,63 +24,22 @@ public abstract class Apartment implements Apartments {
         return roomNumber;
     }
 
-    public Apartment(float price, int places, int roomNumber) {
+    public Apartment(float price, int places, int roomNumber, List<Services> servicesList) {
         this.price = price;
         this.places = places;
         this.roomNumber = roomNumber;
+        this.servicesList = servicesList;
     }
 
     public void setCheckinTime(LocalTime checkinTime) {
         this.checkinTime = checkinTime;
     }
-
     public LocalTime getCheckinTime() {
         return checkinTime;
     }
 
-    public boolean isGrillMeat() {
-        return grillMeat;
-    }
-
-    public Apartment addGrillMeat() {
-        this.grillMeat = true;
-        return this;
-    }
-
-    public boolean isBalcony() {
-        return balcony;
-    }
-
-    public Apartment addBalcony() {
-        this.balcony = true;
-        return this;
-    }
-
-    public boolean isInternet() {
-        return internet;
-    }
-
-    public Apartment addInternet() {
-        this.internet = true;
-        return this;
-    }
-
-    public boolean isConditioner() {
-        return conditioner;
-    }
-
-    public Apartment addConditioner() {
-        this.conditioner = true;
-        return this;
-    }
-
-    public boolean isCleaning() {
-        return cleaning;
-    }
-
-    public Apartment addCleaning() {
-        this.cleaning = true;
-        return this;
+    public List<Services> getServicesList() {
+        return this.servicesList;
     }
 
     @Override
@@ -92,11 +48,7 @@ public abstract class Apartment implements Apartments {
                 "\tЦена: " + getPrice() + "\n" +
                 "\tВместительность: " + getPlaces() + "\n" +
                 "\tВремя заселение/выселения: " + getCheckinTime() + "\n" +
-                "\tДополнительные услуги: " + (isBalcony() ? "Балкон " : "") +
-                (isCleaning() ? "Уборка " : "") +
-                (isInternet() ? "Интернет " : "") +
-                (isConditioner() ? "Кондиционер " : "") +
-                (isGrillMeat() ? "Шашлычок в номер:D " : "");
+                "\tДополнительные услуги: " + getServicesList();
     }
 
 }

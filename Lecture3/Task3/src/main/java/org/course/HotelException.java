@@ -1,5 +1,4 @@
-package main.java.org.course;
-
+package org.course;
 public class HotelException extends Exception {
     private final String context = "[HotelException]";
     private final int code = 404;

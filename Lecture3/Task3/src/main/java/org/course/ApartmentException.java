@@ -1,5 +1,4 @@
-package main.java.org.course;
-
+package org.course;
 public class ApartmentException extends Exception {
     private final String context = "[ApartmentException]";
     private final int code = 404;

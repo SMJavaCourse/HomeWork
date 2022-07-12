@@ -1,4 +1,5 @@
-package main.java.org.course;
+package org.course;
+
 
 public class Task3 {
     public static void main(String[] args) throws HotelException {
@@ -14,6 +15,8 @@ public class Task3 {
         Hotels.printHotelInfo(hotels);
 
         Hotel.printAvailableApartmentByHotelName(hotels, "У мамы лучше", 4);
+
+
 
         // for test:
 //        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);

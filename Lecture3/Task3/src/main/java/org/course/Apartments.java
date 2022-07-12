@@ -1,12 +1,15 @@
-package main.java.org.course;
+package org.course;
 
 
 import java.time.LocalTime;
+import java.util.List;
 
 public interface Apartments {
     String getApartmentsTypeName();
 
     void setCheckinTime(LocalTime checkinTime);
+
+    List<Services> getServicesList();
 
     static void printApartments(Apartment[] apartments) {
         try {
@@ -17,16 +20,5 @@ public interface Apartments {
             System.out.println("No apartments");
         }
     }
-
-    Apartment addBalcony();
-    Apartment addInternet();
-    Apartment addConditioner();
-    Apartment addCleaning();
-    Apartment addGrillMeat();
-    boolean isBalcony();
-    boolean isInternet();
-    boolean isConditioner();
-    boolean isCleaning();
-    boolean isGrillMeat();
 
 }

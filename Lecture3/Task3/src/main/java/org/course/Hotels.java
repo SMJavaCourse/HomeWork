@@ -1,4 +1,4 @@
-package main.java.org.course;
+package org.course;
 
 
 public interface Hotels {

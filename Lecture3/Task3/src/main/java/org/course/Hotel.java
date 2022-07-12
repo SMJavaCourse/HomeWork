@@ -1,4 +1,4 @@
-package main.java.org.course;
+package org.course;
 
 import java.time.LocalTime;
 import java.util.Arrays;
