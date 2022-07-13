@@ -1,4 +1,4 @@
-package org.course.factory;
+package org.course.constructors;
 
 import org.course.Apartment;
 import org.course.Hotel;
@@ -10,6 +10,7 @@ public class HotelFactory {
 
             switch (nameOfHotel) {
                 case "У мамы лучше":
+
                     return new Hotel("У мамы лучше", "12:00", apartments);
                 case "Шашлычок":
                     return new Hotel("Шашлычок", "09:00", apartments);

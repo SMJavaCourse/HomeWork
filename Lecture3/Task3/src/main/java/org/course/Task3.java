@@ -1,11 +1,10 @@
 package org.course;
 
 import org.course.exception.MyException;
-import org.course.factory.HotelFactory;
+import org.course.constructors.HotelFactory;
 import org.course.services.*;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 import static org.course.Hotel.findHotels;
 
