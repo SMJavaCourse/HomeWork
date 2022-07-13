@@ -12,7 +12,7 @@ public class Task3 {
 
         System.out.println("");
 
-        HotelFactory factory = new HotelFactory();
+        HotelFactory factory = HotelFactory.getInstance();
         Hotel[] hotels = new Hotel[2];
         try {
             hotels[0] = factory.createHotel("У мамы лучше");
