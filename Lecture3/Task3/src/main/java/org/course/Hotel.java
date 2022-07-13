@@ -1,7 +1,6 @@
 package org.course;
 
 import org.apache.commons.lang3.StringUtils;
-import org.course.exception.MyException;
 
 public class Hotel {
     private String name;
@@ -16,7 +15,7 @@ public class Hotel {
     }
 
     @Override
-    public String toString() {
+    public String toString() throws NullPointerException{
         StringBuilder text = new StringBuilder("Отель \"" + name + "\"\nКоличество номеров: " + apartments.length +
                 "\nВремя заселение/выселения: " + startTime + "\nНомера:\n");
         for (Apartment apartment : apartments) {
