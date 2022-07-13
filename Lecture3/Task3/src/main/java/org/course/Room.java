@@ -1,16 +1,23 @@
 package org.course;
 
 public class Room extends Apartment {
-    private String service;
+    private Services[] services;
 
-    public Room(int roomsNumber, String cost, int capacity, String service) {
+
+    public Room(int roomsNumber, String cost, int capacity, Services... service) {
         super(roomsNumber, cost, capacity);
-        this.service = service;
+        this.services = service;
     }
 
-
+    public int  getCapacity() {return capacity;}
+    public String  getCost() {return cost;}
     @Override
     public String toString() {
-        return "\n" + roomsNumber + "-комнатный номер (вместимость до " + capacity + " чел.)\nЦена: " + cost + " р/сутки \nУслуги: " + service;
+        String result = "\n" + roomsNumber + "-комнатный номер (вместимость до " + capacity + " чел.)\nЦена: " + cost + " р/сутки \nУслуги: ";
+        for (Services service : services) {
+            result += service;
+        }
+        return result;
+
     }
 }

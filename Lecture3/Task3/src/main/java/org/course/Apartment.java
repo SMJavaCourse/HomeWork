@@ -10,5 +10,6 @@ public abstract class Apartment {
         this.cost = cost;
         this.capacity = capacity;
     }
+
 }
 
