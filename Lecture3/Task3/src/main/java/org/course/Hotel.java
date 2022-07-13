@@ -14,8 +14,16 @@ public class Hotel {
         this.startTime = startTime;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Apartment[] getApartments() {
+        return apartments;
+    }
+
     @Override
-    public String toString() throws NullPointerException{
+    public String toString() throws NullPointerException {
         StringBuilder text = new StringBuilder("Отель \"" + name + "\"\nКоличество номеров: " + apartments.length +
                 "\nВремя заселение/выселения: " + startTime + "\nНомера:\n");
         for (Apartment apartment : apartments) {
@@ -34,7 +42,7 @@ public class Hotel {
         String findApartment = "";
         int numberOfMatches = 0;
         for (int i = 0; i < hotels.length; i++) {
-            if (StringUtils.equalsIgnoreCase(nameOfHotel, (CharSequence) hotels[i].getName())) {
+            if (StringUtils.equalsIgnoreCase(nameOfHotel, hotels[i].getName())) {
                 findHotel += "Отель \"" + hotels[i].name + "\"\n";
 
                 for (int j = 0; j < hotels[i].getApartments().length; j++) {
@@ -45,17 +53,10 @@ public class Hotel {
                 }
                 if (numberOfMatches == 0) {
                     return "В отеле \"" + nameOfHotel + "\" " + cantFindApartmentsString.toLowerCase() + ". Повторите ввод:";
-                } else return findHotel + "Подходящих номеров: " + numberOfMatches + "\nНомера:\n" + findApartment + "\nСледующий поиск:";
+                } else
+                    return findHotel + "Подходящих номеров: " + numberOfMatches + "\nНомера:\n" + findApartment + "\nСледующий поиск:";
             }
         }
         return "У нас нет информации по отелю \"" + nameOfHotel + "\", повторите ввод:";
-    }
-
-    public Object getName() {
-        return name;
-    }
-
-    public Apartment[] getApartments() {
-        return apartments;
     }
 }

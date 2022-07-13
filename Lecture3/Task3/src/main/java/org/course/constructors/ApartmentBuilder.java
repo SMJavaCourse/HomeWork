@@ -11,33 +11,32 @@ public class ApartmentBuilder {
     private int capacity;
     private Services[] services;
 
-    public ApartmentBuilder price (int price){
+    public ApartmentBuilder price(int price) {
         this.price = price;
         return this;
     }
 
-    public ApartmentBuilder rooms (int rooms){
+    public ApartmentBuilder rooms(int rooms) {
         this.rooms = rooms;
         return this;
     }
 
-    public ApartmentBuilder numberOfRoom (int numberOfRoom){
+    public ApartmentBuilder numberOfRoom(int numberOfRoom) {
         this.numberOfRoom = numberOfRoom;
         return this;
     }
 
-    public ApartmentBuilder capacity (int capacity){
+    public ApartmentBuilder capacity(int capacity) {
         this.capacity = capacity;
         return this;
     }
 
-    public ApartmentBuilder services (Services... services){
+    public ApartmentBuilder services(Services... services) {
         this.services = services;
         return this;
     }
 
-    public Apartment build(){
-        return new Apartment(rooms,numberOfRoom,price,capacity,services);
+    public Apartment build() {
+        return new Apartment(rooms, numberOfRoom, price, capacity, services);
     }
-
 }
