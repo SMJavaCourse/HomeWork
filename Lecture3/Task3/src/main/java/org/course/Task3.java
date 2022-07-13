@@ -1,6 +1,6 @@
 package org.course;
 
-import org.course.exception.MyException;
+import org.course.exception.HotelFactoryException;
 import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Scanner;
@@ -19,8 +19,8 @@ public class Task3 {
             hotels[1] = factory.createHotel("Шашлычок");
             System.out.println(hotels[0].toString());
             System.out.println(hotels[1].toString());
-        } catch (MyException e) {
-            System.out.println(e.getTextException() + "\nВыход из программы");
+        } catch (HotelFactoryException e) {
+            System.out.println(e.getMessage() + "\nВыход из программы");
             System.exit(0);
         } catch (NullPointerException e) {
             System.out.println("Отели не созданы, нечего выводить." + "\nВыход из программы");
@@ -41,14 +41,11 @@ public class Task3 {
             if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
                 exit = true;
             } else {
-                String[] command = input.split(" ");
-                StringBuilder nameOfHotel = new StringBuilder();
-                for (int i = 0; i < command.length - 1; i++) {
-                    nameOfHotel.append(command[i]).append(" ");
-                }
+                int commandIndex = input.lastIndexOf(" ");
                 try {
-                    int numberOfGuests = Integer.parseInt(command[command.length - 1]);
-                    System.out.println(findHotels(hotels, nameOfHotel.toString().trim(), numberOfGuests));
+                    int numberOfGuests = Integer.parseInt(input.substring(commandIndex+1));
+                    System.out.println(findHotels(hotels, input.substring(0,commandIndex), numberOfGuests));
+                    System.out.println("Повторите ввод:");
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
                 }

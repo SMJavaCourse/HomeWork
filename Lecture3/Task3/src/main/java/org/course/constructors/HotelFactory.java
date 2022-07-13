@@ -2,7 +2,7 @@ package org.course.constructors;
 
 import org.course.Apartment;
 import org.course.Hotel;
-import org.course.exception.MyException;
+import org.course.exception.HotelFactoryException;
 import org.course.services.*;
 
 public class HotelFactory {
@@ -16,7 +16,7 @@ public class HotelFactory {
         return instance;
     }
 
-    public Hotel createHotel(String nameOfHotel) throws MyException {
+    public Hotel createHotel(String nameOfHotel) throws HotelFactoryException {
         ApartmentBuilder builder = new ApartmentBuilder();
         switch (nameOfHotel) {
             case "У мамы лучше":
@@ -33,7 +33,7 @@ public class HotelFactory {
                                 new Conditioner())
                         .build();
                 allRoomsInHotel1[2] = builder
-                        .rooms(2).numberOfRoom(30).price(3000).capacity(4).services(
+                        .numberOfRoom(30).services(
                                 new Balcony(),
                                 new Cleaning(),
                                 new Internet(),
@@ -43,7 +43,7 @@ public class HotelFactory {
                         .rooms(3).numberOfRoom(40).price(2500).capacity(6).services()
                         .build();
                 allRoomsInHotel1[4] = builder
-                        .rooms(3).numberOfRoom(50).price(3500).capacity(6).services(
+                        .numberOfRoom(50).price(3500).services(
                                 new Balcony(),
                                 new Internet(),
                                 new Conditioner(),
@@ -68,6 +68,6 @@ public class HotelFactory {
                         .build();
                 return new Hotel("Шашлычок", "09:00", allRoomsInHotel2);
         }
-        throw new MyException("Ошибка при создании отеля - переданное имя не существует.");
+        throw new HotelFactoryException("Ошибка при создании отеля - переданное имя не существует.");
     }
 }
