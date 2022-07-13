@@ -6,7 +6,6 @@ public class Hotel {
     private String name;
     private Apartment[] apartments;
     private String startTime;
-    private static final String cantFindApartmentsString = "Подходящих номеров не найдено";
 
     public Hotel(String name, String startTime, Apartment[] apartments) {
         this.name = name;
@@ -52,7 +51,7 @@ public class Hotel {
                     }
                 }
                 if (numberOfMatches == 0) {
-                    return "В отеле \"" + nameOfHotel + "\" " + cantFindApartmentsString.toLowerCase() + ". Повторите ввод:";
+                    return "В отеле \"" + nameOfHotel + "\" подходящих номеров не найдено. Повторите ввод:";
                 } else
                     return findHotel + "Подходящих номеров: " + numberOfMatches + "\nНомера:\n" + findApartment + "\nСледующий поиск:";
             }
