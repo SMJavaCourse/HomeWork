@@ -3,6 +3,8 @@ package org.course.phonebook.requirements;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.course.phonebook.impl.ContactImpl;
 
+import java.util.List;
+
 @JsonDeserialize(as = ContactImpl.class)
 public interface Contact {
     public int getId();
@@ -17,7 +19,7 @@ public interface Contact {
 
     public void setPhone(String phone);
 
-    public String[] getGroups();
+    public List<String> getGroups();
 
-    public void setGroups(String[] group);
+    public void setGroups(List<String> groups);
 }
