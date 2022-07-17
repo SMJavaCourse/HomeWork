@@ -1,21 +1,47 @@
 package org.course;
 
-import java.util.Arrays;
+
 
 public class Task3 {
     public static void main(String[] args) {
-        Apartment[] apartments = new Apartment[2];
-        apartments[0] = new Apartment(1,123);
-        apartments[1] = new Apartment(1,312);
-        Hotel hotel1 = new Hotel("Первый нахъ", apartments);
-        System.out.println(hotel1);
+        Apartment[] apartmentsMom = new Apartment[2];
+        apartmentsMom[0] = new Apartment(1,2,1,true, false, false,true,false);
+        apartmentsMom[1] = new Apartment(2,3,2, true,true,false,false,true);
+        Hotel mom = new Hotel("У мамы лучше", apartmentsMom);
+        System.out.println("Отель \"" + mom.getName() + "\"");
+        for (Apartment apartment : apartmentsMom) {
+            System.out.println("Количество номеров на " + apartment.getRoomsCount() + " человека :" + apartment.getAmount() + "\n" + apartment.isClening());
+        }
+        }
+
+}
+
+
+
+
+
+
+//        Hotel hotel1 = new Hotel("Первый нахъ", apartments);
+//        Hotel hotel2 = new Hotel("Второй нахъ", apartments);
+//
+//        System.out.println(hotel1);
+//        System.out.println(hotel2);
+//        System.out.println(hotel1.getName());
+
+//        HotelBuilder builder = new HotelBuilder();
+//        Hotel grill = builder.name("Шашлычок").build();
+//        Hotel mother = builder.name("У мамы лучше").build();
+//        System.out.println(grill.getName());
+//        System.out.println(mother.getName());
+//        System.out.println(Arrays.toString(mother.getRooms()));
+
 
 
         //проверка, что я не совсем кукухой отлетел и оно должно выводить хоть что то
-        String[] i = new String[2];
-        i[0]="ёпт";
-        i[1]="2";
-        System.out.println(Arrays.toString(i));
-    }
+//        String[] ciphers = new String[] {"раз","два","три","четыре,","пять","шесть","семь","восемь", "девять","десять"};
+//        for (int i=0; i<1; ++i){
+//            System.out.println(ciphers[i]);
+//        }
 
-}
+
+

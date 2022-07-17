@@ -1,5 +1,7 @@
 package org.course;
 
+import java.util.Arrays;
+
 public class Hotel {
     private String name;
     private Apartment[] apartments;
@@ -8,6 +10,8 @@ public class Hotel {
         this.name = name;
         this.apartments = apartments;
     }
+
+
 
     public String getName() {
         return name;
@@ -25,4 +29,11 @@ public class Hotel {
         this.apartments = apartments;
     }
 
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "name='" + name + '\'' +
+                ", apartments=" + Arrays.toString(apartments) +
+                '}';
+    }
 }
