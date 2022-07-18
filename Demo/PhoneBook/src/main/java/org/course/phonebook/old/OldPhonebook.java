@@ -1,6 +1,8 @@
-package org.course.phonebook.requirements;
+package org.course.phonebook.old;
 
-public interface Phonebook {
+import org.course.phonebook.requirements.Contact;
+
+public interface OldPhonebook {
 
     String getName();
 
@@ -16,9 +18,9 @@ public interface Phonebook {
 
     String[] getGroups();
 
-    Phonebook exportPhonebook();
+    OldPhonebook exportPhonebook();
 
-    void importPhonebook(Phonebook phonebook);
+    void importPhonebook(OldPhonebook phonebook);
 
-    Contact[] findFriends(Phonebook phonebook);
+    Contact[] findFriends(OldPhonebook phonebook);
 }

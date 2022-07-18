@@ -8,9 +8,10 @@ import org.course.phonebook.impl.PhonebookImpl;
 import org.course.phonebook.requirements.Contact;
 import org.course.phonebook.requirements.Phonebook;
 
+import java.util.List;
 import java.util.Scanner;
 
-public class Application {
+public class CommandLineApplication {
 
     private static Phonebook phonebook = new PhonebookImpl();
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -68,25 +69,26 @@ public class Application {
                 if (!validateNumberOfArgs(commandWithArguments, 2)) {
                     return true;
                 }
-                Contact[] foundContactsByName = phonebook.findContactsByName(commandWithArguments[1]);
-                for (int i = 0; i < foundContactsByName.length; i++) {
-                    System.out.println(foundContactsByName[i]);
+                List<Contact> foundContactsByName = phonebook.findContactsByName(commandWithArguments[1]);
+                for (Contact contact : foundContactsByName) {
+                    System.out.println(contact);
                 }
                 break;
             case "findPhone":
                 if (!validateNumberOfArgs(commandWithArguments, 2)) {
                     return true;
                 }
-                Contact[] foundContactsByPhone = phonebook.findContactsByPhone(commandWithArguments[1]);
-                for (int i = 0; i < foundContactsByPhone.length; i++) {
-                    System.out.println(foundContactsByPhone[i]);
+                List<Contact> foundContactsByPhone = phonebook.findContactsByPhone(commandWithArguments[1]);
+                for (Contact contact : foundContactsByPhone) {
+                    System.out.println(contact);
                 }
                 break;
             case "export":
                 try {
                     String json = MAPPER.writeValueAsString(phonebook.exportPhonebook());
                     System.out.println(json);
-                } catch (JsonProcessingException e) {
+                } catch (
+                        JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
                 break;
@@ -97,14 +99,15 @@ public class Application {
                 try {
                     phonebook = MAPPER.readValue(commandWithArguments[1], PhonebookImpl.class);
                     System.out.println("Successful");
-                } catch (JsonProcessingException e) {
+                } catch (
+                        JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }
                 break;
             case "list":
-                PhonebookImpl phonebook = (PhonebookImpl) Application.phonebook;
-                for (int i = 0; i < phonebook.getContacts().length; i++) {
-                    System.out.println(phonebook.getContacts()[i]);
+                PhonebookImpl phonebook = (PhonebookImpl) CommandLineApplication.phonebook;
+                for (Contact contact : phonebook.getContacts()) {
+                    System.out.println(contact);
                 }
                 break;
             case "fill":
