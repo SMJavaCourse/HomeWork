@@ -32,55 +32,51 @@ public class Hotel {
     }
 
     public static String findHotel(Hotel[] hotels, String nameOfHotel, int numberOfGuests) {
+        int numberOfApartmentsFinded = 0;
+        String findHotel = "";
+        String findApartment = "";
+
         if (numberOfGuests == 0) {
             return "Количество гостей равно нулю";
         } else if (numberOfGuests < 0) {
             return "Количество гостей не может быть отрицательным";
-        }
-        int numberOfMatches = 0;
-        for (int i = 0; i < hotels.length; i++) {
-            if (StringUtils.equalsIgnoreCase(nameOfHotel, hotels[i].getName())) {
-                String findHotel = "Отель \"" + hotels[i].name + "\"\n";
-                String findApartment = "";
+        } else if (nameOfHotel == null) {
+            int numberOfHotelsFinded = 0;
+            for (int i = 0; i < hotels.length; i++) {
+                findHotel += "Отель \"" + hotels[i].name + "\"\n";
                 for (int j = 0; j < hotels[i].getApartments().length; j++) {
                     if (numberOfGuests <= hotels[i].getApartments()[j].getCapacity()) {
                         findApartment += hotels[i].getApartments()[j].toString();
-                        numberOfMatches += 1;
+                        numberOfApartmentsFinded += 1;
                     }
                 }
-                if (numberOfMatches == 0) {
+                if (numberOfApartmentsFinded == 0) {
+                    findHotel = "";
+                } else {
+                    numberOfHotelsFinded += 1;
+                    findHotel += "Подходящих номеров: " + numberOfApartmentsFinded + "\nНомера:\n" + findApartment;
+                }
+            }
+            return "Найдено отелей: " + numberOfHotelsFinded + "\n" + findHotel;
+        }
+        for (int i = 0; i < hotels.length; i++) {
+            if (StringUtils.equalsIgnoreCase(nameOfHotel, hotels[i].getName())) {
+                findHotel += "Отель \"" + hotels[i].name + "\"\n";
+                for (int j = 0; j < hotels[i].getApartments().length; j++) {
+                    if (numberOfGuests <= hotels[i].getApartments()[j].getCapacity()) {
+                        findApartment += hotels[i].getApartments()[j].toString();
+                        numberOfApartmentsFinded += 1;
+                    }
+                }
+                if (numberOfApartmentsFinded == 0) {
                     return "В отеле \"" + nameOfHotel + "\" подходящих номеров не найдено.";
                 } else {
-                    return findHotel + "Подходящих номеров: " + numberOfMatches + "\nНомера:\n" + findApartment;
+                    return findHotel + "Подходящих номеров: " + numberOfApartmentsFinded + "\nНомера:\n" + findApartment;
                 }
             }
         }
         return "У нас нет информации по отелю \"" + nameOfHotel + "\"";
     }
 
-    public static String findHotels(Hotel[] hotels, int numberOfGuests) {
-        int apartmentsFinded = 0;
-        int hotelsFinded = 0;
-        String findHotel = "";
-        for (int i = 0; i < hotels.length; i++) {
-            findHotel += "Отель \"" + hotels[i].name + "\"\n";
-            String findApartment = "";
-            for (int j = 0; j < hotels[i].getApartments().length; j++) {
-                if (numberOfGuests <= hotels[i].getApartments()[j].getCapacity()) {
-                    findApartment += hotels[i].getApartments()[j].toString();
-                    apartmentsFinded += 1;
-                }
-            }
-            if (apartmentsFinded == 0) {
-                findHotel = "";
-            } else {
-                hotelsFinded += 1;
-                findHotel += "Подходящих номеров: " + apartmentsFinded + "\nНомера:\n" + findApartment;
-            }
-        }
-        if (" ".equals(findHotel)) {
-            return "Найдено отелей: 0";
-        }
-        return "Найдено отелей: " + hotelsFinded + "\n" + findHotel;
-    }
+
 }

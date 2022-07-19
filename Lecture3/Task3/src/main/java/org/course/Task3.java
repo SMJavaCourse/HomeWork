@@ -5,7 +5,6 @@ import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Scanner;
 import static org.course.Hotel.findHotel;
-import static org.course.Hotel.findHotels;
 
 public class Task3 {
 
@@ -42,16 +41,14 @@ public class Task3 {
             if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
                 exit = true;
             } else {
-                int commandIndex = input.trim().indexOf(" ");
+                int firstSpaceIndex = input.trim().indexOf(" ");
                 try {
-                    if (commandIndex == -1) {
-                        System.out.println(findHotels(hotels, Integer.parseInt(input.trim())));
-                        System.out.println("Ещё один поиск:");
+                    if (firstSpaceIndex == -1) {
+                        System.out.println(findHotel(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
                         continue;
                     }
-                    int numberOfGuests = Integer.parseInt(input.substring(0, commandIndex));
-                    System.out.println(findHotel(hotels, input.substring(commandIndex+1), numberOfGuests));
-                    System.out.println("Повторите ввод:");
+                    int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
+                    System.out.println(findHotel(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
                 }
