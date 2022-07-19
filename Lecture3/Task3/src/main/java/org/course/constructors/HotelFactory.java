@@ -62,7 +62,7 @@ public class HotelFactory {
                                 new Cleaning())
                         .build();
                 allRoomsInHotel2[2] = builder
-                        .rooms(3).numberOfRoom(33).price(4000).capacity(6).services(
+                        .rooms(3).numberOfRoom(33).price(4000).capacity(7).services(
                                 new Cleaning(),
                                 new Jacuzzi())
                         .build();

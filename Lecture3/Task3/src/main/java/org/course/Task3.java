@@ -4,6 +4,7 @@ import org.course.exception.HotelFactoryException;
 import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Scanner;
+import static org.course.Hotel.findHotel;
 import static org.course.Hotel.findHotels;
 
 public class Task3 {
@@ -28,7 +29,7 @@ public class Task3 {
         }
 
         System.out.println("======================= Поиск вободных номеров ========================\n" +
-                "введите запрос в формате \u00ABНазвание отеля N\u00BB, где N - количество гостей:");
+                "введите запрос в формате \"N\" или \"N \u00ABНазвание отеля\u00BB\", где N - количество гостей:");
 
         Scanner in = new Scanner((System.in));
         boolean exit = false;
@@ -41,10 +42,15 @@ public class Task3 {
             if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
                 exit = true;
             } else {
-                int commandIndex = input.lastIndexOf(" ");
+                int commandIndex = input.trim().indexOf(" ");
                 try {
-                    int numberOfGuests = Integer.parseInt(input.substring(commandIndex+1));
-                    System.out.println(findHotels(hotels, input.substring(0,commandIndex), numberOfGuests));
+                    if (commandIndex == -1) {
+                        System.out.println(findHotels(hotels, Integer.parseInt(input.trim())));
+                        System.out.println("Ещё один поиск:");
+                        continue;
+                    }
+                    int numberOfGuests = Integer.parseInt(input.substring(0, commandIndex));
+                    System.out.println(findHotel(hotels, input.substring(commandIndex+1), numberOfGuests));
                     System.out.println("Повторите ввод:");
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
