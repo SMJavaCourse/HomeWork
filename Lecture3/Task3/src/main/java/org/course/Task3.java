@@ -3,6 +3,8 @@ package org.course;
 import org.course.exception.HotelFactoryException;
 import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import static org.course.Hotel.findHotel;
 
@@ -13,12 +15,12 @@ public class Task3 {
         System.out.println("");
 
         HotelFactory factory = HotelFactory.getInstance();
-        Hotel[] hotels = new Hotel[2];
+        ArrayList<Hotel> hotels = new ArrayList<>();
         try {
-            hotels[0] = factory.createHotel("У мамы лучше");
-            hotels[1] = factory.createHotel("Шашлычок");
-            System.out.println(hotels[0].toString());
-            System.out.println(hotels[1].toString());
+            hotels.add(factory.createHotel("У мамы лучше"));
+            hotels.add(factory.createHotel("Шашлычок"));
+            System.out.println(hotels.get(0).toString());
+            System.out.println(hotels.get(1).toString());
         } catch (HotelFactoryException e) {
             System.out.println(e.getMessage() + "\nВыход из программы");
             System.exit(0);

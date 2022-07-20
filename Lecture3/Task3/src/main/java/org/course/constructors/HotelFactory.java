@@ -5,6 +5,8 @@ import org.course.Hotel;
 import org.course.exception.HotelFactoryException;
 import org.course.services.*;
 
+import java.util.ArrayList;
+
 public class HotelFactory {
 
     private static HotelFactory instance;
@@ -20,53 +22,53 @@ public class HotelFactory {
         ApartmentBuilder builder = new ApartmentBuilder();
         switch (nameOfHotel) {
             case "У мамы лучше":
-                Apartment[] allRoomsInHotel1 = new Apartment[5];
-                allRoomsInHotel1[0] = builder
+                ArrayList<Apartment> apartmentsInHotel1 = new ArrayList<>();
+                apartmentsInHotel1.add(builder
                         .rooms(1).numberOfRoom(10).price(1000).capacity(2).services(
                                 new Balcony())
-                        .build();
-                allRoomsInHotel1[1] = builder
+                        .build());
+                apartmentsInHotel1.add(builder
                         .rooms(2).numberOfRoom(20).price(3000).capacity(4).services(
                                 new Balcony(),
                                 new Cleaning(),
                                 new Internet(512),
                                 new Conditioner())
-                        .build();
-                allRoomsInHotel1[2] = builder
+                        .build());
+                apartmentsInHotel1.add(builder
                         .numberOfRoom(30).services(
                                 new Balcony(),
                                 new Cleaning(),
                                 new Internet(),
                                 new Conditioner())
-                        .build();
-                allRoomsInHotel1[3] = builder
+                        .build());
+                apartmentsInHotel1.add(builder
                         .rooms(3).numberOfRoom(40).price(2500).capacity(6).services()
-                        .build();
-                allRoomsInHotel1[4] = builder
+                        .build());
+                apartmentsInHotel1.add(builder
                         .numberOfRoom(50).price(3500).services(
                                 new Balcony(),
                                 new Internet(),
                                 new Conditioner(),
                                 new Jacuzzi())
-                        .build();
-                return new Hotel("У мамы лучше", "12:00", allRoomsInHotel1);
+                        .build());
+                return new Hotel("У мамы лучше", "12:00", apartmentsInHotel1);
             case "Шашлычок":
-                Apartment[] allRoomsInHotel2 = new Apartment[3];
-                allRoomsInHotel2[0] = builder
+                ArrayList<Apartment> apartmentsInHotel2 = new ArrayList<>();
+                apartmentsInHotel2.add(builder
                         .rooms(1).numberOfRoom(11).price(1000).capacity(2).services(
                                 new Meat())
-                        .build();
-                allRoomsInHotel2[1] = builder
+                        .build());
+                apartmentsInHotel2.add(builder
                         .rooms(2).numberOfRoom(22).price(2000).capacity(4).services(
                                 new Balcony(),
                                 new Cleaning())
-                        .build();
-                allRoomsInHotel2[2] = builder
+                        .build());
+                apartmentsInHotel2.add(builder
                         .rooms(3).numberOfRoom(33).price(4000).capacity(7).services(
                                 new Cleaning(),
                                 new Jacuzzi())
-                        .build();
-                return new Hotel("Шашлычок", "09:00", allRoomsInHotel2);
+                        .build());
+                return new Hotel("Шашлычок", "09:00", apartmentsInHotel2);
         }
         throw new HotelFactoryException("Ошибка при создании отеля - переданное имя не существует.");
     }
