@@ -14,13 +14,14 @@ public class Apartment {
     public boolean isСonditioner;
     public boolean isShashlik;
 
+
     public int getCapacity() {
         return capacity;
     }
 
-    public Apartment(int num, int apartments, float price, String time, int people, boolean isBalcony, boolean isClean, boolean isInternet, boolean isСonditioner, boolean isShashlik) {
+    public Apartment(int num, int rooms, float price, String time, int people, boolean isBalcony, boolean isClean, boolean isInternet, boolean isСonditioner, boolean isShashlik) {
         this.numberOfApart = num;
-        this.rooms = apartments;
+        this.rooms = rooms;
         this.price = price;
         this.time = time;
         this.capacity = people;
@@ -31,7 +32,7 @@ public class Apartment {
         this.isShashlik = isShashlik;
     }
 
-    private String getName(int rooms) {
+    public String getName(int rooms) {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -85,14 +86,7 @@ public class Apartment {
 
         }
         System.out.println(s);
-        System.out.println();
     }
 
-    @Override
-    public String toString() {
-        String text = "\t\u2219 " + getName(rooms) +
-                " (комната номер " + numberOfApart + "):\n\t\t\u25e6 Цена: " + price +
-                "\n\t\t\u25e6 Дополнительные услуги: " + isBalcony + isClean;
-        return text;
-    }
+
 }

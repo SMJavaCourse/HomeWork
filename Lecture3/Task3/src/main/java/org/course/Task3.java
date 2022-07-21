@@ -17,10 +17,9 @@ public class Task3 {
         Hotel[] hotels = {firstHotel, secondHotel};
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Поиск лучших номеров!");
+        System.out.print("Поиск лучших номеров!\nВведите наименование отеля:\n");
         boolean again = true;
         while (again) {
-            System.out.println("Введите наименование отеля:");
             String input = scanner.nextLine().trim();
             if (StringUtils.isBlank(input)) {
                 System.out.println("Пустая строка");
@@ -46,9 +45,10 @@ public class Task3 {
     }
 
 
-    public static void printApartments(Apartment[] apartments){
+    public static void printApartments(Apartment[] apartments) {
         System.out.println("Количество аппартаментов:" + apartments.length);
-        System.out.println("Номера:" + apartments.toString());
+        for (int i = 0; i < apartments.length; i++) {
+            apartments[i].print();
+        }
     }
-
 }
