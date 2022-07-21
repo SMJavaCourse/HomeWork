@@ -1,13 +1,10 @@
 package org.course;
 
-import org.apache.commons.lang3.StringUtils;
 import org.course.exception.BookingException;
 import org.course.factory.HotelFactory;
 
-import java.sql.SQLOutput;
-import java.util.InputMismatchException;
+import java.util.Arrays;
 import java.util.Scanner;
-import java.util.logging.SocketHandler;
 
 public class Task3 {
     public static void main(String[] args) {
@@ -21,9 +18,10 @@ public class Task3 {
                 }
                 System.out.println("Введите число человек:");
                 int numberOfPeople = Integer.parseInt(scanner.nextLine());
-                Hotel firstHotel = HotelFactory.getInstance().createHotel("У мамы лучше");
-                Hotel secondHotel = HotelFactory.getInstance().createHotel("Шашлычок");
-                Hotel[] hotels = {firstHotel, secondHotel};
+                Hotel[] hotels = {
+                        HotelFactory.getInstance().createHotel("У мамы лучше"),
+                        HotelFactory.getInstance().createHotel("Шашлычок")
+                };
                 System.out.println(Hotel.findRooms(hotels, hotelsName, numberOfPeople));
             } catch (BookingException e) {
                 System.out.println(e.getMessage());
