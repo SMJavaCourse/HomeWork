@@ -1,11 +1,9 @@
 package org.course;
 
-import static java.lang.Character.getName;
-
 public class Apartment {
     private String name;
     private int numberOfApart;
-    private int apartments;
+    private int rooms;
     private float price;
     private String time;
     private int capacity;
@@ -22,7 +20,7 @@ public class Apartment {
 
     public Apartment(int num, int apartments, float price, String time, int people, boolean isBalcony, boolean isClean, boolean isInternet, boolean isСonditioner, boolean isShashlik) {
         this.numberOfApart = num;
-        this.apartments = apartments;
+        this.rooms = apartments;
         this.price = price;
         this.time = time;
         this.capacity = people;
@@ -46,7 +44,7 @@ public class Apartment {
 
     public void print() {
         String a = "";
-        switch (apartments) {
+        switch (rooms) {
             case 1:
                 a = "Однокомнатный номер";
                 break;
@@ -92,7 +90,7 @@ public class Apartment {
 
     @Override
     public String toString() {
-        String text = "\t\u2219 " + getName(apartments) +
+        String text = "\t\u2219 " + getName(rooms) +
                 " (комната номер " + numberOfApart + "):\n\t\t\u25e6 Цена: " + price +
                 "\n\t\t\u25e6 Дополнительные услуги: " + isBalcony + isClean;
         return text;
