@@ -3,13 +3,18 @@ package org.course.constructors;
 import org.course.Apartment;
 import org.course.services.Services;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ApartmentBuilder {
 
     private int price;
     private int rooms;
     private int numberOfRoom;
     private int capacity;
-    private Services[] services;
+    private ArrayList<Services> services;
+//    private Services[] services;
 
     public ApartmentBuilder price(int price) {
         this.price = price;
@@ -32,7 +37,7 @@ public class ApartmentBuilder {
     }
 
     public ApartmentBuilder services(Services... services) {
-        this.services = services;
+        this.services = new ArrayList<>(Arrays.asList(services));
         return this;
     }
 

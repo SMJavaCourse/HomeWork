@@ -2,16 +2,18 @@ package org.course;
 
 import org.course.services.Services;
 
+import java.util.ArrayList;
+
 public class Apartment {
-    //TODO убрать наследников
     private String name;
     private int price;
     private int rooms;
     private int numberOfRoom;
     private int capacity;
-    private Services[] services;
+    private ArrayList<Services> services;
+//    private Services[] services;
 
-    public Apartment(int rooms, int numberOfRoom, int price, int capacity, Services... services) {
+    public Apartment(int rooms, int numberOfRoom, int price, int capacity, ArrayList<Services> services) {
         this.rooms = rooms;
         this.numberOfRoom = numberOfRoom;
         this.price = price;
@@ -36,12 +38,12 @@ public class Apartment {
 
     private String soutServices() {
         String textServices = "";
-        if (services.length == 0) {
+        if (services.size() == 0) {
             textServices = "отсутствуют" + "\n";
         } else {
-            for (int i = 0; i < services.length; i++) {
-                textServices += services[i].getName();
-                if (i + 1 < services.length) {
+            for (int i = 0; i < services.size(); i++) {
+                textServices += services.get(i).getName();
+                if (i + 1 < services.size()) {
                     textServices += ", ";
                 } else {
                     textServices += "\n";

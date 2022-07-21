@@ -4,9 +4,11 @@ import org.course.exception.HotelFactoryException;
 import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static org.course.Hotel.findHotel;
+import static org.course.Hotel.findHotelNew;
 
 public class Task3 {
 
@@ -34,6 +36,7 @@ public class Task3 {
 
         Scanner in = new Scanner((System.in));
         boolean exit = false;
+
         while (!exit) {
             String input = in.nextLine().trim();
             if (StringUtils.isBlank(input)) {
@@ -46,11 +49,16 @@ public class Task3 {
                 int firstSpaceIndex = input.trim().indexOf(" ");
                 try {
                     if (firstSpaceIndex == -1) {
-                        System.out.println(findHotel(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
+                        ArrayList<Hotel> atata = findHotelNew(hotels, null, Integer.parseInt(input.trim()));
+                        for (int i = 0; i < atata.size(); i++) {
+                            System.out.println(atata.get(i).getName());
+                        }
+
+//                        System.out.println(findHotelNew(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
                         continue;
                     }
                     int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
-                    System.out.println(findHotel(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
+                    System.out.println(findHotelNew(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
                 }
