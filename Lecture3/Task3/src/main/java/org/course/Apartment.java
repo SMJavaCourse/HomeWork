@@ -1,11 +1,14 @@
 package org.course;
 
+import static java.lang.Character.getName;
+
 public class Apartment {
-    public int num;
-    public int apartment;
-    public float price;
-    public String time;
-    private int people;
+    private String name;
+    private int numberOfApart;
+    private int apartments;
+    private float price;
+    private String time;
+    private int capacity;
 
     public boolean isBalcony;
     public boolean isClean;
@@ -13,16 +16,37 @@ public class Apartment {
     public boolean isСonditioner;
     public boolean isShashlik;
 
+    public int getCapacity() {
+        return capacity;
+    }
 
-    public Apartment(int apartment, float price, int people) {
-        this.apartment = apartment;
+    public Apartment(int num, int apartments, float price, String time, int people, boolean isBalcony, boolean isClean, boolean isInternet, boolean isСonditioner, boolean isShashlik) {
+        this.numberOfApart = num;
+        this.apartments = apartments;
         this.price = price;
-        this.people = people;
+        this.time = time;
+        this.capacity = people;
+        this.isBalcony = isBalcony;
+        this.isClean = isClean;
+        this.isInternet = isInternet;
+        this.isСonditioner = isСonditioner;
+        this.isShashlik = isShashlik;
+    }
+
+    private String getName(int rooms) {
+        if (rooms == 1) {
+            name = "Однокомнатный номер";
+        } else if (rooms == 2) {
+            name = "Двухкомнатный номер";
+        } else if (rooms == 3) {
+            name = "Трёхкомнатный номер";
+        }
+        return name;
     }
 
     public void print() {
         String a = "";
-        switch (apartment) {
+        switch (apartments) {
             case 1:
                 a = "Однокомнатный номер";
                 break;
@@ -37,9 +61,9 @@ public class Apartment {
         }
 
         System.out.print(a);
-        System.out.println(" (комната номер: " + num + ")");
+        System.out.println(" (комната номер: " + numberOfApart + ")");
         System.out.println("    Цена: " + price + " р/сутки");
-        System.out.println("    Вместимость до " + people + " человек");
+        System.out.println("    Вместимость до " + capacity + " человек");
         System.out.println("    Время заселения: " + time);
         String s = "    Дополнительный услуги: ";
         if (isBalcony) {
@@ -52,6 +76,7 @@ public class Apartment {
         if (isInternet) {
             s = s + "интернет, ";
 
+
         }
         if (isСonditioner) {
             s = s + "кондиционер, ";
@@ -63,5 +88,13 @@ public class Apartment {
         }
         System.out.println(s);
         System.out.println();
+    }
+
+    @Override
+    public String toString() {
+        String text = "\t\u2219 " + getName(apartments) +
+                " (комната номер " + numberOfApart + "):\n\t\t\u25e6 Цена: " + price +
+                "\n\t\t\u25e6 Дополнительные услуги: " + isBalcony + isClean;
+        return text;
     }
 }
