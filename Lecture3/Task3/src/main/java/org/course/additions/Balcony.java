@@ -1,9 +1,9 @@
 package org.course.additions;
 
-public class Balcony implements Additions{
-    private String name = "балкон";
+public class Balcony implements Addition {
+    private static final String NAME = "балкон";
 
     public String getName() {
-        return name;
+        return NAME;
     }
 }

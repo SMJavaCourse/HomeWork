@@ -1,25 +1,33 @@
 package org.course;
 
+import java.time.LocalTime;
+
 public class Hotel {
     private String name;
     private Apartment[] apartments;
-    private static String checkInTime;
+    private LocalTime checkInTime;
+    private String[] allApartmentsInfo;
 
-    public static String getCheckInTime() {
-        return checkInTime;
+    public String getName() {
+        return name;
     }
 
-    public Hotel(String name, String checkInTime, Apartment[] apartments) {
+    public Apartment[] getApartments() {
+        return apartments;
+    }
+
+    public Hotel(String name, LocalTime checkInTime, Apartment[] apartments) {
         this.name = name;
-        Hotel.checkInTime = checkInTime;
+        this.checkInTime = checkInTime;
         this.apartments = apartments;
     }
 
-    void hotelInfo() {
-        System.out.print("Отель " + name + ":\nКоличество номеров: " + apartments.length + "\nНомера:");
+    public String hotelInfo() {
+        allApartmentsInfo = new String[apartments.length];
         for (int i = 0; i < apartments.length; i++) {
-            apartments[i].apartmentInfo();
+            allApartmentsInfo[i] = apartments[i].apartmentInfo();
         }
-        System.out.println("\n");
+        return "Отель " + name + ":\nКоличество номеров: " + apartments.length + "\nНомера:" + String.join("", allApartmentsInfo) + "\n";
+
     }
 }

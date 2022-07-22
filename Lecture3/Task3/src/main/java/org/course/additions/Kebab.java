@@ -1,9 +1,9 @@
 package org.course.additions;
 
-public class Kebab implements Additions{
-    private String name = "шашлычок в номер";
+public class Kebab implements Addition {
+    private static final String NAME = "шашлычок в номер";
 
     public String getName() {
-        return name;
+        return NAME;
     }
 }

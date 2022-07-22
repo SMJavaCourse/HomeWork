@@ -1,6 +1,6 @@
 package org.course.additions;
 
-public interface Additions {
+public interface Addition {
 
     String getName();
 }

@@ -1,9 +1,9 @@
 package org.course.additions;
 
-public class AirConditioner implements Additions{
-    private String name = "кондиционер";
+public class AirConditioner implements Addition {
+    private static final String NAME = "кондиционер";
 
     public String getName() {
-        return name;
+        return NAME;
     }
 }
