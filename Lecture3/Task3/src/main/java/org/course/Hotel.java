@@ -23,6 +23,10 @@ public class Hotel {
         return apartments;
     }
 
+    public void setApartments(ArrayList<Apartment> apartments) {
+        this.apartments = apartments;
+    }
+
     @Override
     public String toString() throws NullPointerException {
         StringBuilder text = new StringBuilder("Отель \"" + name + "\"\nКоличество номеров: " + apartments.size() +
@@ -33,7 +37,7 @@ public class Hotel {
         return text.toString();
     }
 
-    public static ArrayList<Hotel> findHotelNew(ArrayList<Hotel> hotels, String nameOfHotel, int numberOfGuests) {
+    public static ArrayList findHotelNew(ArrayList<Hotel> hotels, String nameOfHotel, int numberOfGuests) {
         int numberOfApartmentsFound = 0;
         String findHotel = "";
         String findApartment = "";
@@ -52,6 +56,7 @@ public class Hotel {
                 findApartmentsResult = findApartmentNew(hotels.get(i).getApartments(),numberOfGuests);
                 if (findApartmentsResult != null) {
                     findHotelsResult.add(hotels.get(i));
+                    hotels.get(i).setApartments(findApartmentsResult);
                 }
             }
 //            findHotelsResult.add("Найдено отелей: " + numberOfHotelsFound + "\n" + findHotel);

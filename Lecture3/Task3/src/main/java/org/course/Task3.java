@@ -37,6 +37,33 @@ public class Task3 {
         Scanner in = new Scanner((System.in));
         boolean exit = false;
 
+//        while (!exit) {
+//            String input = in.nextLine().trim();
+//            if (StringUtils.isBlank(input)) {
+//                System.out.println("Пустая строка. Повторите ввод");
+//                continue;
+//            }
+//            if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
+//                exit = true;
+//            } else {
+//                int firstSpaceIndex = input.trim().indexOf(" ");
+//                try {
+//                    if (firstSpaceIndex == -1) {
+//                        ArrayList<Hotel> searchResult = findHotelNew(hotels, null, Integer.parseInt(input.trim()));
+//                        for (int i = 0; i < searchResult.size(); i++) {
+//                            System.out.println(searchResult.get(i));
+//                        }
+//
+////                        System.out.println(findHotelNew(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
+//                        continue;
+//                    }
+//                    int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
+//                    System.out.println(findHotelNew(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
+//                } catch (NumberFormatException e) {
+//                    System.out.println("Количество гостей это число, повторите ввод:");
+//                }
+//            }
+//        }
         while (!exit) {
             String input = in.nextLine().trim();
             if (StringUtils.isBlank(input)) {
@@ -49,16 +76,11 @@ public class Task3 {
                 int firstSpaceIndex = input.trim().indexOf(" ");
                 try {
                     if (firstSpaceIndex == -1) {
-                        ArrayList<Hotel> atata = findHotelNew(hotels, null, Integer.parseInt(input.trim()));
-                        for (int i = 0; i < atata.size(); i++) {
-                            System.out.println(atata.get(i).getName());
-                        }
-
-//                        System.out.println(findHotelNew(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
+                        System.out.println(findHotel(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
                         continue;
                     }
                     int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
-                    System.out.println(findHotelNew(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
+                    System.out.println(findHotel(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
                 }
