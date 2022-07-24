@@ -1,15 +1,16 @@
-package org.course.phonebook.impl;
+package org.course.phonebook.old;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.course.phonebook.impl.ContactImpl;
 import org.course.phonebook.requirements.Contact;
-import org.course.phonebook.requirements.Phonebook;
 
 import java.util.NoSuchElementException;
 
-public class PhonebookImpl implements Phonebook {
+public class OldPhonebookImpl implements OldPhonebook {
 
     private String name;
-    private Contact[] contacts;
+    private Contact[] contacts = new Contact[0];
+
 
     @Override
     public String getName() {
@@ -120,17 +121,18 @@ public class PhonebookImpl implements Phonebook {
     }
 
     @Override
-    public Phonebook exportPhonebook() {
+    public OldPhonebook exportPhonebook() {
         return this;
     }
 
     @Override
-    public void importPhonebook(Phonebook phonebook) {
+    public void importPhonebook(OldPhonebook phonebook) {
 
     }
 
     @Override
-    public Contact[] findFriends(Phonebook phonebook) {
+    public Contact[] findFriends(OldPhonebook phonebook) {
         return new Contact[0];
     }
 }
+
