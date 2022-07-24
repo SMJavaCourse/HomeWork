@@ -4,8 +4,8 @@ import java.util.List;
 
 public class ApartmentThreeRooms extends Apartment {
     private static final String APART_TYPE = "Трехкомнатный номер";
-    public ApartmentThreeRooms(float price, int places, int roomNumber, List<Services> servicesList) {
-        super(price, places, roomNumber, servicesList);
+    public ApartmentThreeRooms(float price, int places, int roomNumber) {
+        super(price, places, roomNumber);
     }
     @Override
     public String getApartmentsTypeName() {

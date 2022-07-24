@@ -1,10 +1,26 @@
 package org.course;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Apartment implements Apartments {
-    private List<Services> servicesList;
+    public Apartment setServices(Services services) {
+        this.services = services;
+        this.servicesList.add(services);
+        return this;
+    }
+
+    private Services services;
+    private List<Services> servicesList = new ArrayList<>();
+
+    public List<Services> getServicesList() {
+        if  (this.servicesList != null) {
+            return this.servicesList;
+        } else {
+            return List.of();
+        }
+    }
 
     private float price;
     private int places;
@@ -24,11 +40,10 @@ public abstract class Apartment implements Apartments {
         return roomNumber;
     }
 
-    public Apartment(float price, int places, int roomNumber, List<Services> servicesList) {
+    public Apartment(float price, int places, int roomNumber) {
         this.price = price;
         this.places = places;
         this.roomNumber = roomNumber;
-        this.servicesList = servicesList;
     }
 
     public void setCheckinTime(LocalTime checkinTime) {
@@ -38,8 +53,8 @@ public abstract class Apartment implements Apartments {
         return checkinTime;
     }
 
-    public List<Services> getServicesList() {
-        return this.servicesList;
+    public Services getServices() {
+        return this.services;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package org.course;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HotelFactory {
@@ -10,29 +11,27 @@ public class HotelFactory {
         try {
             switch (hotelName) {
                 case "У мамы лучше":
-                    Apartment[] apartmentsForHotel1 = new Apartment[5];
-                    apartmentsForHotel1[0] = new ApartmentOneRoom(1000f, 2, 13,
-                            List.of(new ServicesImpl().addBalcony()));
-                    apartmentsForHotel1[1] = new ApartmentTwoRooms(3000f, 4, 14,
-//                            List.of(new ServicesImpl().addBalcony().addCleaning().addConditioner())
-                            List.of(new ServicesImpl().addBalcony(), new ServicesImpl().addCleaning(), new ServicesImpl().addConditioner())
-                    );
-                    apartmentsForHotel1[2] = new ApartmentTwoRooms(3000f, 4, 15,
-                            List.of(new ServicesImpl().addBalcony().addCleaning().addConditioner().addInternet()));
-                    apartmentsForHotel1[3] = new ApartmentThreeRooms(2500f, 6, 16,
-                            List.of());
-                    apartmentsForHotel1[4] = new ApartmentThreeRooms(3500f, 6, 17,
-                            List.of(new ServicesImpl().addBalcony().addInternet()));
+                    List<Apartment> apartmentsForHotel1 = new ArrayList<>();
+                    apartmentsForHotel1.add(new ApartmentOneRoom(1000f, 2, 13)
+                                    .setServices(new ServicesImpl().addBalcony().addCleaning()));
+                    apartmentsForHotel1.add(new ApartmentTwoRooms(3000f, 4, 14)
+                            .setServices(new ServicesImpl().addBalcony().addCleaning().addConditioner()));
+                    apartmentsForHotel1.add(new ApartmentTwoRooms(3000f, 4, 15)
+                                    .setServices(new ServicesImpl().addBalcony().addCleaning().addConditioner().addInternet()));
+                    apartmentsForHotel1.add(new ApartmentThreeRooms(2500f, 6, 16));
+                    apartmentsForHotel1.add(new ApartmentThreeRooms(3500f, 6, 17)
+                                    .setServices(new ServicesImpl().addBalcony().addInternet()));
                     hotelBuilder.name(hotelName).apartments(apartmentsForHotel1).checkInTime(LocalTime.of(12, 0));
+
                     break;
                 case "Шашлычок":
-                    Apartment[] apartmentsForHotel2 = new Apartment[3];
-                    apartmentsForHotel2[0] = new ApartmentOneRoom(1000f, 2, 13,
-                            List.of(new ServicesImpl().addGrillMeat()));
-                    apartmentsForHotel2[1] = new ApartmentTwoRooms(2000f, 4, 14,
-                            List.of(new ServicesImpl().addBalcony().addCleaning()));
-                    apartmentsForHotel2[2] = new ApartmentThreeRooms(4000f, 6, 15,
-                            List.of(new ServicesImpl().addCleaning()));
+                    List<Apartment> apartmentsForHotel2 = new ArrayList<>();
+                    apartmentsForHotel2.add(new ApartmentOneRoom(1000f, 2, 13)
+                            .setServices(new ServicesImpl().addGrillMeat()));
+                    apartmentsForHotel2.add(new ApartmentTwoRooms(2000f, 4, 14)
+                                    .setServices(new ServicesImpl().addBalcony().addCleaning()));
+                    apartmentsForHotel2.add(new ApartmentThreeRooms(4000f, 6, 15)
+                                    .setServices(new ServicesImpl().addCleaning()));
                     hotelBuilder.name(hotelName).apartments(apartmentsForHotel2).checkInTime(LocalTime.of(9, 0));
                     break;
                 default:

@@ -1,19 +1,18 @@
 package org.course;
 
+import java.util.List;
 
 public interface Hotels {
 
-    Apartment[] getAllApartments();
+    List<Apartment> getAllApartments();
     int getRoomsTotalCount();
 
-    static void printHotelInfo(Hotel[] hotels) throws HotelException {
-        for (int i = 0; i < hotels.length; i++) {
-            System.out.println(hotels[i].toString());
-            Apartments.printApartments(hotels[i].getAllApartments());
-            System.out.println("\n************************************************\n");
+    static void printHotelInfo(List<Hotel> hotels) {
+        for (Hotel hotel: hotels) {
+            System.out.println(hotel.toString());
+            Apartments.printApartments(hotel.getAllApartments());
+            System.out.println("\n*****************************\n");
         }
     }
-//    static void printAvailableApartmentByName(Hotel[] hotels, String apartmentName, int places) {}
-
 
 }

@@ -1,7 +1,6 @@
 package org.course;
 
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,14 +8,14 @@ import java.util.stream.Collectors;
 public class Hotel implements Hotels{
     private String name;
     private LocalTime checkInTime;
-    private Apartment[] apartments;
+    private List<Apartment> apartments;
     private int roomsTotalCount;
 
     public String getName() {
         return name;
     }
 
-    public Hotel(String name, Apartment[] apartments, LocalTime checkInTime) {
+    public Hotel(String name, List<Apartment> apartments, LocalTime checkInTime) {
         this.name = name;
         this.apartments = apartments;
         this.checkInTime = checkInTime;
@@ -24,11 +23,9 @@ public class Hotel implements Hotels{
             if(apartments == null) {
                 throw new HotelException("No apartments");
             }
-            this.roomsTotalCount = getRoomsTotalCount() + apartments.length;
+            this.roomsTotalCount = getRoomsTotalCount() + apartments.size();
+            apartments.forEach(a -> a.setCheckinTime(checkInTime));
 
-            for (Apartment apartment : apartments) {
-                apartment.setCheckinTime(checkInTime);
-            }
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
@@ -42,19 +39,21 @@ public class Hotel implements Hotels{
                 "Номера: ";
     }
 
-    public Apartment[] getAllApartments() {
+    public List<Apartment> getAllApartments() {
         return apartments;
     }
     public int getRoomsTotalCount() {
         return roomsTotalCount;
     }
 
-    private static List<Apartment> getAvailableApartmentByHotelName(Hotel[] hotels, String hotelName, int places) {
+    public static List<Apartment> getAvailableApartmentByHotelName(List<Hotel> hotels, String hotelName, int places) {
         try {
-            if (hotels.length != 0 && Arrays.stream(hotels).anyMatch(h -> h != null)) {
-                var listHotels = Arrays.stream(hotels).filter(h -> h.getName().equals(hotelName)).collect(Collectors.toList());
+            if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
+                var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
+                        .collect(Collectors.toList());
                 if (listHotels.size() == 1) {
-                    var list = Arrays.stream(listHotels.get(0).getAllApartments())
+                    var list = listHotels.get(0).getAllApartments()
+                            .stream()
                             .filter(apartment -> apartment.getPlaces() == places)
                             .collect(Collectors.toList());
                     if (list.size() == 0) {
@@ -77,7 +76,7 @@ public class Hotel implements Hotels{
         return List.of(new Apartment[0]);
     }
 
-    public static void printAvailableApartmentByHotelName(Hotel[] hotels, String apartmentName, int places) {
+    public static void printAvailableApartmentByHotelName(List<Hotel> hotels, String apartmentName, int places) {
         var listApartments = getAvailableApartmentByHotelName(hotels, apartmentName, places);
         if (listApartments.size() != 0) {
             System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");

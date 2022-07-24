@@ -1,12 +1,13 @@
 package org.course;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class HotelBuilder {
 
     private String name;
     private LocalTime checkInTime;
-    private Apartment[] apartments;
+    private List<Apartment> apartments;
 
     public HotelBuilder name(String name) {
         this.name = name;
@@ -16,7 +17,7 @@ public class HotelBuilder {
         this.checkInTime = checkInTime;
         return this;
     }
-    public HotelBuilder apartments(Apartment[] apartments) {
+    public HotelBuilder apartments(List<Apartment> apartments) {
         this.apartments = apartments;
         return this;
     }

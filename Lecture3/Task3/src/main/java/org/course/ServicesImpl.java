@@ -64,10 +64,11 @@ public class ServicesImpl implements Services{
 
     @Override
     public String toString() {
-        return isBalcony() ? "Балкон" : "" +
-                (isCleaning() ? "Уборка" : "") +
-                (isConditioner() ? "Кондиционер" : "") +
-                (isInternet() ? "Интернет" : "") +
-                (isGrillMeat() ? "Шашлычок в номер" : "");
+        var b = isBalcony() ? "\"балкон\" " : "";
+        var cl = isCleaning() ? "\"уборка\" " : "";
+        var cn = isConditioner() ? "\"кондиционер\" " : "";
+        var i = isInternet() ? "\"интернет\" " : "";
+        var gm = isGrillMeat() ? "\"шашлычок в номер\" " : "";
+        return (b + cl + cn + i + gm).strip().replaceAll("\\s", ", ");
     }
 }

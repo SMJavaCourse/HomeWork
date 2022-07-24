@@ -9,9 +9,9 @@ public interface Apartments {
 
     void setCheckinTime(LocalTime checkinTime);
 
-    List<Services> getServicesList();
+    Services getServices();
 
-    static void printApartments(Apartment[] apartments) {
+    static void printApartments(List<Apartment> apartments) {
         try {
             for (Apartment apartment : apartments) {
                 System.out.println(apartment.toString());
