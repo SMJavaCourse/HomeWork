@@ -3,9 +3,16 @@ package org.course;
 import org.apache.commons.lang3.StringUtils;
 import org.course.exception.BookingException;
 
+import java.util.Collection;
+import java.util.List;
+
 public class Hotel {
     private String name;
-    private Apartment[] apartments;
+
+
+
+    private List<Apartment> apartments;
+    //private Collection<Apartment> apartments1;
     private final String checkInTime;
 
 
@@ -13,7 +20,7 @@ public class Hotel {
         return checkInTime;
     }
 
-    public Hotel(String name, Apartment[] apartments, String checkInTime) {
+    public Hotel(String name, List<Apartment> apartments, String checkInTime) {
         this.name = name;
         this.apartments = apartments;
         this.checkInTime = checkInTime;
@@ -23,17 +30,21 @@ public class Hotel {
         return name;
     }
 
+    public List<Apartment> getApartments() {
+        return apartments;
+    }
+
+    public void setApartments(List<Apartment> apartments) {
+        this.apartments = apartments;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public Apartment[] getApartments() {
-        return apartments;
-    }
 
-    public void setRooms(Apartment[] apartments) {
-        this.apartments = apartments;
-    }
+
+
 
     public static String findRooms(Hotel[] hotels, String hotelsName, int numberOfPeople) throws BookingException {
         String text = "";

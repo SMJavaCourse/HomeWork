@@ -3,11 +3,15 @@ package org.course.factory;
 import org.course.*;
 import org.course.builder.ApartmentBuilder;
 import org.course.exception.BookingException;
+import org.course.features.Feature;
 import org.course.features.construct.AirConditioner;
 import org.course.features.construct.Balcony;
 import org.course.features.nonconstruct.Cleaning;
 import org.course.features.nonconstruct.Internet;
 import org.course.features.nonconstruct.Kebab;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public final class HotelFactory {
     public static HotelFactory instance;
@@ -24,6 +28,11 @@ public final class HotelFactory {
 
     public Hotel createHotel(String name) throws BookingException {
 
+
+        List<Feature> featuresRoom1 = new ArrayList<>();
+        featuresRoom1.add(new Balcony());
+
+
             ApartmentBuilder builder = new ApartmentBuilder();
             switch (name) {
                 case "У мамы лучше" :
@@ -33,18 +42,18 @@ public final class HotelFactory {
                             .numberOfPeople(2)
                             .price(1000d)
                             .apartmentNumber(12)
-                            .features(new Balcony())
+                            .features(featuresRoom1)
                             .build();
                     apartmentsHotelGrandMa[1] = builder
                             .numberOfRooms(2)
                             .numberOfPeople(4)
                             .price(3000d)
                             .apartmentNumber(13)
-                            .features(
+                            .features(List.of(
                                     new Balcony(),
                                     new Internet(),
                                     new Cleaning(),
-                                    new AirConditioner())
+                                    new AirConditioner()))
                             .build();
                     apartmentsHotelGrandMa[2] = builder
                             .apartmentNumber(14)

@@ -2,17 +2,19 @@ package org.course;
 
 import org.course.features.Feature;
 
+import java.util.List;
+
 public class Apartment {
     private static final String ONE_ROOM = "Однокомнатный номер";
     private static final String TWO_ROOM = "Двухкомнатный номер";
     private static final String THREE_ROOM = "Трехкомнатный номер";
     private final int apartmentNumber;
-    private final Feature[] features;
+    private final List<Feature> features;
     private final int numberOfRooms;
     private final int numberOfPeople;
     protected double price;
 
-    public Apartment(int numberOfRooms, double price, int apartmentNumber, int numberOfPeople, Feature... features) {
+    public Apartment(int numberOfRooms, double price, int apartmentNumber, int numberOfPeople, List<Feature> features) {
         this.numberOfRooms = numberOfRooms;
         this.price = price;
         this.apartmentNumber = apartmentNumber;
@@ -20,8 +22,8 @@ public class Apartment {
         this.features = features;
     }
 
-    public Feature[] getFeatures() {
-        return this.features;
+    public List<Feature> getFeatures() {
+        return features;
     }
 
     public double getPrice() {
@@ -55,14 +57,14 @@ public class Apartment {
                         " - Цена: " + getPrice() + " (р/сутки)" + System.lineSeparator() +
                         " - количество человек в номере: " + getNumberOfPeople() + System.lineSeparator() +
                         " - Дополнительные услуги: ";
-        if (features.length == 0) {
+        if (features.size() == 0) {
             text += "дополнительные услуги отсутствуют";
         } else {
-            for (int i = 0; i < features.length; i++) {
-                if (i != features.length - 1) {
-                    text += features[i].getName() + ", ";
+            for (int i = 0; i < features.size(); i++) {
+                if (i != features.size() - 1) {
+                    text += features.get(i).getName() + ", ";
                 } else {
-                    text += features[i].getName();
+                    text += features.get(i).getName();
                 }
             }
         }
