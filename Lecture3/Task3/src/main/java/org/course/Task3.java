@@ -1,14 +1,12 @@
 package org.course;
 
-import constructors.ApartBuilder;
 import constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static org.course.Hotel.search;
-import static org.course.Hotel.searchRoom;
+import static org.course.Hotel.*;
 
 public class Task3 {
     public static void main(String[] args) {
@@ -16,39 +14,29 @@ public class Task3 {
         Hotel secondHotel = HotelFactory.getInstance().createHotel("Шашлычок");
         Hotel[] hotels = {firstHotel, secondHotel};
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Поиск лучших номеров!\nВведите наименование отеля:\n");
-        boolean again = true;
-        while (again) {
-            String input = scanner.nextLine().trim();
-            if (StringUtils.isBlank(input)) {
-                System.out.println("Пустая строка");
-                //again = false;
-                continue;
-            } else {
-                Hotel foundHotel = search(input, hotels);
-                if (foundHotel == null) {
-                    System.out.println("Не нашел");
-                } else {
-                    System.out.println("Для вас найден отель" + " " + "\n\"" + foundHotel.getName() + "\"\n");
+        while (true) {
+            try {
+                System.out.println("Поиск лучших номеров!\nВведите наименование отеля:");
+                String hotelsName = scanner.nextLine().trim();
+                if ("exit".equalsIgnoreCase(hotelsName) || "выход".equalsIgnoreCase(hotelsName)) {
+                    return;
+                }
+                if (StringUtils.isBlank(hotelsName)) {
+                    continue;
                 }
                 System.out.println("Введите количество гостей:");
                 int inputNumPeople = scanner.nextInt();
+                Hotel foundHotel = search(hotelsName, hotels);
                 Apartment[] foundApartments = searchRoom(inputNumPeople, foundHotel);
-                if (foundApartments == null) {
-                    System.out.println("Не нашел");
-                } else {
-                    printApartments(foundApartments);
-                }
+                Hotel.printApartments(foundApartments);
+                break;
+            } catch (NullPointerException e) {
+                System.out.println("Отель не найден!\n");
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Количество гостей это число, повторите ввод.");
+                break;
             }
-        }
-    }
-
-
-    public static void printApartments(Apartment[] apartments) {
-        System.out.println("Количество аппартаментов:" + apartments.length);
-        for (int i = 0; i < apartments.length; i++) {
-            apartments[i].print();
         }
     }
 }
