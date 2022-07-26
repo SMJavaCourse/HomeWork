@@ -33,28 +33,23 @@ public class Hotel {
         return text.toString();
     }
 
-    public static ArrayList findHotelNew(ArrayList<Hotel> hotels, String nameOfHotel) {
-
-        ArrayList findHotelsResult = new ArrayList();
-
-        for (int i = 0; i < hotels.size(); i++) {
-            if (StringUtils.equalsIgnoreCase(nameOfHotel, hotels.get(i).getName())) {
-                findHotelsResult.add(hotels.get(i));
+    public static ArrayList<Hotel> findHotel(ArrayList<Hotel> hotels, String nameOfHotel) {
+        ArrayList<Hotel> findHotelsResult = new ArrayList<>();
+        for (Hotel hotel : hotels) {
+            if (StringUtils.equalsIgnoreCase(nameOfHotel, hotel.getName())) {
+                findHotelsResult.add(hotel);
                 return findHotelsResult;
             }
         }
         return findHotelsResult;
     }
 
-    public static ArrayList<Apartment> findApartmentNew(ArrayList<Apartment> apartments, int numberOfGuests) {
-        ArrayList findApartmentsResult = new ArrayList();
-        for (int j = 0; j < apartments.size(); j++) {
-            if (numberOfGuests <= apartments.get(j).getCapacity()) {
-                findApartmentsResult.add(apartments.get(j));
+    public static ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
+        ArrayList<Apartment> findApartmentsResult = new ArrayList<>();
+        for (Apartment apartment : apartments) {
+            if (numberOfGuests <= apartment.getCapacity()) {
+                findApartmentsResult.add(apartment);
             }
-        }
-        if (findApartmentsResult.size() == 0) {
-            return null;
         }
         return findApartmentsResult;
     }
