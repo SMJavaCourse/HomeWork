@@ -11,7 +11,6 @@ public class Apartment {
     private int numberOfRoom;
     private int capacity;
     private ArrayList<Services> services;
-//    private Services[] services;
 
     public Apartment(int rooms, int numberOfRoom, int price, int capacity, ArrayList<Services> services) {
         this.rooms = rooms;

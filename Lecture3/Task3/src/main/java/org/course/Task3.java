@@ -4,11 +4,11 @@ import org.course.exception.HotelFactoryException;
 import org.course.constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
-import static org.course.Hotel.findHotel;
+
 import static org.course.Hotel.findHotelNew;
+import static org.course.Hotel.findApartmentNew;
 
 public class Task3 {
 
@@ -37,35 +37,9 @@ public class Task3 {
         Scanner in = new Scanner((System.in));
         boolean exit = false;
 
-//        while (!exit) {
-//            String input = in.nextLine().trim();
-//            if (StringUtils.isBlank(input)) {
-//                System.out.println("Пустая строка. Повторите ввод");
-//                continue;
-//            }
-//            if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) {
-//                exit = true;
-//            } else {
-//                int firstSpaceIndex = input.trim().indexOf(" ");
-//                try {
-//                    if (firstSpaceIndex == -1) {
-//                        ArrayList<Hotel> searchResult = findHotelNew(hotels, null, Integer.parseInt(input.trim()));
-//                        for (int i = 0; i < searchResult.size(); i++) {
-//                            System.out.println(searchResult.get(i));
-//                        }
-//
-////                        System.out.println(findHotelNew(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
-//                        continue;
-//                    }
-//                    int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
-//                    System.out.println(findHotelNew(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
-//                } catch (NumberFormatException e) {
-//                    System.out.println("Количество гостей это число, повторите ввод:");
-//                }
-//            }
-//        }
         while (!exit) {
             String input = in.nextLine().trim();
+            String vivod = "";
             if (StringUtils.isBlank(input)) {
                 System.out.println("Пустая строка. Повторите ввод");
                 continue;
@@ -74,13 +48,46 @@ public class Task3 {
                 exit = true;
             } else {
                 int firstSpaceIndex = input.trim().indexOf(" ");
+                int numberOfHotelsFound = 0;
                 try {
                     if (firstSpaceIndex == -1) {
-                        System.out.println(findHotel(hotels, null,Integer.parseInt(input.trim())) + "\nЕщё один поиск:");
+                        int numberOfGuests = Integer.parseInt(input.trim());
+                        if (numberOfGuests < 1) {
+                            System.out.println("Количество гостей не может быть меньше 1, повторите ввод:");
+                            continue;
+                        }
+                        for (int i = 0; i < hotels.size(); i++) {
+                            ArrayList<Apartment> findApartments = findApartmentNew(hotels.get(i).getApartments(), numberOfGuests);
+                            if (findApartments != null) {
+                                vivod += "Отель \"" + hotels.get(i).getName() + "\":\nПодходящих номеров: " + findApartments.size() + "\nНомера:\n" + findApartments.toString() + "\n";
+                                numberOfHotelsFound += 1;
+                            }
+                        }
+                        System.out.println("Найдено отелей: " + numberOfHotelsFound + "\n" + vivod + "\nНовый поиск:");
                         continue;
                     }
                     int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
-                    System.out.println(findHotel(hotels, input.substring(firstSpaceIndex+1), numberOfGuests) + "\nПовторите ввод:");
+                    if (numberOfGuests < 1) {
+                        System.out.println("Количество гостей не может быть меньше 1, повторите ввод:");
+                        continue;
+                    }
+                    ArrayList<Hotel> searchResult = findHotelNew(hotels, input.substring(firstSpaceIndex + 1));
+                    if (searchResult.size() != 0) {
+                        for (int i = 0; i < searchResult.size(); i++) {
+                            ArrayList<Apartment> findApartments = findApartmentNew(searchResult.get(i).getApartments(), Integer.parseInt(input.substring(0, firstSpaceIndex)));
+                            if (findApartments != null) {
+                                vivod += "Отель \"" + searchResult.get(i).getName() + "\":\nПодходящих номеров: " + findApartments.size() + "\nНомера:\n" + findApartments;
+                                numberOfHotelsFound += 1;
+                            }
+                        }
+                    } else {
+                        System.out.println("У нас нет информации по отелю " + input.substring(firstSpaceIndex + 1));
+                    }
+                    if (vivod == "") {
+                        System.out.println("В отеле \"" + input.substring(firstSpaceIndex + 1) + "\" нет достаточного количества мест\nНовый поиск:");
+                    } else {
+                        System.out.println("Найдено отелей2: " + numberOfHotelsFound + "\n" + vivod + "\nНовый поиск:");
+                    }
                 } catch (NumberFormatException e) {
                     System.out.println("Количество гостей это число, повторите ввод:");
                 }

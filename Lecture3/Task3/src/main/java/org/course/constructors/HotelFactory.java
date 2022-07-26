@@ -5,8 +5,6 @@ import org.course.Hotel;
 import org.course.exception.HotelFactoryException;
 import org.course.services.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class HotelFactory {
 
