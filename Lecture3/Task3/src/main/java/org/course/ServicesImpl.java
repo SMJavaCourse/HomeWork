@@ -69,6 +69,6 @@ public class ServicesImpl implements Services{
         var cn = isConditioner() ? "\"кондиционер\" " : "";
         var i = isInternet() ? "\"интернет\" " : "";
         var gm = isGrillMeat() ? "\"шашлычок в номер\" " : "";
-        return (b + cl + cn + i + gm).strip().replaceAll("\\s", ", ");
+        return (b + cl + cn + i + gm).strip().replaceAll("\"\\s", "\", ");
     }
 }

@@ -1,7 +1,10 @@
 package org.course;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -46,7 +49,7 @@ public class Hotel implements Hotels{
         return roomsTotalCount;
     }
 
-    public static List<Apartment> getAvailableApartmentByHotelName(List<Hotel> hotels, String hotelName, int places) {
+    public static List<Apartment> getAvailableApartments(List<Hotel> hotels, String hotelName, int places) {
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
                 var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
@@ -75,10 +78,35 @@ public class Hotel implements Hotels{
         }
         return List.of(new Apartment[0]);
     }
+    public static Long getCountHotelsByParam(List<Hotel> hotels, int places) {
+        var count = hotels.stream()
+                .map(hotel -> hotel.getAllApartments()
+                        .stream().filter(a -> a.getPlaces().equals(places))).count();
+        return count;
+    }
+    public static List<List<Apartment>> getApartmentsByParam(List<Hotel> hotels, int places) {
 
-    public static void printAvailableApartmentByHotelName(List<Hotel> hotels, String apartmentName, int places) {
-        var listApartments = getAvailableApartmentByHotelName(hotels, apartmentName, places);
+        var list =  hotels.stream()
+                .map(hotel -> hotel.getAllApartments()
+                        .stream().filter(a -> a.getPlaces().equals(places))
+                        .toList()).collect(Collectors.toList());
+        return list;
+    }
+
+    public static void printAvailableApartmentByParams(List<Hotel> hotels, String hotelName, Integer places) {
+        var listApartments = getAvailableApartments(hotels, hotelName, places);
         if (listApartments.size() != 0) {
+            System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");
+            listApartments.forEach(System.out::println);
+            System.out.println("\n");
+        }
+    }
+
+    public static void printAvailableApartmentByParams(List<Hotel> hotels, Integer places) {
+        var listApartments = getApartmentsByParam(hotels, places);
+        if (listApartments.size() != 0) {
+            var countHotels = getCountHotelsByParam(hotels, places);
+            System.out.println("Найдено отелей: " + countHotels);
             System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");
             listApartments.forEach(System.out::println);
             System.out.println("\n");

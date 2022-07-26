@@ -14,7 +14,7 @@ public interface Apartments {
     static void printApartments(List<Apartment> apartments) {
         try {
             for (Apartment apartment : apartments) {
-                System.out.println(apartment.toString());
+                System.out.println(apartment);
             }
         } catch (NullPointerException e) {
             System.out.println("No apartments");

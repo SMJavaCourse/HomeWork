@@ -32,7 +32,7 @@ public abstract class Apartment implements Apartments {
         return price;
     }
 
-    public int getPlaces() {
+    public Integer getPlaces() {
         return places;
     }
 
@@ -40,7 +40,7 @@ public abstract class Apartment implements Apartments {
         return roomNumber;
     }
 
-    public Apartment(float price, int places, int roomNumber) {
+    public Apartment(float price, Integer places, int roomNumber) {
         this.price = price;
         this.places = places;
         this.roomNumber = roomNumber;
