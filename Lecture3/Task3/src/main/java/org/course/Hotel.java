@@ -1,13 +1,14 @@
 package org.course;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
-    private String name;
-    private Apartment[] apartments;
+    private final String name;
+    private final List<Apartment> apartments;
     private String startTime;
 
-    public Hotel(String name, String startTime, Apartment[] apartments) {
+    public Hotel(String name, String startTime, List<Apartment> apartments) {
         this.name = name;
         this.apartments = apartments;
         this.startTime = startTime;
@@ -18,21 +19,12 @@ public class Hotel {
         return name;
     }
 
-    public Apartment[] getApartments() {
+    public List<Apartment> getApartments() {
         return apartments;
     }
 
-    public void print() {
-        System.out.println("Отель: " + name);
-        System.out.println("Количество номеров: " + apartments.length);
-        System.out.println("Номера:");
-        for (int i = 0; i < apartments.length; i++)
-            apartments[i].print();
-    }
-
-    public static Hotel search(String hotelsName, Hotel[] hotels) {
-        for (int i = 0; i < hotels.length; i++) {
-            Hotel hotel = hotels[i];
+    public static Hotel search(String hotelsName, List<Hotel> hotels) {
+        for (Hotel hotel : hotels) {
             String currentName = hotel.getName();
             if (hotelsName.equalsIgnoreCase(currentName)) {
                 System.out.println("Для вас найден отель" + " " + "\n\"" + hotel.getName() + "\"\n");
@@ -42,33 +34,25 @@ public class Hotel {
         return null;
     }
 
-    public static Apartment[] searchRoom(int people, Hotel hotel) {
-        if (people <= 0) {
-            System.out.println("Введенное количество гостей должно быть больше нуля");
-        }
-        if (people > 0) {
-            int numberOfMatches = 0;
-            Apartment[] foundRoom = new Apartment[hotel.getApartments().length];
-            for (int i = 0; i < hotel.getApartments().length; i++) {
-                Apartment apartment = hotel.getApartments()[i];
+    public List<Apartment> searchRoom(int people) {
+        if (people >= 0) {
+            List<Apartment> foundRooms = new ArrayList<>();
+            for (int i = 0; i < this.getApartments().size(); i++) {
+                Apartment apartment = this.getApartments().get(i);
                 if (people <= apartment.getCapacity()) {
-                    foundRoom[numberOfMatches] = apartment;
-                    numberOfMatches += 1;
+                    foundRooms.add(apartment);
                 }
             }
-            if (numberOfMatches == 0) {
-                System.out.println("Подходящих номеров не найдено");
-            }
-            Apartment[] result = Arrays.copyOf(foundRoom, numberOfMatches);
-            return result;
+            return foundRooms;
         }
         return null;
     }
 
-    public static void printApartments(Apartment[] apartments) {
-        System.out.println("Количество найденных аппартаментов: " + apartments.length);
-        for (int i = 0; i < apartments.length; i++) {
-            apartments[i].print();
+
+    public static void printApartments(List<Apartment> apartments) {
+        System.out.println("Количество найденных аппартаментов: " + apartments.size() + "\n");
+        for (Apartment apartment : apartments) {
+            apartment.print();
         }
     }
 }

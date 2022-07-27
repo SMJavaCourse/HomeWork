@@ -4,83 +4,88 @@ import constructors.ApartBuilder;
 import org.course.Apartment;
 import org.course.Hotel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HotelFactory {
 
     private static HotelFactory instance;
 
-    public static HotelFactory getInstance(){
+    public static HotelFactory getInstance() {
         if (instance == null) {
             instance = new HotelFactory();
         }
         return instance;
     }
 
-    public Hotel createHotel(String nameOfHotel){
+    public Hotel createHotel(String nameOfHotel) {
         ApartBuilder builder = new ApartBuilder();
-        
+
         switch (nameOfHotel) {
-            case "У мамы лучше":
-                Apartment[] apartmentsHotelGMama = new Apartment[5];
-                apartmentsHotelGMama[0] = builder
+            case "У мамы лучше" -> {
+                List<Apartment> apartmentsHotelGMama = new ArrayList<>();
+                builder
                         .apartment(1).num(1).price(1000).capacity(2)
                         .isClean(false)
                         .isInternet(false)
                         .isСonditioner(false)
-                        .isBalcony(true)
-                        .build();
-                apartmentsHotelGMama[1] = builder
+                        .isBalcony(true);
+                apartmentsHotelGMama.add(builder.build());
+                builder
                         .apartment(2).num(2).price(3000.0F).time("12:00").capacity(4)
                         .isClean(true)
                         .isInternet(true)
                         .isСonditioner(true)
-                        .isBalcony(true)
-                        .build();
-                apartmentsHotelGMama[2] = builder
-                        .apartment(2).num(3).price(3000.0F).time("12:00").capacity(4)
+                        .isBalcony(true);
+                apartmentsHotelGMama.add(builder.build());
+                builder
+                        .apartment(2).num(3).price(3000.0F).capacity(4)
                         .isClean(true)
                         .isInternet(true)
                         .isСonditioner(true)
-                        .isBalcony(true)
-                        .build();
-                apartmentsHotelGMama[3] = builder
-                        .apartment(3).num(4).price(2500.0F).time("12:00").capacity(6)
+                        .isBalcony(true);
+                apartmentsHotelGMama.add(builder.build());
+                builder
+                        .apartment(3).num(4).price(2500.0F).capacity(6)
                         .isClean(false)
                         .isInternet(false)
                         .isСonditioner(false)
-                        .isBalcony(false)
-                        .build();
-                apartmentsHotelGMama[4] = builder
-                        .apartment(4).num(5).price(3500.0F).time("12:00").capacity(6)
+                        .isBalcony(false);
+                apartmentsHotelGMama.add(builder.build());
+                builder
+                        .apartment(4).num(5).price(3500.0F).capacity(6)
                         .isClean(false)
                         .isInternet(true)
                         .isСonditioner(false)
-                        .isBalcony(true)
-                        .build();
+                        .isBalcony(true);
+                apartmentsHotelGMama.add(builder.build());
                 return new Hotel("У мамы лучше", "12:00", apartmentsHotelGMama);
-            case "Шашлычок":
-                Apartment[] apartmentsHotelShashlik = new Apartment[3];
-                apartmentsHotelShashlik[0] = builder
+            }
+            case "Шашлычок" -> {
+                List<Apartment> apartmentsHotelShashlik = new ArrayList<>();
+                builder
                         .apartment(1).num(6).price(1000.0F).time("09:00").capacity(2)
                         .isClean(false)
                         .isInternet(false)
                         .isСonditioner(false)
-                        .isBalcony(true)
-                        .build();
-                apartmentsHotelShashlik[1] = builder
-                        .apartment(2).num(7).price(1000.0F).time("09:00").capacity(4)
+                        .isBalcony(true);
+                apartmentsHotelShashlik.add(builder.build());
+                builder
+                        .apartment(2).num(7).price(1000.0F).capacity(4)
                         .isClean(true)
                         .isInternet(false)
                         .isСonditioner(false)
-                        .isBalcony(true)
-                        .build();
-                apartmentsHotelShashlik[2] = builder
-                        .apartment(3).num(8).price(4000.0F).time("09:00").capacity(6)
+                        .isBalcony(true);
+                apartmentsHotelShashlik.add(builder.build());
+                builder
+                        .apartment(3).num(8).price(4000.0F).capacity(7)
                         .isClean(true)
                         .isInternet(false)
                         .isСonditioner(false)
-                        .isBalcony(false)
-                        .build();
+                        .isBalcony(false);
+                apartmentsHotelShashlik.add(builder.build());
                 return new Hotel("Шашлычок", "09:00", apartmentsHotelShashlik);
+            }
         }
         return null;
     }
