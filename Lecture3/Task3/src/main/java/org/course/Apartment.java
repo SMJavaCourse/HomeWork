@@ -11,7 +11,7 @@ public class Apartment {
     public boolean isBalcony;
     public boolean isClean;
     public boolean isInternet;
-    public boolean isСonditioner;
+    public boolean isConditioner;
     public boolean isShashlik;
 
 
@@ -28,7 +28,7 @@ public class Apartment {
         this.isBalcony = isBalcony;
         this.isClean = isClean;
         this.isInternet = isInternet;
-        this.isСonditioner = isСonditioner;
+        this.isConditioner = isСonditioner;
         this.isShashlik = isShashlik;
     }
 
@@ -77,7 +77,7 @@ public class Apartment {
 
 
         }
-        if (isСonditioner) {
+        if (isConditioner) {
             s = s + "кондиционер, ";
 
         }

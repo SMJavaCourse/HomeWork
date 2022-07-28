@@ -1,6 +1,5 @@
 package constructors;
 
-import constructors.ApartBuilder;
 import org.course.Apartment;
 import org.course.Hotel;
 
@@ -10,6 +9,9 @@ import java.util.List;
 public class HotelFactory {
 
     private static HotelFactory instance;
+
+    private HotelFactory( ) {
+    }
 
     public static HotelFactory getInstance() {
         if (instance == null) {
@@ -28,35 +30,36 @@ public class HotelFactory {
                         .apartment(1).num(1).price(1000).capacity(2)
                         .isClean(false)
                         .isInternet(false)
-                        .isСonditioner(false)
-                        .isBalcony(true);
+                        .isAirConditioner(false)
+                        .isBalcony(true)
+                        .isKebab(false);
                 apartmentsHotelGMama.add(builder.build());
                 builder
                         .apartment(2).num(2).price(3000.0F).time("12:00").capacity(4)
                         .isClean(true)
                         .isInternet(true)
-                        .isСonditioner(true)
+                        .isAirConditioner(true)
                         .isBalcony(true);
                 apartmentsHotelGMama.add(builder.build());
                 builder
                         .apartment(2).num(3).price(3000.0F).capacity(4)
                         .isClean(true)
                         .isInternet(true)
-                        .isСonditioner(true)
+                        .isAirConditioner(true)
                         .isBalcony(true);
                 apartmentsHotelGMama.add(builder.build());
                 builder
                         .apartment(3).num(4).price(2500.0F).capacity(6)
                         .isClean(false)
                         .isInternet(false)
-                        .isСonditioner(false)
+                        .isAirConditioner(false)
                         .isBalcony(false);
                 apartmentsHotelGMama.add(builder.build());
                 builder
                         .apartment(4).num(5).price(3500.0F).capacity(6)
                         .isClean(false)
                         .isInternet(true)
-                        .isСonditioner(false)
+                        .isAirConditioner(false)
                         .isBalcony(true);
                 apartmentsHotelGMama.add(builder.build());
                 return new Hotel("У мамы лучше", "12:00", apartmentsHotelGMama);
@@ -67,21 +70,22 @@ public class HotelFactory {
                         .apartment(1).num(6).price(1000.0F).time("09:00").capacity(2)
                         .isClean(false)
                         .isInternet(false)
-                        .isСonditioner(false)
-                        .isBalcony(true);
+                        .isAirConditioner(false)
+                        .isBalcony(true)
+                        .isKebab(true);
                 apartmentsHotelShashlik.add(builder.build());
                 builder
                         .apartment(2).num(7).price(1000.0F).capacity(4)
                         .isClean(true)
                         .isInternet(false)
-                        .isСonditioner(false)
+                        .isAirConditioner(false)
                         .isBalcony(true);
                 apartmentsHotelShashlik.add(builder.build());
                 builder
                         .apartment(3).num(8).price(4000.0F).capacity(7)
                         .isClean(true)
                         .isInternet(false)
-                        .isСonditioner(false)
+                        .isAirConditioner(false)
                         .isBalcony(false);
                 apartmentsHotelShashlik.add(builder.build());
                 return new Hotel("Шашлычок", "09:00", apartmentsHotelShashlik);

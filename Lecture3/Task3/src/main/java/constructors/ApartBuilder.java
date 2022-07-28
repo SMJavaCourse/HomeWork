@@ -3,17 +3,17 @@ package constructors;
 import org.course.Apartment;
 
 public class ApartBuilder {
-    public int num;
-    public int apartment;
-    public float price;
-    public String time;
+    private int num;
+    private int apartment;
+    private float price;
+    private String time;
     private int people;
-
-    public boolean isBalcony;
-    public boolean isClean;
-    public boolean isInternet;
-    public boolean isСonditioner;
-    public boolean isShashlik;
+    
+    private boolean isBalcony;
+    private boolean isClean;
+    private boolean isInternet;
+    private boolean isAirConditioner;
+    private boolean isKebab;
 
 
     public ApartBuilder num(int num) {
@@ -56,17 +56,17 @@ public class ApartBuilder {
         return this;
     }
 
-    public ApartBuilder isСonditioner(boolean isСonditioner) {
-        this.isСonditioner = isСonditioner;
+    public ApartBuilder isAirConditioner(boolean isAirConditioner) {
+        this.isAirConditioner = isAirConditioner;
         return this;
     }
 
-    public ApartBuilder isShashlik(boolean isShashlik) {
-        this.isShashlik = isShashlik;
+    public ApartBuilder isKebab(boolean isKebab) {
+        this.isKebab = isKebab;
         return this;
     }
 
     public Apartment build() {
-        return new Apartment(num, apartment, price, time, people, isBalcony, isClean, isInternet, isСonditioner, isShashlik);
+        return new Apartment(num, apartment, price, time, people, isBalcony, isClean, isInternet, isAirConditioner, isKebab);
     }
 }
