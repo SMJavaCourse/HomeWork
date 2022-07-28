@@ -1,83 +1,75 @@
 package org.course;
 
-public  class Apartment {
+import org.course.Factory.HotelFactory;
+
+public class Apartment {
+//    private String name;
+    private final int numberOfApart;
+    private final int rooms;
+    private final float price;
+    private final String checkInTime;
+    private final int capacity;
+
+    public boolean isBalcony;
+    public boolean isCleaning;
+    public boolean isInternet;
+    public boolean isCooling;
+    public boolean isGrillInNumber;
 
 
+    public int getCapacity() {
+        return capacity;
+    }
 
-
-    private int amount;
-    private int price;
-    private int roomsCount;
-    private boolean balcon;
-    private boolean clening;
-    private boolean internet;
-    private boolean cooling;
-    private boolean grillInNumber;
-
-
-
-    public Apartment(int amount, int price, int roomsCount, boolean balcon, boolean clening, boolean internet, boolean cooling, boolean grillInNumber) {
-        this.amount = amount;
+    public Apartment(int num, int rooms, float price, String checkInTime, int people, boolean isBalcony, boolean isCleaning, boolean isInternet, boolean isCooling, boolean isGrillInNumber) {
+        this.numberOfApart = num;
+        this.rooms = rooms;
         this.price = price;
-        this.roomsCount = roomsCount;
-        this.balcon = balcon;
-        this.clening = clening;
-        this.internet = internet;
-        this.cooling = cooling;
-        this.grillInNumber = grillInNumber;
-
-    }
-    public boolean isBalcon() {
-        return balcon;
+        this.checkInTime = checkInTime;
+        this.capacity = people;
+        this.isBalcony = isBalcony;
+        this.isCleaning = isCleaning;
+        this.isInternet = isInternet;
+        this.isCooling = isCooling;
+        this.isGrillInNumber = isGrillInNumber;
     }
 
-    public boolean isClening() {
-        return clening;
-    }
+    public void print() {
+        String a = switch (rooms) {
+            case 1 -> " -Однокомнатный номер";
+            case 2 -> " -Двухкомнатный номер";
+            case 3 -> " -Трехкомнатный номер";
+            case 4 -> " -Четырехкомнатный номер";
+            default -> "";
+        };
 
-    public boolean isInternet() {
-        return internet;
-    }
+        System.out.print(a);
+        System.out.println(" (комната номер: " + numberOfApart + ")");
+        System.out.println("    Цена: " + price + " р/сутки");
+        System.out.println("    Вместимость до " + capacity + " человек");
+        System.out.println("    Время заселения: " + checkInTime);
+        String s = "    Дополнительные услуги: ";
 
-    public boolean isCooling() {
-        return cooling;
-    }
+        if (isBalcony) {
+            s = s + "балкон, ";
 
-    public boolean isGrillInNumber() {
-        return grillInNumber;
-    }
-    public int getRoomsCount() {
-        return roomsCount;
-    }
+        }
+        if (isCleaning) {
+            s = s + "уборка номера, ";
 
-    public int getAmount() {
-        return amount;
+        }
+        if (isInternet) {
+            s = s + "интернет, ";
+
+        }
+        if (isCooling) {
+            s = s + "кондиционер, ";
+
+        }
+        if (isGrillInNumber) {
+            s = s + "шашлычок в номер, ";
+
+        }
+        System.out.println(s);
     }
-
-    public int getPrice() {
-        return price;
-    }
-
-    @Override
-    public String toString() {
-        return "Apartment{" +
-                "amount=" + amount +
-                ", price=" + price +
-                ", вместимость=" + roomsCount + " человек" +
-                ", балкон=" + balcon +
-                ", уборка номера=" + clening +
-                ", интернет=" + internet +
-                ", кондей=" + cooling +
-                ", шашлык в номер=" + grillInNumber +
-                '}';
-    }
-
-    //    @Override
-//    public String toString() {
-//        return "Apartment{" +
-//                "amount=" + amount +
-//                ", price=" + price +
-//                '}';
-//    }
-
 }
