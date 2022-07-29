@@ -20,7 +20,7 @@ public class HotelFactory {
     public Hotel createHotel(String nameOfHotel) throws HotelFactoryException {
         ApartmentBuilder builder = new ApartmentBuilder();
         switch (nameOfHotel) {
-            case "У мамы лучше" -> {
+            case "2У мамы лучше" -> {
                 ArrayList<Apartment> apartmentsInHotel1 = new ArrayList<>();
                 apartmentsInHotel1.add(builder
                         .rooms(1).numberOfRoom(10).price(1000).capacity(2).services(
@@ -52,7 +52,7 @@ public class HotelFactory {
                         .build());
                 return new Hotel("У мамы лучше", "12:00", apartmentsInHotel1);
             }
-            case "Шашлычок" -> {
+            case "1Шашлычок" -> {
                 ArrayList<Apartment> apartmentsInHotel2 = new ArrayList<>();
                 apartmentsInHotel2.add(builder
                         .rooms(1).numberOfRoom(11).price(1000).capacity(2).services(
