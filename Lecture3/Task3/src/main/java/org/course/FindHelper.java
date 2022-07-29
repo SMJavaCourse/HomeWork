@@ -20,48 +20,39 @@ public class FindHelper {
         } else {
             int firstSpaceIndex = input.trim().indexOf(" ");
             int numberOfHotelsFound = 0;
+            int numberOfGuests;
+            String nameOfHotel;
             try {
                 if (firstSpaceIndex == -1) {
-                    int numberOfGuests = Integer.parseInt(input.trim());
-                    if (numberOfGuests < 1) {
-                        return "Количество гостей не может быть меньше 1, повторите ввод:";
-                    }
-                    for (Hotel hotel : hotels) {
-                        ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
-                        if (findApartments.size() == 0) {
-                            continue;
-                        }
-                        finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
-                                findApartments.size() + "\nНомера:\n";
-                        for (Apartment findApartment : findApartments) {
-                            finderHotelString += findApartment.toString();
-                        }
-                        numberOfHotelsFound += 1;
-                    }
-                    return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
+                    numberOfGuests = Integer.parseInt(input.trim());
+                    nameOfHotel = null;
+                } else {
+                    numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
+                    nameOfHotel = input.substring(firstSpaceIndex + 1);
                 }
-                int numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
                 if (numberOfGuests < 1) {
                     return "Количество гостей не может быть меньше 1, повторите ввод:";
                 }
-                ArrayList<Hotel> searchResult = findHotel(hotels, input.substring(firstSpaceIndex + 1));
+                ArrayList<Hotel> searchResult = findHotel(hotels, nameOfHotel);
                 if (searchResult.size() != 0) {
                     for (Hotel hotel : searchResult) {
-                        ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), Integer.parseInt(input.substring(0, firstSpaceIndex)));
+                        ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
                         if (findApartments.size() > 0) {
-                            finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " + findApartments.size() + "\nНомера:\n";
+                            finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
+                                    findApartments.size() + "\nНомера:\n";
                             for (Apartment apartment : findApartments) {
                                 finderHotelString += apartment.toString();
                             }
+                            numberOfHotelsFound += 1;
                         }
                     }
                 } else {
-                    return "У нас нет информации по отелю \"" + input.substring(firstSpaceIndex + 1) + "\"";
+                    return "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
                 }
-                if ("".equals(finderHotelString)) {
-                    return "В отеле \"" + input.substring(firstSpaceIndex + 1) + "\" нет достаточного количества мест\nНовый поиск:";
-                } else {
+                if (("".equals(finderHotelString) && nameOfHotel == null ) || !finderHotelString.equals("")) {
                     return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
+                } else {
+                    return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
                 }
             } catch (NumberFormatException e) {
                 return "Количество гостей это число, повторите ввод:";

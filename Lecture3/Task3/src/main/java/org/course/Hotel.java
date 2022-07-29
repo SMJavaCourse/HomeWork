@@ -84,10 +84,13 @@ public class Hotel {
 
     public static ArrayList<Hotel> findHotel(ArrayList<Hotel> hotels, String nameOfHotel) {
         ArrayList<Hotel> findHotelsResult = new ArrayList<>();
-        for (int i = 0; i < hotels.size(); i++) {
-            if (nameOfHotel.equalsIgnoreCase(hotels.get(i).getName())) {
-                findHotelsResult.add(hotels.get(i));
-                return findHotelsResult;
+        if (nameOfHotel == null) {
+            findHotelsResult = (ArrayList<Hotel>) hotels.clone();
+        } else {
+            for (Hotel hotel : hotels) {
+                if (nameOfHotel.equalsIgnoreCase(hotel.getName())) {
+                    findHotelsResult.add(hotel);
+                }
             }
         }
         return findHotelsResult;
