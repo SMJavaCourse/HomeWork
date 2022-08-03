@@ -2,61 +2,72 @@ package org.course.searh;
 
 import org.course.Hotel;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 public class SearchEngine {
-    private String query;
-    private Hotel[] hotels;
-    private String hotelResult = null;
-    private String[] apartmentsResult = null;
-    private String[] apartmentResultFin = null;
-    private String searchResult = null;
+    private final String query;
+    private final ArrayList<Hotel> hotels;
+    private final String QUOTES = "\"|\"$";
+    private String queryHotelName;
+    private int queryCustomerNumber;
+    private ArrayList<Hotel> hotelResult = new ArrayList<>();
 
 
-    public SearchEngine(String query, Hotel[] hotels) {
+    public SearchEngine(String query, ArrayList<Hotel> hotels) {
         this.query = query;
         this.hotels = hotels;
     }
 
     public String search() {
-        int i = 0;
-        boolean queryValue1Int = true;
-        String[] queryValues = query.trim().replaceAll("^\"|\"$", "").split(",");
-        if (queryValues.length == 2 && queryValues[1] != null) {
-            try {
-                Integer.parseInt(queryValues[1].trim());
-            } catch (NumberFormatException nfe) {
-                queryValue1Int = false;
-            }
+        if (query == null)
+            return "Ошибка в запросе";
+        String[] queryValues = query.trim().split(",");
+        try {
+            queryCustomerNumber = Integer.parseInt(queryValues[0].trim());
+        } catch (NumberFormatException nfe) {
+            return "Ошибка в запросе";
         }
-        for (int j = 0; j < hotels.length; j++) {
-            if (queryValues.length != 2 || queryValues[0] == null || queryValues[1] == null || !queryValue1Int) {
-                searchResult = "Ошибка в запросе";
-                break;
-            } else if (queryValues[0].equalsIgnoreCase(hotels[j].getName().replaceAll("^\"|\"$", ""))) {
-                apartmentsResult = new String[hotels[j].getApartments().length];
-                hotelResult = hotels[j].getName();
-                for (int k = 0; k < hotels[j].getApartments().length; k++) {
-                    if (Integer.parseInt(queryValues[1].trim()) <= (hotels[j].getApartments()[k].getCapacity())) {
-                        i++;
-                        apartmentsResult[k] = hotels[j].getApartments()[k].apartmentInfo();
-                    }
-                }
-                apartmentResultFin = new String[i];
-                int m = 0;
-                for (int l = 0; l < apartmentsResult.length; l++) {
-                    if (apartmentsResult[l] != null) {
-                        apartmentResultFin[m] = apartmentsResult[l];
-                        m++;
-                    }
+        if (queryValues.length > 1)
+            queryHotelName = queryValues[1].trim().replaceAll(QUOTES, "");
+        return searchApartment();
+    }
+
+    private String searchApartment() {
+        ArrayList<String> apartmentsByHotel = new ArrayList<>();
+        String result = "";
+        if (searchHotel() == null)
+            hotelResult.addAll(hotels);
+        else if (hotelResult.isEmpty())
+            return "У нас нет информации по отелю \""  + queryHotelName + "\"";
+        hotelResult.sort(Comparator.comparing(Hotel::getName));
+        for (int i = 0; i < hotelResult.size(); i++) {
+            for (int j = 0; j < hotelResult.get(i).getApartments().size(); j++) {
+                if (queryCustomerNumber <= (hotelResult.get(i).getApartments().get(j).getCapacity())) {
+                    apartmentsByHotel.add(hotelResult.get(i).getApartments().get(j).apartmentInfo());
                 }
             }
-        }
-        if (searchResult == null) {
-            if (hotelResult == null || apartmentResultFin.length < 1) {
-                searchResult = "Совпадений не найдено";
+            if (apartmentsByHotel.isEmpty()) {
+                hotelResult.remove(i);
+                i--;
             } else {
-                searchResult = "Отель " + hotelResult + ":" + String.join("", apartmentResultFin);
+                result = result + ("\nОтель " + hotelResult.get(i).getName() + ": \nПодходящих номеров: " + apartmentsByHotel.size() + String.join("", apartmentsByHotel));
+                apartmentsByHotel.clear();
             }
         }
-        return searchResult;
+        return "Найдено отелей: " + hotelResult.size() + result;
+    }
+
+    private ArrayList<Hotel> searchHotel() {
+        if (queryHotelName == null)
+            return null;
+        for (int i = 0; i < hotels.size(); i++) {
+            if (queryHotelName.equalsIgnoreCase(hotels.get(i).getName().replaceAll(QUOTES, ""))) {
+                hotelResult.add(hotels.get(i));
+            }
+        }
+        return hotelResult;
     }
 }
+
