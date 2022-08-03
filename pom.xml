@@ -20,5 +20,6 @@
         <module>Demo/MarkBrook</module>
         <module>Demo/PhoneBook</module>
         <module>Demo/Generics</module>
+        <module>Demo/StreamAPI-Lambda-Lombok</module>
     </modules>
 </project>
