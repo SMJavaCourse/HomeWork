@@ -6,8 +6,6 @@ import java.util.List;
 
 public class HotelFactory {
     public static Hotel createHotel(String hotelName) {
-        HotelBuilder hotelBuilder = new HotelBuilder();
-
         try {
             switch (hotelName) {
                 case "У мамы лучше":
@@ -21,9 +19,11 @@ public class HotelFactory {
                     apartmentsForHotel1.add(new ApartmentThreeRooms(2500f, 6, 16));
                     apartmentsForHotel1.add(new ApartmentThreeRooms(3500f, 6, 17)
                                     .setServices(new ServicesImpl().addBalcony().addInternet()));
-                    hotelBuilder.name(hotelName).apartments(apartmentsForHotel1).checkInTime(LocalTime.of(12, 0));
 
-                    break;
+                    return Hotel.builder()
+                            .name(hotelName).apartments(apartmentsForHotel1).checkInTime(LocalTime.of(12, 0))
+                            .build();
+
                 case "Шашлычок":
                     List<Apartment> apartmentsForHotel2 = new ArrayList<>();
                     apartmentsForHotel2.add(new ApartmentOneRoom(1000f, 2, 13)
@@ -32,14 +32,15 @@ public class HotelFactory {
                                     .setServices(new ServicesImpl().addBalcony().addCleaning()));
                     apartmentsForHotel2.add(new ApartmentThreeRooms(4000f, 6, 15)
                                     .setServices(new ServicesImpl().addCleaning()));
-                    hotelBuilder.name(hotelName).apartments(apartmentsForHotel2).checkInTime(LocalTime.of(9, 0));
-                    break;
+                    return Hotel.builder()
+                            .name(hotelName).apartments(apartmentsForHotel2).checkInTime(LocalTime.of(9, 0))
+                            .build();
                 default:
                     throw new HotelException("Cannot create hotel with name \"" + hotelName + "\"");
             }
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
-        return hotelBuilder.build();
+        return Hotel.builder().build();
     }
 }

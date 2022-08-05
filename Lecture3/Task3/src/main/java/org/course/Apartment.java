@@ -1,18 +1,23 @@
 package org.course;
 
+import lombok.Getter;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public abstract class Apartment implements Apartments {
-    public Apartment setServices(Services services) {
-        this.services = services;
-        this.servicesList.add(services);
-        return this;
-    }
-
     private Services services;
+    private Float price;
+    private Integer places;
+    private Integer roomNumber;
+    private LocalTime checkinTime;
     private List<Services> servicesList = new ArrayList<>();
+
+    public Apartment() {
+
+    }
 
     public List<Services> getServicesList() {
         if  (this.servicesList != null) {
@@ -21,40 +26,19 @@ public abstract class Apartment implements Apartments {
             return List.of();
         }
     }
-
-    private float price;
-    private int places;
-    private int roomNumber;
-
-    private LocalTime checkinTime;
-
-    public float getPrice() {
-        return price;
+    public Apartment setServices(Services services) {
+        this.services = services;
+        this.servicesList.add(services);
+        return this;
     }
-
-    public Integer getPlaces() {
-        return places;
-    }
-
-    public int getRoomNumber() {
-        return roomNumber;
+    public void setCheckinTime(LocalTime checkinTime) {
+        this.checkinTime = checkinTime;
     }
 
     public Apartment(float price, Integer places, int roomNumber) {
         this.price = price;
         this.places = places;
         this.roomNumber = roomNumber;
-    }
-
-    public void setCheckinTime(LocalTime checkinTime) {
-        this.checkinTime = checkinTime;
-    }
-    public LocalTime getCheckinTime() {
-        return checkinTime;
-    }
-
-    public Services getServices() {
-        return this.services;
     }
 
     @Override

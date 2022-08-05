@@ -12,51 +12,42 @@ public class ServicesImpl implements Services{
         this.balcony = true;
         return this;
     }
-
     @Override
     public boolean isBalcony() {
         return this.balcony;
     }
-
     @Override
     public Services addGrillMeat() {
         this.grillMeat = true;
         return this;
     }
-
     @Override
     public boolean isGrillMeat() {
         return this.grillMeat;
     }
-
     @Override
     public Services addInternet() {
         this.internet = true;
         return this;
     }
-
     @Override
     public boolean isInternet() {
         return this.internet;
     }
-
     @Override
     public Services addConditioner() {
         this.conditioner = true;
         return this;
     }
-
     @Override
     public boolean isConditioner() {
         return this.conditioner;
     }
-
     @Override
     public Services addCleaning() {
         this.cleaning = true;
         return this;
     }
-
     @Override
     public boolean isCleaning() {
         return this.cleaning;

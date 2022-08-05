@@ -2,20 +2,20 @@ package org.course;
 
 public interface Services {
 
-    public Services addBalcony();
-    public boolean isBalcony();
+    Services addBalcony();
+    boolean isBalcony();
 
-    public Services addGrillMeat();
-    public boolean isGrillMeat();
+    Services addGrillMeat();
+    boolean isGrillMeat();
 
-    public Services addInternet();
-    public boolean isInternet();
+    Services addInternet();
+    boolean isInternet();
 
-    public Services addConditioner();
-    public boolean isConditioner();
+    Services addConditioner();
+    boolean isConditioner();
 
-    public Services addCleaning();
-    public boolean isCleaning();
+    Services addCleaning();
+    boolean isCleaning();
 
 
 }

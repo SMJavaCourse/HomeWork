@@ -7,6 +7,9 @@ public class ApartmentOneRoom extends Apartment {
     public ApartmentOneRoom(float price, int places, int roomNumber) {
         super(price, places, roomNumber);
     }
+    public ApartmentOneRoom() {
+        super();
+    }
     @Override
     public String getApartmentsTypeName() {
         return APART_TYPE;

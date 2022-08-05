@@ -26,12 +26,15 @@ public class Task3 {
 
         hotels = generateHotels();
 
-//        Hotels.printHotelInfo(hotels);
+        Hotels.printHotelInfo(hotels);
 //        var s = Hotel.getAvailableApartments(hotels, "У мамы лучше", 4);
 //        var ss = Hotel.getApartmentsByParam(hotels, 2);
 //        System.out.println(ss);
 
-        Hotel.printAvailableApartmentByParams(hotels, 6);
+//        System.out.println(Hotel.getApartmentsByParam(hotels, 6));
+        Hotel.printAvailableApartmentByParams(hotels, 4);
+
+
         //TODO: переделать ввод с консоли,
         // посмотреть как можно в один стрим вытащить в список мап с ключем-имя отеля и значением-список апартаментов подходящих
 
