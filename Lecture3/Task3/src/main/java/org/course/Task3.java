@@ -10,6 +10,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -27,12 +28,13 @@ public class Task3 {
         hotels = generateHotels();
 
         Hotels.printHotelInfo(hotels);
-//        var s = Hotel.getAvailableApartments(hotels, "У мамы лучше", 4);
-//        var ss = Hotel.getApartmentsByParam(hotels, 2);
-//        System.out.println(ss);
 
-//        System.out.println(Hotel.getApartmentsByParam(hotels, 6));
-        Hotel.printAvailableApartmentByParams(hotels, 4);
+//        Hotel.printAvailableApartmentByParams(hotels, 4);
+        SearchTimeDemo.countTimeMethod();
+        Hotel.printAvailableApartmentByParams(hotels, "У мамы лучше", 4);
+
+        SearchTimeDemo.countTimeMethod();
+
 
 
         //TODO: переделать ввод с консоли,

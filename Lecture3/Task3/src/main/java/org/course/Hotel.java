@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -40,7 +41,8 @@ public class Hotel implements Hotels{
                 "Номера: ";
     }
 
-    public static List<Apartment> getApartmentsByParam(List<Hotel> hotels, String hotelName, int places) {
+    public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, String hotelName, int places) {
+        Map<String, List<Apartment>> map = new HashMap<>();
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
                 var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
@@ -50,10 +52,11 @@ public class Hotel implements Hotels{
                             .stream()
                             .filter(apartment -> apartment.getPlaces() == places)
                             .collect(Collectors.toList());
+                    map.put(hotelName, list);
                     if (list.size() == 0) {
                         throw new ApartmentException("No apartments with specified parameters found (places: " + places + ")");
                     }
-                    return list;
+                    return map;
                 } else {
                     throw new HotelException("No such hotel name \"" + hotelName + "\"");
                 }
@@ -67,7 +70,7 @@ public class Hotel implements Hotels{
         } catch (NullPointerException e) {
             System.out.println(e.getMessage());
         }
-        return List.of(new Apartment[0]);
+        return Map.of();
     }
     public static Long getCountHotelsByParam(List<Hotel> hotels, int places) {
         var count = hotels.stream()
@@ -75,54 +78,52 @@ public class Hotel implements Hotels{
                         .stream().filter(a -> a.getPlaces().equals(places))).count();
         return count;
     }
-    public static List<Apartment> getApartmentsByParam(List<Hotel> hotels, int places) {
-        List<Apartment> list = new ArrayList<>();
-        hotels.forEach(h -> list.add(h.getApartments()
-                .stream()
-                .filter(a -> a.getPlaces().equals(places))
-                .findAny().orElse(new ApartmentOneRoom()))
-                //TODO: херня. переделать.
-                //находит первый номер в отеле, остальных в списке не будет
-        );
-        return list;
+    public static Long getCountHotelsByParam(List<Hotel> hotels, String hotelName, int places) {
+        var count = hotels.stream().filter(hotel -> hotel.getName().equals(hotelName)).map(hotel -> hotel.getApartments()
+                .stream().filter(a -> a.getPlaces().equals(places))).count();
+
+        return count;
     }
 
-//    public static List<List<Apartment>> getApartmentsByParam(List<Hotel> hotels, int places) {
-//
-//        var list =  hotels.stream()
-//                .map(hotel -> hotel.getApartments()
-//                        .stream().filter(a -> a.getPlaces().equals(places))
-//                        .toList()).collect(Collectors.toList());
-//        return list;
-//    }
-    public static List<HashMap<String, List<Apartment>>> getApartmentsByParam2(List<Hotel> hotels, int places) {
-        // returns list of maps: <hotelName, List<Apartment>>
-        List<HashMap<String, List<Apartment>>> listHotelApartments = new ArrayList<>();
-
-        hotels.stream().forEach(hotel -> {
-
-        });
-        return listHotelApartments;
+    public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, int places) {
+        Map<String, List<Apartment>> map = new HashMap<>();
+        for (Hotel hotel : hotels) {
+            List<Apartment> list = new ArrayList<>();
+            var apartments = hotel.getApartments();
+            for (Apartment apartment : apartments) {
+                if(apartment.getPlaces().equals(places)) {
+                    list.add(apartment);
+                    map.put(hotel.getName(), list);
+                }
+            }
+        }
+        return map;
     }
 
     public static void printAvailableApartmentByParams(List<Hotel> hotels, String hotelName, Integer places) {
-        var listApartments = getApartmentsByParam(hotels, hotelName, places);
-        if (listApartments.size() != 0) {
-            System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");
-            listApartments.forEach(System.out::println);
+        var mapHotelApartments = getApartmentsByParam(hotels, hotelName, places);
+        if (!mapHotelApartments.isEmpty()) {
+            var countHotels = getCountHotelsByParam(hotels, hotelName, places);
+            System.out.println("Найдено отелей: " + countHotels);
+            mapHotelApartments.forEach((hotel, apartments) ->
+                    System.out.println("В отеле \"" + hotel + "\" " +
+                            "количество подходящих номеров " + apartments.size() + "\n" +
+                            "Описание номеров: \n" + apartments));
             System.out.println("\n");
         }
     }
+
 
     public static void printAvailableApartmentByParams(List<Hotel> hotels, Integer places) {
-        var listApartments = getApartmentsByParam(hotels, places);
-        if (listApartments.size() != 0) {
+        var mapHotelApartments = getApartmentsByParam(hotels, places);
+        if (!mapHotelApartments.isEmpty()) {
             var countHotels = getCountHotelsByParam(hotels, places);
             System.out.println("Найдено отелей: " + countHotels);
-            System.out.println("Подходящих номеров: " + listApartments.size() + "\nНомера: ");
-            listApartments.forEach(System.out::println);
+            mapHotelApartments.forEach((hotel, apartments) ->
+                    System.out.println("В отеле \"" + hotel + "\" " +
+                            "количество подходящих номеров " + apartments.size() + "\n" +
+                            "Описание номеров: \n" + apartments));
             System.out.println("\n");
         }
     }
-
 }
