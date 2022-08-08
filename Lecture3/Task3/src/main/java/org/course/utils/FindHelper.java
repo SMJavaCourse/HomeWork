@@ -1,6 +1,8 @@
-package org.course;
+package org.course.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.course.Apartment;
+import org.course.Hotel;
 
 import java.util.*;
 
@@ -8,7 +10,7 @@ import static org.course.Hotel.findApartment;
 
 public class FindHelper {
 
-    public static String hotelFinderString(String input, ArrayList<Hotel> hotels, Map<String, Hotel> hotelByName) {
+    public static String hotelFinderString(String input, Map<String, Hotel> hotelByName) {
 
         String finderHotelString = "";
         if (StringUtils.isBlank(input)) {
@@ -32,7 +34,7 @@ public class FindHelper {
                 if (numberOfGuests < 1) {
                     return "Количество гостей не может быть меньше 1, повторите ввод:";
                 }
-                ArrayList<Hotel> searchResult = findHotel(hotels, nameOfHotel, hotelByName);
+                ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelByName);
                 if (searchResult.size() != 0) {
                     for (Hotel hotel : searchResult) {
                         ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
@@ -48,7 +50,7 @@ public class FindHelper {
                 } else {
                     return "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
                 }
-                if (("".equals(finderHotelString) && nameOfHotel == null ) || !finderHotelString.equals("")) {
+                if (("".equals(finderHotelString) && nameOfHotel == null) || !finderHotelString.equals("")) {
                     return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
                 } else {
                     return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
@@ -59,11 +61,11 @@ public class FindHelper {
         }
     }
 
-    private static ArrayList<Hotel> findHotel(ArrayList<Hotel> hotels, String nameOfHotel, Map<String, Hotel> hotelByName) {
+    private static ArrayList<Hotel> findHotel(String nameOfHotel, Map<String, Hotel> hotelByName) {
         ArrayList<Hotel> findHotelsResult = new ArrayList<>();
         if (nameOfHotel == null) {
-            hotels.sort(Comparator.comparing(Hotel::getName));
-            findHotelsResult = hotels;
+            findHotelsResult = new ArrayList<>(hotelByName.values());
+            findHotelsResult.sort(Comparator.comparing(Hotel::getName));
         } else {
             Hotel result = hotelByName.get(nameOfHotel);
             if (result != null) {

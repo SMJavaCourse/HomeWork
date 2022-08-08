@@ -1,14 +1,14 @@
 package org.course;
 
 import org.course.exception.HotelFactoryException;
-import org.course.constructors.HotelFactory;
+import org.course.utils.HotelFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import static org.course.FindHelper.hotelFinderString;
+import static org.course.utils.FindHelper.hotelFinderString;
 
 public class Task3 {
 
@@ -41,7 +41,7 @@ public class Task3 {
         boolean exit = true;
 
         while (exit){
-            String tryToFindSomeHotels = hotelFinderString(in.nextLine().trim(),hotels,hotelByName);
+            String tryToFindSomeHotels = hotelFinderString(in.nextLine().trim(),hotelByName);
             if ("exit".equals(tryToFindSomeHotels)) {
                 exit = false;
             } else {

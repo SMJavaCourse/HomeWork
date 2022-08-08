@@ -40,4 +40,8 @@ public class Hotel {
         }
         return findApartmentsResult;
     }
+
+    public static String printServices(ArrayList<Apartment> apartments) {
+        return null;
+    }
 }

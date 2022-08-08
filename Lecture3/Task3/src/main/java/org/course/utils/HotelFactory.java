@@ -1,4 +1,4 @@
-package org.course.constructors;
+package org.course.utils;
 
 import org.course.Apartment;
 import org.course.Hotel;
