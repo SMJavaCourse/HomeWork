@@ -9,6 +9,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,18 +28,13 @@ public class Task3 {
 
         hotels = generateHotels();
 
-        Hotels.printHotelInfo(hotels);
-
+//        Hotels.printHotelInfo(hotels);
 //        Hotel.printAvailableApartmentByParams(hotels, 4);
-        SearchTimeDemo.countTimeMethod();
+        var time = new SearchTimeDemo();
         Hotel.printAvailableApartmentByParams(hotels, "У мамы лучше", 4);
-
-        SearchTimeDemo.countTimeMethod();
-
-
+        time.getMethodDuration();
 
         //TODO: переделать ввод с консоли,
-        // посмотреть как можно в один стрим вытащить в список мап с ключем-имя отеля и значением-список апартаментов подходящих
 
         // for test:
 //        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);
@@ -130,10 +126,25 @@ public class Task3 {
         return true;
     }
 
+//    public static List<Hotel> generateHotels() {
+//        List<Hotel> hotels = new ArrayList<>();
+//        hotels.add(HotelFactory.createHotel("У мамы лучше"));
+//        hotels.add(HotelFactory.createHotel("Шашлычок"));
+//        return hotels;
+//    }
+
     public static List<Hotel> generateHotels() {
         List<Hotel> hotels = new ArrayList<>();
         hotels.add(HotelFactory.createHotel("У мамы лучше"));
         hotels.add(HotelFactory.createHotel("Шашлычок"));
+        for (int i = 0; i < 1000000; i++) {
+            hotels.add(Hotel.builder()
+                    .name("hotelName")
+                    .apartments(List.of(new ApartmentOneRoom(1000f, 2, 13)
+                            .setServices(new ServicesImpl().addBalcony().addCleaning())))
+                    .checkInTime(LocalTime.of(12, 0))
+                    .build());
+        }
         return hotels;
     }
 
