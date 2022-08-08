@@ -2,14 +2,13 @@ package org.course;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import static org.course.Hotel.findApartment;
-import static org.course.Hotel.findHotel;
 
 public class FindHelper {
 
-    public static String hotelFinderString(String input, ArrayList<Hotel> hotels) {
+    public static String hotelFinderString(String input, ArrayList<Hotel> hotels, Map<String, Hotel> hotelByName) {
 
         String finderHotelString = "";
         if (StringUtils.isBlank(input)) {
@@ -33,7 +32,7 @@ public class FindHelper {
                 if (numberOfGuests < 1) {
                     return "Количество гостей не может быть меньше 1, повторите ввод:";
                 }
-                ArrayList<Hotel> searchResult = findHotel(hotels, nameOfHotel);
+                ArrayList<Hotel> searchResult = findHotel(hotels, nameOfHotel, hotelByName);
                 if (searchResult.size() != 0) {
                     for (Hotel hotel : searchResult) {
                         ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
@@ -58,5 +57,19 @@ public class FindHelper {
                 return "Количество гостей это число, повторите ввод:";
             }
         }
+    }
+
+    private static ArrayList<Hotel> findHotel(ArrayList<Hotel> hotels, String nameOfHotel, Map<String, Hotel> hotelByName) {
+        ArrayList<Hotel> findHotelsResult = new ArrayList<>();
+        if (nameOfHotel == null) {
+            hotels.sort(Comparator.comparing(Hotel::getName));
+            findHotelsResult = hotels;
+        } else {
+            Hotel result = hotelByName.get(nameOfHotel);
+            if (result != null) {
+                findHotelsResult.add(result);
+            }
+        }
+        return findHotelsResult;
     }
 }

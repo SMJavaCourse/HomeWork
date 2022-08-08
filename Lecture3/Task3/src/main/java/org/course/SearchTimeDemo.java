@@ -2,8 +2,7 @@ package org.course;
 
 import org.course.services.Services;
 
-import java.util.ArrayList;
-import static org.course.Hotel.findHotel;
+import java.util.*;
 
 public class SearchTimeDemo {
 
@@ -15,18 +14,28 @@ public class SearchTimeDemo {
         String nameOfHotelToFind = "имя отеля9999999";
 
         ArrayList<Hotel> hotelArrayList = new ArrayList<>();
+        Map<String, Hotel> hotelByName = new HashMap<>();
 
         System.out.println("Начало создания отелей...");
         long start = System.currentTimeMillis();
         for (int i = 0; i < numberOfHotels; i++) {
             hotelArrayList.add(new Hotel("имя отеля" + i, "10:00", apartment));
+            hotelByName.put(hotelArrayList.get(i).getName(),hotelArrayList.get(i));
         }
         long end = System.currentTimeMillis() - start;
-        System.out.println(numberOfHotels + " отелей создано за " + end + " мс\n");
-        System.out.println("Начало поиска...");
+        System.out.println(numberOfHotels + " отелей создано за " + end + " мс\n\nНачало поиска...\n");
         start = System.currentTimeMillis();
-        ArrayList<Hotel> findHotelIs = findHotel(hotelArrayList, nameOfHotelToFind);
+        Hotel findHotel = hotelByName.get(nameOfHotelToFind);
         end = System.currentTimeMillis() - start;
-        System.out.println("Отель \"" + nameOfHotelToFind + "\" нашли за " + end + " мс.\n\nПараметры найденного отеля:\n" + findHotelIs);
+        System.out.println("Найдено отелей: 1\nВсего отелей: " + numberOfHotels + "\nНайдено за " + end + " мс.\n" + findHotel);
+
+        start = System.currentTimeMillis();
+        for (Hotel hotel:hotelArrayList){
+            if (nameOfHotelToFind.equalsIgnoreCase(hotel.getName())){
+                findHotel = hotel;
+            }
+        }
+        end = System.currentTimeMillis() - start;
+        System.out.println("Если искать перебором, то отель \"" + nameOfHotelToFind + "\" находится за " + end + " мс.");
     }
 }

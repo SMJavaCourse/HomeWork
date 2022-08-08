@@ -1,8 +1,6 @@
 package org.course;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class Hotel {
     private String name;
@@ -31,21 +29,6 @@ public class Hotel {
             text.append(apartment.toString());
         }
         return text.toString();
-    }
-
-    public static ArrayList<Hotel> findHotel(ArrayList<Hotel> hotels, String nameOfHotel) {
-        ArrayList<Hotel> findHotelsResult = new ArrayList<>();
-        if (nameOfHotel == null) {
-            findHotelsResult = (ArrayList<Hotel>) hotels.clone();
-        } else {
-            for (Hotel hotel : hotels) {
-                if (nameOfHotel.equalsIgnoreCase(hotel.getName())) {
-                    findHotelsResult.add(hotel);
-                }
-            }
-        }
-        Collections.sort(findHotelsResult, Comparator.comparing(Hotel::getName));
-        return findHotelsResult;
     }
 
     public static ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
