@@ -1,5 +1,7 @@
 package org.course;
 
+import org.course.services.Services;
+
 import java.util.*;
 
 public class Hotel {
@@ -42,6 +44,29 @@ public class Hotel {
     }
 
     public static String printServices(ArrayList<Apartment> apartments) {
-        return null;
+        HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
+        String stringServices;
+
+        for (Apartment apartment:apartments) {
+            for (Services service:apartment.getServices()){
+                ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
+                if (apartmentList == null) {
+                    apartmentList = new ArrayList<>();
+                    servicesMap.put(service.getName(),apartmentList);
+                }
+                apartmentList.add(apartment);
+            }
+        }
+        stringServices = "Количество доступных удобств: " + servicesMap.size() + "\n";
+        List<String> keys = new ArrayList<>(servicesMap.keySet());
+        for (String key : keys) {
+            ArrayList<Apartment> value = servicesMap.get(key);
+            stringServices += "Удобство \"" + key + "\" доступно в номерах:\n\n";
+            for (Apartment apartment : value) {
+                stringServices += "\t\u2219" + apartment.getName(apartment.getRooms()) + " (комната номер " + apartment.getNumberOfRoom() + ")\n";
+            }
+            stringServices += "\nПовторите ввод:";
+        }
+        return stringServices;
     }
 }

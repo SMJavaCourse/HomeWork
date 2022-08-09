@@ -7,6 +7,7 @@ import org.course.Hotel;
 import java.util.*;
 
 import static org.course.Hotel.findApartment;
+import static org.course.Hotel.printServices;
 
 public class FindHelper {
 
@@ -23,40 +24,59 @@ public class FindHelper {
             int numberOfHotelsFound = 0;
             int numberOfGuests;
             String nameOfHotel;
-            try {
-                if (firstSpaceIndex == -1) {
+            String nameOfCommand;
+
+            if (firstSpaceIndex == -1) {
+                if (isNumber(input.trim())) {
                     numberOfGuests = Integer.parseInt(input.trim());
                     nameOfHotel = null;
-                } else {
-                    numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
-                    nameOfHotel = input.substring(firstSpaceIndex + 1);
-                }
-                if (numberOfGuests < 1) {
-                    return "Количество гостей не может быть меньше 1, повторите ввод:";
-                }
-                ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelByName);
-                if (searchResult.size() != 0) {
-                    for (Hotel hotel : searchResult) {
-                        ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
-                        if (findApartments.size() > 0) {
-                            finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
-                                    findApartments.size() + "\nНомера:\n";
-                            for (Apartment apartment : findApartments) {
-                                finderHotelString += apartment.toString();
-                            }
-                            numberOfHotelsFound += 1;
-                        }
+                    if (numberOfGuests < 1) {
+                        return "Количество гостей не может быть меньше 1, повторите ввод:";
                     }
                 } else {
-                    return "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
+                    return "Количество гостей это число, повторите ввод:";
                 }
-                if (("".equals(finderHotelString) && nameOfHotel == null) || !finderHotelString.equals("")) {
-                    return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
+            } else {
+                if (isNumber(input.substring(0, firstSpaceIndex))) {
+                    numberOfGuests = Integer.parseInt(input.substring(0, firstSpaceIndex));
+                    nameOfHotel = input.substring(firstSpaceIndex + 1);
+                    if (numberOfGuests < 1) {
+                        return "Количество гостей не может быть меньше 1, повторите ввод:";
+                    }
                 } else {
-                    return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
+                    nameOfHotel = input.substring(firstSpaceIndex + 1);
+                    nameOfCommand = input.substring(0, firstSpaceIndex);
+                    ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelByName);
+                    if (searchResult.size() != 0) {
+                        if ("удобства".equalsIgnoreCase(nameOfCommand)) {
+                            finderHotelString += "Отель \"" + nameOfHotel + "\"\n" + printServices(searchResult.get(0).getApartments());
+                        }
+                        return finderHotelString;
+                    } else {
+                        return "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
+                    }
                 }
-            } catch (NumberFormatException e) {
-                return "Количество гостей это число, повторите ввод:";
+            }
+            ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelByName);
+            if (searchResult.size() != 0) {
+                for (Hotel hotel : searchResult) {
+                    ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
+                    if (findApartments.size() > 0) {
+                        finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
+                                findApartments.size() + "\nНомера:\n";
+                        for (Apartment apartment : findApartments) {
+                            finderHotelString += apartment.toString();
+                        }
+                        numberOfHotelsFound += 1;
+                    }
+                }
+            } else {
+                return "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
+            }
+            if (("".equals(finderHotelString) && nameOfHotel == null) || !finderHotelString.equals("")) {
+                return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
+            } else {
+                return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
             }
         }
     }
@@ -73,5 +93,14 @@ public class FindHelper {
             }
         }
         return findHotelsResult;
+    }
+
+    private static boolean isNumber(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
