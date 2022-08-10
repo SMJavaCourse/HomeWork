@@ -11,9 +11,8 @@ public class Task3 {
     public static void main(String[] args) {
         Hotel momHotel = HotelFactory.getInstance().createHotel("У мамы лучше");
         Hotel grillHotel = HotelFactory.getInstance().createHotel("оШашлычок");
-        ArrayList<Hotel> hotels = new ArrayList<>();
-        hotels.add(momHotel);
-        hotels.add(grillHotel);
+        List<Hotel> hotels = List.of(momHotel, grillHotel);
+        Map<String, Hotel> hotelsByName = toHotelsByNameMap(hotels);
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -61,7 +60,7 @@ public class Task3 {
                         System.out.println("Введенное количество гостей должно быть больше нуля\n");
                         continue;
                     }
-                    Hotel foundHotel = search(hotelName, hotels);
+                    Hotel foundHotel = search(hotelName, hotelsByName);
                     if (foundHotel == null) {
                         System.out.println("Отель не существует!");
                         continue;
