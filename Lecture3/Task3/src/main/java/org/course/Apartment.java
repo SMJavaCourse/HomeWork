@@ -23,6 +23,15 @@ public class Apartment {
     public int getCapacity() {
         return capacity;
     }
+    public int getRooms() {
+        return rooms;
+    }
+    public int getNumberOfRoom() {
+        return numberOfRoom;
+    }
+    public ArrayList<Services> getServices() {
+        return services;
+    }
 
     public String getName(int rooms) {
         if (rooms == 1) {
@@ -33,14 +42,6 @@ public class Apartment {
             name = "Трёхкомнатный номер";
         }
         return name;
-    }
-
-    public int getRooms() {
-        return rooms;
-    }
-
-    public int getNumberOfRoom() {
-        return numberOfRoom;
     }
 
     private String soutServices() {
@@ -58,10 +59,6 @@ public class Apartment {
             }
         }
         return textServices;
-    }
-
-    public ArrayList<Services> getServices() {
-        return services;
     }
 
     @Override

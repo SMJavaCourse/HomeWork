@@ -18,7 +18,6 @@ public class Hotel {
     public String getName() {
         return name;
     }
-
     public ArrayList<Apartment> getApartments() {
         return apartments;
     }
