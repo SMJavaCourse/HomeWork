@@ -24,19 +24,19 @@ public class FindHelper {
         return findHotelsResult;
     }
 
-    public static String hotelFinderString(ArrayList input, Map<String, Hotel> hotelByName) {
+    public static String hotelFinderString(SearchDTO input, Map<String, Hotel> hotelByName) {
+
         String finderHotelString = "";
+        String nameOfHotel = input.getNameOfHotel();
+        String nameOfCommand = input.getCommand();
         int numberOfHotelsFound = 0;
-        int numberOfGuests;
-        Object nameOfHotel = input.get(1);
-        String nameOfCommand = input.get(0).toString();
+        int numberOfGuests = input.getNumberOfGuests();
         ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelByName);
 
         if (searchResult.size() != 0) {
             if ("удобства".equalsIgnoreCase(nameOfCommand)) {
                 finderHotelString = "Отель \"" + nameOfHotel + "\"\n" + printServices(searchResult.get(0).getApartments());
             } else {
-                numberOfGuests = Integer.parseInt(nameOfCommand);
                 for (Hotel hotel : searchResult) {
                     ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
                     if (findApartments.size() > 0) {
@@ -55,9 +55,7 @@ public class FindHelper {
         }
         if (("".equals(finderHotelString) && nameOfHotel == null) || !finderHotelString.equals("")) {
             finderHotelString = "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
-        } else {
-            finderHotelString = "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
-        }
+        } else finderHotelString = "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
         return finderHotelString;
     }
 }
