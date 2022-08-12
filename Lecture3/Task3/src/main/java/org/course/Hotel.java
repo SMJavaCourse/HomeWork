@@ -57,14 +57,12 @@ public class Hotel {
             }
         }
         stringServices = "Количество доступных удобств: " + servicesMap.size() + "\n";
-        List<String> keys = new ArrayList<>(servicesMap.keySet());
-        for (String key : keys) {
+        for (String key : servicesMap.keySet()) {
             ArrayList<Apartment> value = servicesMap.get(key);
             stringServices += "Удобство \"" + key + "\" доступно в номерах:\n\n";
             for (Apartment apartment : value) {
                 stringServices += "\t\u2219" + apartment.getName(apartment.getRooms()) + " (комната номер " + apartment.getNumberOfRoom() + ")\n";
             }
-            stringServices += "\nПовторите ввод:";
         }
         return stringServices;
     }

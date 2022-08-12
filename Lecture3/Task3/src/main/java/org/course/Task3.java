@@ -1,6 +1,7 @@
 package org.course;
 
 import org.course.exception.HotelFactoryException;
+import org.course.utils.CommandsEnum;
 import org.course.utils.HotelFactory;
 import org.course.utils.SearchDTO;
 
@@ -35,12 +36,13 @@ public class Task3 {
 
             while (exit) {
                 SearchDTO validateInput = validator(in.nextLine().trim());
-                if ("exit".equals(validateInput.getCommand())) {
+
+                if (CommandsEnum.EXIT.name().equals(validateInput.getCommand())){
                     exit = false;
                 } else if (validateInput.getErrorMessage() != null){
                     System.out.println(validateInput.getErrorMessage());
                 } else {
-                    System.out.println(hotelFinderString(validateInput, hotelStreamByName));
+                    System.out.println(hotelFinderString(validateInput.getNameOfHotel(), validateInput.getCommand(), validateInput.getNumberOfGuests(), hotelStreamByName));
                 }
             }
             in.close();

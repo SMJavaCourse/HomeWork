@@ -20,14 +20,28 @@ public class ScannerCheck {
             if (firstSpaceIndex == -1) {
                 if (isNumber(inputString)) {
                     numberOfGuests = Integer.parseInt(inputString);
-                    if (numberOfGuests < 1) errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
-                } else errorMessage = "Количество гостей это число, повторите ввод:";
+                    if (numberOfGuests < 1) {
+                        errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
+                    }
+                } else {
+                    errorMessage = "Количество гостей это число, повторите ввод:";
+                }
             } else {
                 if (isNumber(inputString.substring(0, firstSpaceIndex))) {
                     numberOfGuests = Integer.parseInt(inputString.substring(0, firstSpaceIndex));
-                    nameOfHotel = inputString.substring(firstSpaceIndex + 1);
-                    if (numberOfGuests < 1) errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
-                } else errorMessage = "Количество гостей это число, повторите ввод:";
+                    if (numberOfGuests < 1) {
+                        errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
+                    }
+                } else {
+                    command = inputString.substring(0, firstSpaceIndex).toLowerCase();
+                    for (CommandsEnum commandEnum : CommandsEnum.values()){
+                        if (!commandEnum.name().equalsIgnoreCase(command)) {
+                            errorMessage = "Количество гостей это число, повторите ввод:";
+                            break;
+                        }
+                    }
+                }
+                nameOfHotel = inputString.substring(firstSpaceIndex + 1).toLowerCase();
             }
         }
         return new SearchDTO(nameOfHotel,command,numberOfGuests,errorMessage);
