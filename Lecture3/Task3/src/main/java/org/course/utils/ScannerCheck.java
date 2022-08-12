@@ -33,18 +33,20 @@ public class ScannerCheck {
                         errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
                     }
                 } else {
-                    command = inputString.substring(0, firstSpaceIndex).toLowerCase();
-                    for (CommandsEnum commandEnum : CommandsEnum.values()){
-                        if (!commandEnum.name().equalsIgnoreCase(command)) {
-                            errorMessage = "Количество гостей это число, повторите ввод:";
+                    for (CommandsEnum commandEnum : CommandsEnum.values()) {
+                        if (commandEnum.getName().equalsIgnoreCase(inputString.substring(0, firstSpaceIndex).toLowerCase())) {
+                            command = inputString.substring(0, firstSpaceIndex).toLowerCase();
                             break;
                         }
+                    }
+                    if (command == null){
+                        errorMessage = "Количество гостей это число, повторите ввод:";
                     }
                 }
                 nameOfHotel = inputString.substring(firstSpaceIndex + 1).toLowerCase();
             }
         }
-        return new SearchDTO(nameOfHotel,command,numberOfGuests,errorMessage);
+        return new SearchDTO(nameOfHotel, command, numberOfGuests, errorMessage);
     }
 
     private static boolean isNumber(String input) {

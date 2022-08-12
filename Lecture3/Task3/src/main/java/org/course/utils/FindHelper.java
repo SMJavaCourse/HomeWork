@@ -3,7 +3,9 @@ package org.course.utils;
 import org.course.Apartment;
 import org.course.Hotel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Map;
 
 import static org.course.Hotel.findApartment;
 import static org.course.Hotel.printServices;
@@ -33,23 +35,25 @@ public class FindHelper {
         if (searchResult.size() == 0) {
             finderHotelString = "У нас нет информации по отелю \"" + nameOfHotel + "\"\nНовый поиск:";
             return finderHotelString;
-        } else {
-            for (CommandsEnum commandEnum : CommandsEnum.values()){
-                if (commandEnum.name().equalsIgnoreCase(nameOfCommand)){
-                    finderHotelString = "Отель \"" + nameOfHotel + "\"\n" + printServices(searchResult.get(0).getApartments());
-                    break;
-                } else {
-                    for (Hotel hotel : searchResult) {
-                        ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
-                        if (findApartments.size() > 0) {
-                            finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
-                                    findApartments.size() + "\nНомера:\n";
-                            for (Apartment apartment : findApartments) {
-                                finderHotelString += apartment.toString();
-                            }
-                            numberOfHotelsFound += 1;
-                        }
+        }
+        if (nameOfCommand == null) {
+            for (Hotel hotel : searchResult) {
+                ArrayList<Apartment> findApartments = findApartment(hotel.getApartments(), numberOfGuests);
+                if (findApartments.size() > 0) {
+                    finderHotelString += "Отель \"" + hotel.getName() + "\":\nПодходящих номеров: " +
+                            findApartments.size() + "\nНомера:\n";
+                    for (Apartment apartment : findApartments) {
+                        finderHotelString += apartment.toString();
                     }
+                    numberOfHotelsFound += 1;
+                }
+            }
+        } else {
+            for (CommandsEnum eachEnum : CommandsEnum.values()) {
+                if (CommandsEnum.AMENITIES.getName().equalsIgnoreCase(nameOfCommand)) {
+                    finderHotelString = "Отель \"" + nameOfHotel + "\"\n" + printServices(searchResult.get(0).getApartments());
+                    numberOfHotelsFound = searchResult.size();
+                    break;
                 }
             }
         }

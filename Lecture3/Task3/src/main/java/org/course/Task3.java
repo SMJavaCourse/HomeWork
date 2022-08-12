@@ -37,7 +37,7 @@ public class Task3 {
             while (exit) {
                 SearchDTO validateInput = validator(in.nextLine().trim());
 
-                if (CommandsEnum.EXIT.name().equals(validateInput.getCommand())){
+                if (CommandsEnum.EXIT.name().equalsIgnoreCase(validateInput.getCommand())){
                     exit = false;
                 } else if (validateInput.getErrorMessage() != null){
                     System.out.println(validateInput.getErrorMessage());
