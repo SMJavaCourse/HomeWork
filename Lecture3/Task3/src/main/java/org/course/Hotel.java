@@ -3,6 +3,7 @@ package org.course;
 import org.course.services.Services;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hotel {
     private String name;
@@ -13,23 +14,56 @@ public class Hotel {
         this.name = name;
         this.apartments = apartments;
         this.startTime = startTime;
+
+        var mostExpensiveApartment = apartments
+                .stream()
+                .max(Comparator.comparing(Apartment::getPrice))
+                .get();
+        mostExpensiveApartment.setName(mostExpensiveApartment.getName() + "LUXURY");
     }
 
     public String getName() {
         return name;
     }
+
     public ArrayList<Apartment> getApartments() {
         return apartments;
     }
 
+
     @Override
     public String toString() throws NullPointerException {
-        StringBuilder text = new StringBuilder("Отель \"" + name + "\"\nКоличество номеров: " + apartments.size() +
-                "\nВремя заселение/выселения: " + startTime + "\nНомера:\n");
+        StringBuilder hotelToString = new StringBuilder()
+                .append("Отель \"")
+                .append(name)
+                .append("\"\nКоличество номеров: ")
+                .append(apartments.size())
+                .append("\nВремя заселение/выселения: ")
+                .append(startTime)
+                .append("\nНомера:\n");
         for (Apartment apartment : apartments) {
-            text.append(apartment.toString());
+            hotelToString.append(apartment.toString());
         }
-        return text.toString();
+        return hotelToString.toString();
+    }
+
+    public String toStringTemp() throws NullPointerException {
+
+        StringBuilder hotelToString = new StringBuilder()
+                .append("Отель \"")
+                .append(name)
+                .append("\"\nКоличество номеров: ")
+                .append(apartments.size())
+                .append("\nВремя заселение/выселения: ")
+                .append(startTime)
+                .append("\nНомера:\n");
+
+        hotelToString.append(apartments
+                .stream()
+                .map(Apartment::toString)
+                .collect(Collectors.joining("")));
+
+        return hotelToString.toString();
     }
 
     public static ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
@@ -44,26 +78,34 @@ public class Hotel {
 
     public static String printServices(ArrayList<Apartment> apartments) {
         HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
-        String stringServices;
 
-        for (Apartment apartment:apartments) {
-            for (Services service:apartment.getServices()){
+        for (Apartment apartment : apartments) {
+            for (Services service : apartment.getServices()) {
                 ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
                 if (apartmentList == null) {
                     apartmentList = new ArrayList<>();
-                    servicesMap.put(service.getName(),apartmentList);
+                    servicesMap.put(service.getName(), apartmentList);
                 }
                 apartmentList.add(apartment);
             }
         }
-        stringServices = "Количество доступных удобств: " + servicesMap.size() + "\n";
+
+        StringBuilder stringServices = new StringBuilder("Количество доступных удобств: " + servicesMap.size() + "\n");
         for (String key : servicesMap.keySet()) {
             ArrayList<Apartment> value = servicesMap.get(key);
-            stringServices += "Удобство \"" + key + "\" доступно в номерах:\n\n";
+            stringServices
+                    .append("Удобство \"")
+                    .append(key)
+                    .append("\" доступно в номерах:\n\n");
             for (Apartment apartment : value) {
-                stringServices += "\t\u2219" + apartment.getName(apartment.getRooms()) + " (комната номер " + apartment.getNumberOfRoom() + ")\n";
+                stringServices
+                        .append("\t\u2219")
+                        .append(apartment.getName())
+                        .append(" (комната номер ")
+                        .append(apartment.getNumberOfRoom())
+                        .append(")\n");
             }
         }
-        return stringServices;
+        return stringServices.toString();
     }
 }

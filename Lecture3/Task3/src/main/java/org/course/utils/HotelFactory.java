@@ -27,7 +27,7 @@ public class HotelFactory {
                                 new Balcony())
                         .build());
                 apartmentsInHotel1.add(builder
-                        .rooms(2).numberOfRoom(20).price(3000).capacity(4).services(
+                        .rooms(2).numberOfRoom(20).price(3900).capacity(4).services(
                                 new Balcony(),
                                 new Cleaning(),
                                 new Internet(512),
@@ -73,4 +73,6 @@ public class HotelFactory {
         }
         throw new HotelFactoryException("Ошибка при создании отеля - переданное имя не существует.");
     }
+
+
 }

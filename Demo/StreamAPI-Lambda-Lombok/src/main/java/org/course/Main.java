@@ -30,7 +30,20 @@ public class Main {
     );
 
     public static void main(String[] args) {
-        log.warning("sdfsdf");
+//        log.warning("sdfsdf");
+//
+//        var kj = IntStream.range(1, 10).max();
+//        System.out.println(kj.getAsInt());
+
+        int[] arr = {50, 60, 70, 80, 90, 100, 110, 120};
+        int count = 0;
+        for (int x : arr) {
+            if (x >= 90) continue;
+            x += 10;
+            count++;
+            if (count > 3) break;
+            System.out.print(x);
+        }
 
     }
 
@@ -71,6 +84,8 @@ public class Main {
     public void terminal() {
         var count = employees.stream().count();
 
+        employees.stream().forEach(e -> e.getAge());
+
         employees.stream().forEach(e -> e.setAge(e.getAge() + 1));
 
         employees.forEach(e -> e.setAge(e.getAge() + 1));
@@ -95,7 +110,7 @@ public class Main {
         var list2 = employees.stream().toList();
         list2.add(Employee.builder().id(8).lastName("Фальшивый").firstName("Почерк").age(52).position(Position.WORKER).build());
 
-        IntStream.range(1, 10).max();
+
         IntStream.range(1, 10).average();
         IntStream.range(1, 10).sum();
 
@@ -112,11 +127,7 @@ public class Main {
                     System.out.println(employee.getId());
                     return employee.getFirstName();
                 })
-                .map(firstName -> {
-                    return firstName + "_ha";
-                })
-                .map(firstName -> firstName + "_ha")
-                .toList();
+                .collect(Collectors.joining(""));
 
         //// EQUAL
         var namesStream1 = employees

@@ -3,6 +3,7 @@ package org.course;
 import org.course.services.Services;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Apartment {
     private String name;
@@ -18,22 +19,26 @@ public class Apartment {
         this.price = price;
         this.capacity = capacity;
         this.services = services;
+        buildNameOfRoom(rooms);
     }
 
     public int getCapacity() {
         return capacity;
     }
-    public int getRooms() {
-        return rooms;
-    }
+
     public int getNumberOfRoom() {
         return numberOfRoom;
     }
+
+    public int getPrice() {
+        return price;
+    }
+
     public ArrayList<Services> getServices() {
         return services;
     }
 
-    public String getName(int rooms) {
+    private String buildNameOfRoom(int rooms) {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -44,28 +49,38 @@ public class Apartment {
         return name;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String soutServices() {
         String textServices = "";
         if (services.size() == 0) {
             textServices = "отсутствуют" + "\n";
         } else {
-            for (int i = 0; i < services.size(); i++) {
-                textServices += services.get(i).getName();
-                if (i + 1 < services.size()) {
-                    textServices += ", ";
-                } else {
-                    textServices += "\n";
-                }
-            }
+            textServices = services
+                    .stream()
+                    .map(Services::getName)
+                    .collect(Collectors.joining(", ")) + "\n";
         }
         return textServices;
     }
 
     @Override
     public String toString() {
-        String text = "\t\u2219 " + getName(rooms) +
-                " (комната номер " + numberOfRoom + "):\n\t\t\u25e6 Цена: " + price +
-                "\n\t\t\u25e6 Дополнительные услуги: " + soutServices();
-        return text;
+        StringBuilder apartmentToString = new StringBuilder()
+                .append("\t\u2219 ")
+                .append(buildNameOfRoom(rooms))
+                .append(" (комната номер ")
+                .append(numberOfRoom)
+                .append("):\n\t\t\u25e6 Цена: ")
+                .append(price)
+                .append("\n\t\t\u25e6 Дополнительные услуги: ")
+                .append(soutServices());
+        return apartmentToString.toString();
     }
 }

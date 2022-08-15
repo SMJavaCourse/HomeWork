@@ -13,7 +13,6 @@ public class ApartmentBuilder {
     private int numberOfRoom;
     private int capacity;
     private ArrayList<Services> services;
-//    private Services[] services;
 
     public ApartmentBuilder price(int price) {
         this.price = price;
