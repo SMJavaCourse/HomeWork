@@ -1,10 +1,7 @@
 package org.course.utils;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import org.course.services.Services;
-import org.course.utils.Apartment;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,14 +1,17 @@
 package org.course.utils;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.course.services.Services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
+@Builder
 public class Apartment {
     private String name;
     private int price;
@@ -61,4 +64,16 @@ public class Apartment {
                 .append(soutServices());
         return apartmentToString.toString();
     }
+
+    public static class ApartmentBuilder {
+        public Apartment.ApartmentBuilder services(Services... services) {
+            this.services = new ArrayList<>(Arrays.asList(services));
+            return this;
+        }
+        public Apartment build() {
+            return new Apartment(this.rooms, this.numberOfRoom, this.price, this.capacity, this.services);
+        }
+
+    }
+
 }
