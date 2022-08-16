@@ -1,10 +1,15 @@
-package org.course;
+package org.course.utils;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.course.services.Services;
+import org.course.utils.Apartment;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Getter
 public class Hotel {
     private String name;
     private ArrayList<Apartment> apartments;
@@ -19,17 +24,8 @@ public class Hotel {
                 .stream()
                 .max(Comparator.comparing(Apartment::getPrice))
                 .get();
-        mostExpensiveApartment.setName(mostExpensiveApartment.getName() + "LUXURY");
+        mostExpensiveApartment.setName(mostExpensiveApartment.getName() + " LUXURY");
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public ArrayList<Apartment> getApartments() {
-        return apartments;
-    }
-
 
     @Override
     public String toString() throws NullPointerException {
@@ -56,12 +52,11 @@ public class Hotel {
                 .append(apartments.size())
                 .append("\nВремя заселение/выселения: ")
                 .append(startTime)
-                .append("\nНомера:\n");
-
-        hotelToString.append(apartments
-                .stream()
-                .map(Apartment::toString)
-                .collect(Collectors.joining("")));
+                .append("\nНомера:\n")
+                .append(apartments
+                        .stream()
+                        .map(Apartment::toString)
+                        .collect(Collectors.joining("")));
 
         return hotelToString.toString();
     }

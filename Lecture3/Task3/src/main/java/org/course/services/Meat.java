@@ -1,8 +1,10 @@
 package org.course.services;
 
+import lombok.Getter;
+
+@Getter
 public class Meat extends Services {
 
-    public String getName(){
-        return "шашлык";
-    }
+    private String name = "шашлык";
+
 }

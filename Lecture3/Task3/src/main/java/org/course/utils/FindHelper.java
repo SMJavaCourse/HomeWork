@@ -1,16 +1,10 @@
 package org.course.utils;
 
-import org.course.Apartment;
-import org.course.Hotel;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.course.Hotel.findApartment;
-import static org.course.Hotel.printServices;
+import static org.course.utils.Hotel.findApartment;
+import static org.course.utils.Hotel.printServices;
 
 public class FindHelper {
 
@@ -21,26 +15,12 @@ public class FindHelper {
             findHotelsResult.sort(Comparator.comparing(Hotel::getName));
         } else {
             Hotel result = hotelStreamByName.get(nameOfHotel);
-            if (result != null) {
-                findHotelsResult.add(result);
+            if (result == null) {
+                return findHotelsResult;
             }
+            findHotelsResult.add(result);
         }
         return findHotelsResult;
-    }
-
-    private static Stream<Hotel> findHotelStream(String nameOfHotel, Map<String, Hotel> hotelStreamByName) {
-
-        ArrayList<Hotel> findHotelsResult = new ArrayList<>();
-        if (nameOfHotel == null) {
-            findHotelsResult = new ArrayList<>(hotelStreamByName.values());
-            findHotelsResult.sort(Comparator.comparing(Hotel::getName));
-        } else {
-            Hotel result = hotelStreamByName.get(nameOfHotel);
-            if (result != null) {
-                findHotelsResult.add(result);
-            }
-        }
-        return findHotelsResult.stream();
     }
 
     public static String hotelFinderStringStream(String nameOfHotel, String nameOfCommand, int numberOfGuests, Map<String, Hotel> hotelStreamByName) {
@@ -49,7 +29,7 @@ public class FindHelper {
         int numberOfHotelsFound = 0;
         ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelStreamByName);
 
-        if (searchResult.size() == 0){
+        if (searchResult.size() == 0) {
             finderHotelString
                     .append("У нас нет информации по отелю \"")
                     .append(nameOfHotel)

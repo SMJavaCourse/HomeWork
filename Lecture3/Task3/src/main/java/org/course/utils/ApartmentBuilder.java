@@ -1,10 +1,9 @@
 package org.course.utils;
 
-import org.course.Apartment;
 import org.course.services.Services;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
 
 public class ApartmentBuilder {
 

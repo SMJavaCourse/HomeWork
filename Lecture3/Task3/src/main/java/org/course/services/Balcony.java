@@ -1,8 +1,9 @@
 package org.course.services;
 
+import lombok.Getter;
+
+@Getter
 public class Balcony extends Services {
 
-    public String getName(){
-        return "балкон";
-    }
+    private String name = "балкон";
 }

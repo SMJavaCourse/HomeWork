@@ -1,8 +1,9 @@
 package org.course.services;
 
+import lombok.Getter;
+
+@Getter
 public class Conditioner extends Services {
 
-    public String getName(){
-        return "кондиционер";
-    }
+    private String name = "кондиционер";
 }

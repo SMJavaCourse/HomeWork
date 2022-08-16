@@ -2,6 +2,7 @@ package org.course;
 
 import org.course.exception.HotelFactoryException;
 import org.course.utils.CommandsEnum;
+import org.course.utils.Hotel;
 import org.course.utils.HotelFactory;
 import org.course.utils.SearchDTO;
 

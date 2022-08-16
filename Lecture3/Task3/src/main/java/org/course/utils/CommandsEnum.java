@@ -1,5 +1,8 @@
 package org.course.utils;
 
+import lombok.Getter;
+
+@Getter
 public enum CommandsEnum {
 
     EXIT("выход"),
@@ -11,9 +14,4 @@ public enum CommandsEnum {
     CommandsEnum(final String name) {
         this.name = name;
     }
-
-    public String getName() {
-        return name;
-    }
-
 }

@@ -1,8 +1,9 @@
 package org.course.services;
 
+import lombok.Getter;
+
+@Getter
 public class Cleaning extends Services {
 
-    public String getName(){
-        return "уборка номера";
-    }
+    private String name = "уборка номера";
 }
