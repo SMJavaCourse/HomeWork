@@ -1,13 +1,12 @@
-package org.course.utils;
+package org.course.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import org.course.services.Services;
+import org.course.entity.properties.Services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
-
 
 @Builder
 @Data

@@ -1,4 +1,4 @@
-package org.course.services;
+package org.course.entity.properties;
 
 
 import lombok.AllArgsConstructor;

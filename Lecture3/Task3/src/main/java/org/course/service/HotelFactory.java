@@ -1,7 +1,9 @@
-package org.course.utils;
+package org.course.service;
 
+import org.course.entity.Apartment;
+import org.course.entity.Hotel;
 import org.course.exception.HotelFactoryException;
-import org.course.services.*;
+import org.course.entity.properties.*;
 import java.util.ArrayList;
 
 public class HotelFactory {
@@ -31,7 +33,7 @@ public class HotelFactory {
                                 new Conditioner())
                         .build());
                 apartmentsInHotel1.add(Apartment.builder()
-                        .numberOfRoom(30).services(
+                        .rooms(2).numberOfRoom(30).price(3900).capacity(4).services(
                                 new Balcony(),
                                 new Cleaning(),
                                 new Internet(),
@@ -41,7 +43,7 @@ public class HotelFactory {
                         .rooms(3).numberOfRoom(40).price(2500).capacity(6).services()
                         .build());
                 apartmentsInHotel1.add(Apartment.builder()
-                        .numberOfRoom(50).price(3900).services(
+                        .rooms(3).numberOfRoom(50).price(3900).capacity(6).services(
                                 new Balcony(),
                                 new Internet(),
                                 new Conditioner(),

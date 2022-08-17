@@ -1,8 +1,8 @@
 package org.course;
 
-import org.course.services.Services;
-import org.course.utils.Apartment;
-import org.course.utils.Hotel;
+import org.course.entity.properties.Services;
+import org.course.entity.Apartment;
+import org.course.entity.Hotel;
 
 import java.util.*;
 

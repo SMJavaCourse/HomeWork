@@ -1,10 +1,14 @@
-package org.course.utils;
+package org.course.service;
+
+import org.course.entity.Apartment;
+import org.course.entity.CommandsEnum;
+import org.course.entity.Hotel;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.course.utils.Hotel.findApartment;
-import static org.course.utils.Hotel.printServices;
+import static org.course.entity.Hotel.findApartment;
+import static org.course.entity.Hotel.printServices;
 
 public class FindHelper {
 
@@ -23,12 +27,10 @@ public class FindHelper {
         return findHotelsResult;
     }
 
-    public static String hotelFinderStringStream(String nameOfHotel, String nameOfCommand, int numberOfGuests, Map<String, Hotel> hotelStreamByName) {
-
+    public static String hotelFinderString(String nameOfHotel, String nameOfCommand, int numberOfGuests, Map<String, Hotel> hotelStreamByName) {
         StringBuilder finderHotelString = new StringBuilder();
         int numberOfHotelsFound = 0;
         ArrayList<Hotel> searchResult = findHotel(nameOfHotel, hotelStreamByName);
-
         if (searchResult.size() == 0) {
             finderHotelString
                     .append("У нас нет информации по отелю \"")
@@ -60,7 +62,7 @@ public class FindHelper {
                             .append("Отель \"")
                             .append(nameOfHotel)
                             .append("\"\n")
-                            .append(printServices(searchResult.get(0).getApartments()));
+                            .append(printServices(hotelStreamByName.get(nameOfHotel).getApartments()));
                     numberOfHotelsFound = searchResult.size();
                     break;
                 }

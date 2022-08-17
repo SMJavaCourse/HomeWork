@@ -1,10 +1,10 @@
 package org.course;
 
 import org.course.exception.HotelFactoryException;
-import org.course.utils.CommandsEnum;
-import org.course.utils.Hotel;
-import org.course.utils.HotelFactory;
-import org.course.utils.SearchDTO;
+import org.course.entity.CommandsEnum;
+import org.course.entity.Hotel;
+import org.course.service.HotelFactory;
+import org.course.dto.SearchInput;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -12,8 +12,8 @@ import java.util.Scanner;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.course.utils.FindHelper.hotelFinderStringStream;
-import static org.course.utils.ScannerCheck.validator;
+import static org.course.service.FindHelper.hotelFinderString;
+import static org.course.service.ValidationInput.validator;
 
 public class Task3 {
 
@@ -42,14 +42,14 @@ public class Task3 {
             boolean exit = true;
 
             while (exit) {
-                SearchDTO validateInput = validator(in.nextLine().trim());
+                SearchInput validateInput = validator(in.nextLine().trim());
 
                 if (CommandsEnum.EXIT.name().equalsIgnoreCase(validateInput.getCommand())) {
                     exit = false;
                 } else if (validateInput.getErrorMessage() != null) {
                     System.out.println(validateInput.getErrorMessage());
                 } else {
-                    System.out.println(hotelFinderStringStream(validateInput.getNameOfHotel(), validateInput.getCommand(), validateInput.getNumberOfGuests(), hotelByName)
+                    System.out.println(hotelFinderString(validateInput.getNameOfHotel(), validateInput.getCommand(), validateInput.getNumberOfGuests(), hotelByName)
                     );
                 }
             }

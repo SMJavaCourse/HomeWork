@@ -1,7 +1,7 @@
-package org.course.utils;
+package org.course.entity;
 
 import lombok.Getter;
-import org.course.services.Services;
+import org.course.entity.properties.Services;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -55,7 +55,6 @@ public class Hotel {
 
     public static String printServices(ArrayList<Apartment> apartments) {
         HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
-
         for (Apartment apartment : apartments) {
             for (Services service : apartment.getServices()) {
                 ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
@@ -66,7 +65,6 @@ public class Hotel {
                 apartmentList.add(apartment);
             }
         }
-
         StringBuilder stringServices = new StringBuilder("Количество доступных удобств: " + servicesMap.size() + "\n");
         for (String key : servicesMap.keySet()) {
             ArrayList<Apartment> value = servicesMap.get(key);

@@ -1,4 +1,4 @@
-package org.course.utils;
+package org.course.entity;
 
 import lombok.Getter;
 

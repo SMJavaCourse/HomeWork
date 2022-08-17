@@ -1,15 +1,12 @@
-package org.course.utils;//    public SearchDTO(String nameOfHotel, String command, int numberOfGuests, String errorMessage) {
-//        this.nameOfHotel = nameOfHotel;
-//        this.command = command;
-//        this.numberOfGuests = numberOfGuests;
-//        this.errorMessage = errorMessage;
-//    }
+package org.course.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.course.dto.SearchInput;
+import org.course.entity.CommandsEnum;
 
-public class ScannerCheck {
+public class ValidationInput {
 
-    public static SearchDTO validator(String inputString) {
+    public static SearchInput validator(String inputString) {
 
         String nameOfHotel = null;
         String command = null;
@@ -51,7 +48,7 @@ public class ScannerCheck {
                 nameOfHotel = inputString.substring(firstSpaceIndex + 1).toLowerCase();
             }
         }
-        return new SearchDTO(nameOfHotel, command, errorMessage, numberOfGuests);
+        return new SearchInput(nameOfHotel, command, errorMessage, numberOfGuests);
     }
 
     private static boolean isNumber(String input) {
