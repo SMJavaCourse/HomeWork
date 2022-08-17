@@ -55,7 +55,7 @@ public class Apartment {
     public String toString() {
         StringBuilder apartmentToString = new StringBuilder()
                 .append("\t\u2219 ")
-                .append(getName())
+                .append(name)
                 .append(" (комната номер ")
                 .append(numberOfRoom)
                 .append("):\n\t\t\u25e6 Цена: ")
@@ -70,6 +70,7 @@ public class Apartment {
             this.services = new ArrayList<>(Arrays.asList(services));
             return this;
         }
+
         public Apartment build() {
             return new Apartment(this.rooms, this.numberOfRoom, this.price, this.capacity, this.services);
         }
