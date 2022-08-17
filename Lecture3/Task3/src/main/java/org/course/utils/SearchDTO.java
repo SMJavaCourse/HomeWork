@@ -1,18 +1,13 @@
 package org.course.utils;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class SearchDTO {
     String nameOfHotel;
     String command;
     String errorMessage;
     int numberOfGuests;
-
-    public SearchDTO(String nameOfHotel, String command, int numberOfGuests, String errorMessage) {
-        this.nameOfHotel = nameOfHotel;
-        this.command = command;
-        this.numberOfGuests = numberOfGuests;
-        this.errorMessage = errorMessage;
-    }
 }

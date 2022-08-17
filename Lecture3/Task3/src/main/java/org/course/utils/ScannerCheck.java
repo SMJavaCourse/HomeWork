@@ -1,4 +1,9 @@
-package org.course.utils;
+package org.course.utils;//    public SearchDTO(String nameOfHotel, String command, int numberOfGuests, String errorMessage) {
+//        this.nameOfHotel = nameOfHotel;
+//        this.command = command;
+//        this.numberOfGuests = numberOfGuests;
+//        this.errorMessage = errorMessage;
+//    }
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -46,7 +51,7 @@ public class ScannerCheck {
                 nameOfHotel = inputString.substring(firstSpaceIndex + 1).toLowerCase();
             }
         }
-        return new SearchDTO(nameOfHotel, command, numberOfGuests, errorMessage);
+        return new SearchDTO(nameOfHotel, command, errorMessage, numberOfGuests);
     }
 
     private static boolean isNumber(String input) {

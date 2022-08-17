@@ -1,17 +1,16 @@
 package org.course.utils;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.course.services.Services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@Getter
-@Setter
+
 @Builder
+@Data
 public class Apartment {
     private String name;
     private int price;

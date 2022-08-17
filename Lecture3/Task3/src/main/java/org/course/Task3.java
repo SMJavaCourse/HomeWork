@@ -29,7 +29,7 @@ public class Task3 {
             System.out.println("\n" +
                     hotels
                             .stream()
-                            .map(Hotel::toStringTemp)
+                            .map(Hotel::toString)
                             .collect(Collectors.joining("\n"))
                     + "\n============================ Поиск вободных номеров =============================\n" +
                     "введите запрос в формате \"N\" или \"N \u00ABНазвание отеля\u00BB\", где N - количество гостей:");

@@ -26,21 +26,6 @@ public class Hotel {
 
     @Override
     public String toString() throws NullPointerException {
-        StringBuilder hotelToString = new StringBuilder()
-                .append("Отель \"")
-                .append(name)
-                .append("\"\nКоличество номеров: ")
-                .append(apartments.size())
-                .append("\nВремя заселение/выселения: ")
-                .append(startTime)
-                .append("\nНомера:\n");
-        for (Apartment apartment : apartments) {
-            hotelToString.append(apartment.toString());
-        }
-        return hotelToString.toString();
-    }
-
-    public String toStringTemp() throws NullPointerException {
 
         StringBuilder hotelToString = new StringBuilder()
                 .append("Отель \"")
