@@ -22,5 +22,6 @@
         <module>Demo/Generics</module>
         <module>Demo/StreamAPI-Lambda-Lombok</module>
         <module>Demo/JUnit</module>
+        <module>Demo/jdbc</module>
     </modules>
 </project>
