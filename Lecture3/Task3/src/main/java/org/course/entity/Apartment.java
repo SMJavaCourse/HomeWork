@@ -63,7 +63,8 @@ public class Apartment {
         return apartmentToString.toString();
     }
 
-    public static class ApartmentBuilder {
+   public static class ApartmentBuilder {
+
         public Apartment.ApartmentBuilder services(Services... services) {
             this.services = new ArrayList<>(Arrays.asList(services));
             return this;
