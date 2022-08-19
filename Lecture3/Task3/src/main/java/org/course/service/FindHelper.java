@@ -18,7 +18,7 @@ public class FindHelper {
             findHotelsResult = new ArrayList<>(hotelStreamByName.values());
             findHotelsResult.sort(Comparator.comparing(Hotel::getName));
         } else {
-            Hotel result = hotelStreamByName.get(nameOfHotel);
+            Hotel result = hotelStreamByName.get(nameOfHotel.toLowerCase());
             if (result == null) {
                 return findHotelsResult;
             }
