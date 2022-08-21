@@ -26,15 +26,14 @@ public class Task3 {
         // общее количество номеров
         // список номеров с их описанием
 
-        hotels = generateHotels();
+        hotels = HotelFactory.generateMoreHotels();
 
+        var time = new SearchTimeDemo();
 //        Hotels.printHotelInfo(hotels);
 //        Hotel.printAvailableApartmentByParams(hotels, 4);
-        var time = new SearchTimeDemo();
         Hotel.printAvailableApartmentByParams(hotels, "У мамы лучше", 4);
-        time.getMethodDuration();
 
-        //TODO: переделать ввод с консоли,
+        time.getMethodDuration();
 
         // for test:
 //        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);
@@ -42,110 +41,6 @@ public class Task3 {
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[0], "У мамы лучше", 4);
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[1], "У мамы лучше", 4);
 
-//        Scanner inputScanner = new Scanner(System.in);
-//
-//        boolean continueApp = true;
-//        while(continueApp) {
-//            System.out.print("Please, input one of following command: " +
-//                    " | exit (to interrupt program) " +
-//                    " | info (to get info about all hotels)" +
-//                    " | find -n=\"hotelName\" -p=numberOfPlaces (to find apartments by Hotel Name and Number Of Places) " +
-//                    "\nInput here: ");
-//            String value = inputScanner.nextLine();
-//            if (value == null) {
-//                System.out.println("Command cannot be null");
-//            } else {
-//
-////                Options options = new Options();
-////                options.addOption(new Option("l", "language", true, "language"));
-////                CommandLineParser commandLineParser = new DefaultParser();
-////                CommandLine commandLine = commandLineParser.parse(options, args);
-//
-////                String[] commandWithArguments = value.trim().split(" ");
-////                if (commandWithArguments.length < 1) {
-////                    System.out.println("Command not found");
-////                } else {
-////                    switch (commandWithArguments[0]) {
-////                        case "exit":
-////                            System.out.println("Program has stopped...");
-////                            continueApp = false;
-////                            break;
-////                        case "info":
-////                            Hotels.printHotelInfo(hotels);
-////                            break;
-////                        case "find":
-////                            Pattern pattern = Pattern.compile("[\\W]*\\W[\\s]");
-////                            Matcher matcher = pattern.matcher(value);
-////                            List<String> listMatches = new ArrayList<>();
-////                            while(matcher.find())
-////                            {
-////                                listMatches.add(matcher.group(0));
-////                            }
-////                            var p = listMatches.get(0).trim().substring(0,1);
-////                            var param1 = listMatches.get(0).trim().substring(p.equals("\"") ? 1 : 0, p.equals("\"") ?
-////                                    listMatches.get(0).trim().length() - 1 : listMatches.get(0).trim().length());
-////
-////                            Pattern pattern2 = Pattern.compile("[\\w]*\\d");
-////                            Matcher matcher2 = pattern2.matcher(value);
-////                            List<String> listMatches2 = new ArrayList<>();
-////                            while(matcher2.find())
-////                            {
-////                                listMatches2.add(matcher2.group(0));
-////                            }
-////                            var param2 = listMatches2.get(0);
-////                            if (commandWithArguments.length == 3) {
-////                                Hotel.printAvailableApartmentByParams(hotels, commandWithArguments[1],
-////                                        Integer.valueOf(commandWithArguments[2]));
-////                            } else if (commandWithArguments.length > 3) {
-////
-////
-////                                Hotel.printAvailableApartmentByParams(hotels, param1,
-////                                        Integer.valueOf(param2));
-////                            } else if (commandWithArguments.length == 2 && isInteger(commandWithArguments[1])) {
-//////                                Hotel.printAvailableApartmentByParams(hotels, Integer.valueOf(param2));
-////                                System.out.println("FFF");
-////                            }
-////                            break;
-////                    }
-////                }
-//            }
-//        }
-//        inputScanner.close();
-
-    }
-
-    public static boolean isInteger(String s) {
-        try {
-            Integer.parseInt(s);
-        } catch(NumberFormatException e) {
-            return false;
-        } catch(NullPointerException e) {
-            return false;
-        }
-        // only got here if we didn't return false
-        return true;
-    }
-
-//    public static List<Hotel> generateHotels() {
-//        List<Hotel> hotels = new ArrayList<>();
-//        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-//        hotels.add(HotelFactory.createHotel("Шашлычок"));
-//        return hotels;
-//    }
-
-    public static List<Hotel> generateHotels() {
-        List<Hotel> hotels = new ArrayList<>();
-        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-        hotels.add(HotelFactory.createHotel("Шашлычок"));
-        for (int i = 0; i < 1000000; i++) {
-            hotels.add(Hotel.builder()
-                    .name("hotelName")
-                    .apartments(List.of(new ApartmentOneRoom(1000f, 2, 13)
-                            .setServices(new ServicesImpl().addBalcony().addCleaning())))
-                    .checkInTime(LocalTime.of(12, 0))
-                    .build());
-        }
-        return hotels;
     }
 
 }

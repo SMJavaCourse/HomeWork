@@ -7,14 +7,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Getter
 public class Hotel implements Hotels{
+
+//    private static List<Hotel> hotels;
+
     private String name;
     private LocalTime checkInTime;
     private List<Apartment> apartments;
     private Integer roomsTotalCount;
+
+    private Map<String, Hotel> hotelIdMap = new HashMap<>();
+
+//    public List<Hotel> getHotels() {
+//        return Hotel.hotels;
+//    }
+//    public void setHotels(Hotel hotel) {
+//        this.getHotels().add(hotel);
+//    }
+
+    public Hotel findHotel(String hotelName) {
+        Hotel hotelResult = hotelIdMap.get(hotelName.toLowerCase());
+        if (hotelResult != null) {
+            return hotelResult;
+        }
+        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
+    }
 
     @Builder
     public Hotel(String name, List<Apartment> apartments, LocalTime checkInTime) {
@@ -31,22 +53,28 @@ public class Hotel implements Hotels{
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
+//        this.setHotels(this);
+        this.hotelIdMap.put(name.toLowerCase(), this);
     }
 
 
     @Override
     public String toString() {
-        return "Отель \"" + this.name + "\":\n" +
+        return "Отель \"" + this.name + "\""  + ":\n" +
                 "Количество номеров: " + this.roomsTotalCount + "\n" +
                 "Номера: ";
     }
 
     public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, String hotelName, int places) {
-        Map<String, List<Apartment>> map = new HashMap<>();
+        Map<String, List<Apartment>> map = new TreeMap<>();
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
                 var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
                         .collect(Collectors.toList());
+//                var listHotels = hotels.stream().filter(h -> h.getHotelIdMap().get(hotelName.toLowerCase())
+//                                .equals(hotelName.toLowerCase()))
+//                        .collect(Collectors.toList());
+
                 if (listHotels.size() == 1) {
                     var list = listHotels.get(0).getApartments()
                             .stream()
@@ -73,9 +101,12 @@ public class Hotel implements Hotels{
         return Map.of();
     }
     public static Long getCountHotelsByParam(List<Hotel> hotels, int places) {
-        var count = hotels.stream()
-                .map(hotel -> hotel.getApartments()
-                        .stream().filter(a -> a.getPlaces().equals(places))).count();
+        Long count = 0L;
+        for (Hotel h : hotels) {
+            if(h.getApartments().stream().filter(a -> a.getPlaces().equals(places)).count() > 0) {
+                count+=1;
+            }
+        }
         return count;
     }
     public static Long getCountHotelsByParam(List<Hotel> hotels, String hotelName, int places) {
@@ -86,7 +117,7 @@ public class Hotel implements Hotels{
     }
 
     public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, int places) {
-        Map<String, List<Apartment>> map = new HashMap<>();
+        Map<String, List<Apartment>> map = new TreeMap<>();
         for (Hotel hotel : hotels) {
             List<Apartment> list = new ArrayList<>();
             var apartments = hotel.getApartments();
@@ -118,7 +149,7 @@ public class Hotel implements Hotels{
         var mapHotelApartments = getApartmentsByParam(hotels, places);
         if (!mapHotelApartments.isEmpty()) {
             var countHotels = getCountHotelsByParam(hotels, places);
-            System.out.println("Найдено отелей: " + countHotels);
+            System.out.println("Найдено отелей (по заданным условиям): " + countHotels);
             mapHotelApartments.forEach((hotel, apartments) ->
                     System.out.println("В отеле \"" + hotel + "\" " +
                             "количество подходящих номеров " + apartments.size() + "\n" +
@@ -126,4 +157,7 @@ public class Hotel implements Hotels{
             System.out.println("\n");
         }
     }
+
+
+
 }
