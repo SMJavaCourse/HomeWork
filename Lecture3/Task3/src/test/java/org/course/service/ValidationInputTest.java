@@ -2,55 +2,57 @@ package org.course.service;
 
 import org.course.dto.SearchInput;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.course.service.ValidationInput.validator;
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ValidationInputTest {
     String inputString;
-    String nameOfHotel = null;
-    String command = null;
-    String errorMessage = null;
-    int numberOfGuests = 0;
+    String nameOfHotel;
+    String command;
+    String errorMessage;
+    int numberOfGuests;
 
     @Test
     void emptyInput() {
         inputString = "";
         String actual = validator(inputString).getErrorMessage();
-        String expected = "Пустая строка. Повторите ввод";
-        assertEquals(actual,expected);
+        assertEquals("Пустая строка. Повторите ввод",actual);
     }
 
     @Test
     void exitCommand() {
         inputString = "выход";
         String actual = validator(inputString).getCommand();
-        String expected = "exit";
-        assertEquals(actual,expected);
+        assertEquals("exit",actual);
     }
 
     @Test
     void nonPositiveNumberOfGuests() {
         inputString = "-10";
-        String actual = validator(inputString).getErrorMessage();
-        String expected = "Количество гостей не может быть меньше 1, повторите ввод:";
-        assertEquals(actual,expected);
+        errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
+        numberOfGuests = -10;
+        SearchInput actual = validator(inputString);
+        assertEquals(errorMessage,actual.getErrorMessage());
+        assertEquals(numberOfGuests,actual.getNumberOfGuests());
     }
 
     @Test
     void zeroNumberOfGuests() {
         inputString = "0";
+        errorMessage = "Количество гостей не может быть меньше 1, повторите ввод:";
         String actual = validator(inputString).getErrorMessage();
-        String expected = "Количество гостей не может быть меньше 1, повторите ввод:";
-        assertEquals(actual,expected);
+        assertEquals(errorMessage,actual);
     }
 
     @Test
     void stringInsteadOfInt() {
         inputString = "string";
+        errorMessage = "Количество гостей это число, повторите ввод:";
         String actual = validator(inputString).getErrorMessage();
-        String expected = "Количество гостей это число, повторите ввод:";
-        assertEquals(actual,expected);
+        assertEquals(errorMessage,actual);
     }
 
     @Test
@@ -58,8 +60,7 @@ class ValidationInputTest {
         inputString = "unknownCommand шашлычок";
         errorMessage = "Количество гостей это число, повторите ввод:";
         SearchInput actual = validator(inputString);
-        SearchInput expected = new SearchInput(nameOfHotel, command, errorMessage, numberOfGuests);
-        assertEquals(actual.getErrorMessage(),expected.getErrorMessage());
+        assertEquals(errorMessage,actual.getErrorMessage());
     }
 
     @Test
@@ -68,11 +69,10 @@ class ValidationInputTest {
         nameOfHotel = "шашлычок";
         command = "удобства";
         SearchInput actual = validator(inputString);
-        SearchInput expected = new SearchInput(nameOfHotel, command, errorMessage, numberOfGuests);
-        assertEquals(actual.getErrorMessage(),expected.getErrorMessage());
-        assertEquals(actual.getCommand(),expected.getCommand());
-        assertEquals(actual.getNameOfHotel(),expected.getNameOfHotel());
-        assertEquals(actual.getNumberOfGuests(),expected.getNumberOfGuests());
+        assertNull(actual.getErrorMessage());
+        assertEquals(command,actual.getCommand());
+        assertEquals(nameOfHotel,actual.getNameOfHotel());
+        assertEquals(0,actual.getNumberOfGuests());
     }
 
     @Test
@@ -81,11 +81,10 @@ class ValidationInputTest {
         nameOfHotel = "отель";
         numberOfGuests = 77;
         SearchInput actual = validator(inputString);
-        SearchInput expected = new SearchInput(nameOfHotel, command, errorMessage, numberOfGuests);
-        assertEquals(actual.getErrorMessage(),expected.getErrorMessage());
-        assertEquals(actual.getCommand(),expected.getCommand());
-        assertEquals(actual.getNameOfHotel(),expected.getNameOfHotel());
-        assertEquals(actual.getNumberOfGuests(),expected.getNumberOfGuests());
+        assertNull(actual.getErrorMessage());
+        assertNull(actual.getCommand());
+        assertEquals(nameOfHotel,actual.getNameOfHotel());
+        assertEquals(numberOfGuests,actual.getNumberOfGuests());
     }
 
 }

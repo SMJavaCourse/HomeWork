@@ -34,7 +34,7 @@ class HotelTest {
         numberOfGuests = 1;
         ArrayList<Apartment> actual = findApartment(hotels.get(0).getApartments(),numberOfGuests);
         ArrayList<Apartment> expected = hotels.get(0).getApartments();
-        assertEquals(actual,expected);
+        assertEquals(expected,actual);
     }
 
 }

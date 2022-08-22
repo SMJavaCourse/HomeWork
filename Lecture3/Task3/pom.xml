@@ -49,6 +49,25 @@
             <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-core</artifactId>
+            <version>5.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jeasy/easy-random -->
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random</artifactId>
+            <version>5.0.0</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.course</groupId>
+            <artifactId>Lecture7</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
