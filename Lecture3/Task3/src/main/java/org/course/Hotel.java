@@ -60,19 +60,21 @@ public class Hotel implements Hotels{
                 "Номера: ";
     }
 
-    public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, String hotelName, int places) {
+    public static Map<String, List<Apartment>> getApartmentsByParam(HotelsRepo hotelsRepo, String hotelName, int places) {
         Map<String, List<Apartment>> map = new TreeMap<>();
+        List<Hotel> hotels = hotelsRepo.getHotels();
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
-//                Hotel result = hotels.getHotel();
-                var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
-                        .collect(Collectors.toList());
+                Hotel result = hotelsRepo.getHotel(hotelName);
+
+//                var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
+//                        .collect(Collectors.toList());
 //                var listHotels = hotels.stream().filter(h -> h.getHotelIdMap().get(hotelName.toLowerCase())
 //                                .equals(hotelName.toLowerCase()))
 //                        .collect(Collectors.toList());
 
-                if (listHotels.size() == 1) {
-                    var list = listHotels.get(0).getApartments()
+                if (result != null) {
+                    var list = result.getApartments()
                             .stream()
                             .filter(apartment -> apartment.getPlaces() == places)
                             .collect(Collectors.toList());
@@ -112,9 +114,9 @@ public class Hotel implements Hotels{
         return count;
     }
 
-    public static Map<String, List<Apartment>> getApartmentsByParam(List<Hotel> hotels, int places) {
+    public static Map<String, List<Apartment>> getApartmentsByParam(HotelsRepo hotelsRepo, int places) {
         Map<String, List<Apartment>> map = new TreeMap<>();
-        for (Hotel hotel : hotels) {
+        for (Hotel hotel : hotelsRepo.getHotels()) {
             List<Apartment> list = new ArrayList<>();
             var apartments = hotel.getApartments();
             for (Apartment apartment : apartments) {
@@ -127,10 +129,10 @@ public class Hotel implements Hotels{
         return map;
     }
 
-    public static void printAvailableApartmentByParams(List<Hotel> hotels, String hotelName, Integer places) {
-        var mapHotelApartments = getApartmentsByParam(hotels, hotelName, places);
+    public static void printAvailableApartmentByParams(HotelsRepo hotelsRepo, String hotelName, Integer places) {
+        var mapHotelApartments = getApartmentsByParam(hotelsRepo, hotelName, places);
         if (!mapHotelApartments.isEmpty()) {
-            var countHotels = getCountHotelsByParam(hotels, hotelName, places);
+            var countHotels = hotelsRepo.getHotel(hotelName) != null ? 1 : null;
             System.out.println("Найдено отелей: " + countHotels);
             mapHotelApartments.forEach((hotel, apartments) ->
                     System.out.println("В отеле \"" + hotel + "\" " +
@@ -141,10 +143,10 @@ public class Hotel implements Hotels{
     }
 
 
-    public static void printAvailableApartmentByParams(List<Hotel> hotels, Integer places) {
-        var mapHotelApartments = getApartmentsByParam(hotels, places);
+    public static void printAvailableApartmentByParams(HotelsRepo hotelsRepo, Integer places) {
+        var mapHotelApartments = getApartmentsByParam(hotelsRepo, places);
         if (!mapHotelApartments.isEmpty()) {
-            var countHotels = getCountHotelsByParam(hotels, places);
+            var countHotels = getCountHotelsByParam(hotelsRepo.getHotels(), places);
             System.out.println("Найдено отелей (по заданным условиям): " + countHotels);
             mapHotelApartments.forEach((hotel, apartments) ->
                     System.out.println("В отеле \"" + hotel + "\" " +

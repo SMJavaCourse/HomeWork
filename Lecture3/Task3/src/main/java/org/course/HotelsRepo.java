@@ -22,7 +22,7 @@ public class HotelsRepo {
         }
         return INSTANCE;
     }
-    private List<Hotel> hotels;
+    private List<Hotel> hotels = new ArrayList<>();
     private Map<String, Hotel> helpIndexHotel = new HashMap<>();
 
 
@@ -32,14 +32,15 @@ public class HotelsRepo {
         if (hotelResult != null) {
             return hotelResult;
         }
-        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
+        return null;
+//        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
     }
 
     public void addHotel(Hotel hotel) {
         hotels.add(hotel);
         helpIndexHotel.put(hotel.getName().toLowerCase(), hotel);
     }
-    public List<Hotel> generateHotels() {
+    public void generateHotels() {
         addHotel(HotelFactory.createHotel("У мамы лучше"));
         addHotel(HotelFactory.createHotel("Шашлычок"));
         addHotel(Hotel.builder()
@@ -54,50 +55,33 @@ public class HotelsRepo {
                         .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
                 .checkInTime(LocalTime.of(12, 0))
                 .build());
-//        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-//        hotels.add(HotelFactory.createHotel("Шашлычок"));
-//        hotels.add(Hotel.builder()
-//                .name("Астория")
-//                .apartments(List.of(new ApartmentOneRoom(100000f, 1, 1)
-//                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-//                .checkInTime(LocalTime.of(12, 0))
-//                .build());
-//        hotels.add(Hotel.builder()
-//                .name("Астория")
-//                .apartments(List.of(new ApartmentOneRoom(140000f, 4, 1)
-//                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-//                .checkInTime(LocalTime.of(12, 0))
-//                .build());
-        return hotels;
     }
 
-    public List<Hotel> generateMoreHotels() {
+    public void generateMoreHotels() {
         /**
          * for test method duration
          */
-//        List<Hotel> hotels = new ArrayList<>();
-        hotels.add(HotelFactory.createHotel("Шашлычок"));
-        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-        hotels.add(Hotel.builder()
+        addHotel(HotelFactory.createHotel("Шашлычок"));
+        addHotel(HotelFactory.createHotel("У мамы лучше"));
+        addHotel(Hotel.builder()
                 .name("Астория")
                 .apartments(List.of(new ApartmentOneRoom(100000f, 1, 1)
                         .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
                 .checkInTime(LocalTime.of(12, 0))
                 .build());
-        hotels.add(Hotel.builder()
+        addHotel(Hotel.builder()
                 .name("Астория")
                 .apartments(List.of(new ApartmentOneRoom(140000f, 4, 1)
                         .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
                 .checkInTime(LocalTime.of(12, 0))
                 .build());
         for (int i = 0; i < 1000000; i++) {
-            hotels.add(Hotel.builder()
+            addHotel(Hotel.builder()
                     .name("hotelName"+i)
                     .apartments(List.of(new ApartmentOneRoom(1000f, 7, 13)
                             .setServices(new ServicesImpl().addBalcony().addCleaning())))
                     .checkInTime(LocalTime.of(12, 0))
                     .build());
         }
-        return hotels;
     }
 }

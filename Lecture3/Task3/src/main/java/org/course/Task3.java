@@ -25,21 +25,19 @@ public class Task3 {
         // вывести по каждому из отелей:
         // общее количество номеров
         // список номеров с их описанием
-        var hotels = hotelsRepo.generateHotels();
+
+        hotelsRepo.generateMoreHotels(); // нагенерить > 1000000 отелей для теста
 
         var time = new SearchTimeDemo();
-//        Hotels.printHotelInfo(hotels);
-//        Hotel.printAvailableApartmentByParams(hotels, 4);
-        Hotel.printAvailableApartmentByParams(hotels, "У мамы лучше", 4);
-
+        Hotel.printAvailableApartmentByParams(hotelsRepo, "У мамы лучше", 4);
         time.getMethodDuration();
 
-        // for test:
+        // for test (Task#3):
+//        Hotel.printAvailableApartmentByParams(hotelsRepo, 4);
 //        Hotel.printAvailableApartmentByHotelName(hotels, "У папы лучше", 4);
 //        Hotel.printAvailableApartmentByHotelName(hotels, "У мамы лучше", 40);
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[0], "У мамы лучше", 4);
 //        Hotel.printAvailableApartmentByHotelName(new Hotel[1], "У мамы лучше", 4);
-
     }
 
 }
