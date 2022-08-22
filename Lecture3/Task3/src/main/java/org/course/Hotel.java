@@ -13,15 +13,12 @@ import java.util.stream.Collectors;
 
 @Getter
 public class Hotel implements Hotels{
-
-//    private static List<Hotel> hotels;
-
     private String name;
     private LocalTime checkInTime;
     private List<Apartment> apartments;
     private Integer roomsTotalCount;
 
-    private Map<String, Hotel> hotelIdMap = new HashMap<>();
+//    private Map<String, Hotel> hotelIdMap = new HashMap<>();
 
 //    public List<Hotel> getHotels() {
 //        return Hotel.hotels;
@@ -30,13 +27,13 @@ public class Hotel implements Hotels{
 //        this.getHotels().add(hotel);
 //    }
 
-    public Hotel findHotel(String hotelName) {
-        Hotel hotelResult = hotelIdMap.get(hotelName.toLowerCase());
-        if (hotelResult != null) {
-            return hotelResult;
-        }
-        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
-    }
+//    public Hotel findHotel(String hotelName) {
+//        Hotel hotelResult = hotelIdMap.get(hotelName.toLowerCase());
+//        if (hotelResult != null) {
+//            return hotelResult;
+//        }
+//        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
+//    }
 
     @Builder
     public Hotel(String name, List<Apartment> apartments, LocalTime checkInTime) {
@@ -53,8 +50,6 @@ public class Hotel implements Hotels{
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
-//        this.setHotels(this);
-        this.hotelIdMap.put(name.toLowerCase(), this);
     }
 
 
@@ -69,6 +64,7 @@ public class Hotel implements Hotels{
         Map<String, List<Apartment>> map = new TreeMap<>();
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
+//                Hotel result = hotels.getHotel();
                 var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
                         .collect(Collectors.toList());
 //                var listHotels = hotels.stream().filter(h -> h.getHotelIdMap().get(hotelName.toLowerCase())
@@ -157,7 +153,5 @@ public class Hotel implements Hotels{
             System.out.println("\n");
         }
     }
-
-
 
 }

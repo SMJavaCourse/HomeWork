@@ -6,56 +6,6 @@ import java.util.List;
 
 public class HotelFactory {
 
-    public static List<Hotel> hotels;
-
-    public static List<Hotel> generateHotels() {
-        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-        hotels.add(HotelFactory.createHotel("Шашлычок"));
-        hotels.add(Hotel.builder()
-                .name("Астория")
-                .apartments(List.of(new ApartmentOneRoom(100000f, 1, 1)
-                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-                .checkInTime(LocalTime.of(12, 0))
-                .build());
-        hotels.add(Hotel.builder()
-                .name("Астория")
-                .apartments(List.of(new ApartmentOneRoom(140000f, 4, 1)
-                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-                .checkInTime(LocalTime.of(12, 0))
-                .build());
-        return hotels;
-    }
-
-        public static List<Hotel> generateMoreHotels() {
-        /**
-         * for test method duration
-         */
-        List<Hotel> hotels = new ArrayList<>();
-        hotels.add(HotelFactory.createHotel("Шашлычок"));
-        hotels.add(HotelFactory.createHotel("У мамы лучше"));
-        hotels.add(Hotel.builder()
-                .name("Астория")
-                .apartments(List.of(new ApartmentOneRoom(100000f, 1, 1)
-                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-                .checkInTime(LocalTime.of(12, 0))
-                .build());
-        hotels.add(Hotel.builder()
-                .name("Астория")
-                .apartments(List.of(new ApartmentOneRoom(140000f, 4, 1)
-                        .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
-                .checkInTime(LocalTime.of(12, 0))
-                .build());
-        for (int i = 0; i < 1000000; i++) {
-            hotels.add(Hotel.builder()
-                    .name("hotelName"+i)
-                    .apartments(List.of(new ApartmentOneRoom(1000f, 7, 13)
-                            .setServices(new ServicesImpl().addBalcony().addCleaning())))
-                    .checkInTime(LocalTime.of(12, 0))
-                    .build());
-        }
-        return hotels;
-    }
-
     public static Hotel createHotel(String hotelName) {
         try {
             switch (hotelName) {

@@ -20,13 +20,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task3 {
-    public static List<Hotel> hotels;
+    public static HotelsRepo hotelsRepo = HotelsRepo.getInstance();
     public static void main(String[] args) throws HotelException, ParseException {
         // вывести по каждому из отелей:
         // общее количество номеров
         // список номеров с их описанием
-
-        hotels = HotelFactory.generateMoreHotels();
+        var hotels = hotelsRepo.generateHotels();
 
         var time = new SearchTimeDemo();
 //        Hotels.printHotelInfo(hotels);
