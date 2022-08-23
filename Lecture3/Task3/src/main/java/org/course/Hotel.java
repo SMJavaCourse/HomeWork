@@ -4,10 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
@@ -18,22 +16,6 @@ public class Hotel implements Hotels{
     private List<Apartment> apartments;
     private Integer roomsTotalCount;
 
-//    private Map<String, Hotel> hotelIdMap = new HashMap<>();
-
-//    public List<Hotel> getHotels() {
-//        return Hotel.hotels;
-//    }
-//    public void setHotels(Hotel hotel) {
-//        this.getHotels().add(hotel);
-//    }
-
-//    public Hotel findHotel(String hotelName) {
-//        Hotel hotelResult = hotelIdMap.get(hotelName.toLowerCase());
-//        if (hotelResult != null) {
-//            return hotelResult;
-//        }
-//        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
-//    }
 
     @Builder
     public Hotel(String name, List<Apartment> apartments, LocalTime checkInTime) {
@@ -65,13 +47,7 @@ public class Hotel implements Hotels{
         List<Hotel> hotels = hotelsRepo.getHotels();
         try {
             if (hotels.size() != 0 && hotels.stream().anyMatch(h -> h != null)) {
-                Hotel result = hotelsRepo.getHotel(hotelName);
-
-//                var listHotels = hotels.stream().filter(h -> h.getName().toLowerCase().equals(hotelName.toLowerCase()))
-//                        .collect(Collectors.toList());
-//                var listHotels = hotels.stream().filter(h -> h.getHotelIdMap().get(hotelName.toLowerCase())
-//                                .equals(hotelName.toLowerCase()))
-//                        .collect(Collectors.toList());
+                Hotel result = hotelsRepo.getHotel(hotelName).orElseThrow(() -> new HotelException("No such hotel name \"" + hotelName + "\""));
 
                 if (result != null) {
                     var list = result.getApartments()

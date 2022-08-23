@@ -3,7 +3,6 @@ package org.course;
 import java.util.List;
 
 public interface Hotels {
-//    List<Hotel> getHotels();
 
     List<Apartment> getApartments();
     Integer getRoomsTotalCount();

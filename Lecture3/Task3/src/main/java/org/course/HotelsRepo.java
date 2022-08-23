@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -30,13 +33,8 @@ public class HotelsRepo {
 
 
     // getHotel
-    public Hotel getHotel(String hotelName) {
-        Hotel hotelResult = helpIndexHotel.get(hotelName.toLowerCase());
-        if (hotelResult != null) {
-            return hotelResult;
-        }
-        return null;
-//        throw new NoSuchElementException("Couldn't find hotel with name " + hotelName);
+    public Optional<Hotel> getHotel(String hotelName) {
+        return Optional.ofNullable(helpIndexHotel.get(hotelName.toLowerCase()));
     }
 
     public void addHotel(Hotel hotel) {
@@ -44,9 +42,11 @@ public class HotelsRepo {
         helpIndexHotel.put(hotel.getName().toLowerCase(), hotel);
     }
 
-    public void setHotels(List<Hotel> hotels) {
-        hotels = new ArrayList<>(hotels);
-        helpIndexHotel = null; // TODO Написать stream использующий Collectors.toMap(...)
+    public void setHotels(List<Hotel> hotelsList) {
+        hotels.addAll(hotelsList);
+        Map<String, Hotel> newMap = hotelsList.stream()
+                .collect(Collectors.toMap(name -> name.getName().toLowerCase(), Function.identity()));
+        helpIndexHotel.putAll(newMap);
     }
 
     public void generateHotels() {
@@ -59,7 +59,7 @@ public class HotelsRepo {
                 .checkInTime(LocalTime.of(12, 0))
                 .build());
         addHotel(Hotel.builder()
-                .name("Астория")
+                .name("Бельбедер")
                 .apartments(List.of(new ApartmentOneRoom(140000f, 4, 1)
                         .setServices(new ServicesImpl().addBalcony().addCleaning().addInternet().addConditioner())))
                 .checkInTime(LocalTime.of(12, 0))
