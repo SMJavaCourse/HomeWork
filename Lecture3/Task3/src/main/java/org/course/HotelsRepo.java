@@ -8,20 +8,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 @Getter
 @Setter
 public class HotelsRepo {
     // Singleton
     private static HotelsRepo INSTANCE;
-    private HotelsRepo() {}
+
+    private HotelsRepo() {
+    }
+
     public static HotelsRepo getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new HotelsRepo();
         }
         return INSTANCE;
     }
+
     private List<Hotel> hotels = new ArrayList<>();
     private Map<String, Hotel> helpIndexHotel = new HashMap<>();
 
@@ -40,6 +43,12 @@ public class HotelsRepo {
         hotels.add(hotel);
         helpIndexHotel.put(hotel.getName().toLowerCase(), hotel);
     }
+
+    public void setHotels(List<Hotel> hotels) {
+        hotels = new ArrayList<>(hotels);
+        helpIndexHotel = null; // TODO Написать stream использующий Collectors.toMap(...)
+    }
+
     public void generateHotels() {
         addHotel(HotelFactory.createHotel("У мамы лучше"));
         addHotel(HotelFactory.createHotel("Шашлычок"));
@@ -77,7 +86,7 @@ public class HotelsRepo {
                 .build());
         for (int i = 0; i < 1000000; i++) {
             addHotel(Hotel.builder()
-                    .name("hotelName"+i)
+                    .name("hotelName" + i)
                     .apartments(List.of(new ApartmentOneRoom(1000f, 7, 13)
                             .setServices(new ServicesImpl().addBalcony().addCleaning())))
                     .checkInTime(LocalTime.of(12, 0))
