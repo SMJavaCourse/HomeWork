@@ -12,7 +12,7 @@ import static org.course.entity.Hotel.printServices;
 
 public class FindHelper {
 
-    private static ArrayList<Hotel> findHotel(String nameOfHotel, Map<String, Hotel> hotelStreamByName) {
+    public static ArrayList<Hotel> findHotel(String nameOfHotel, Map<String, Hotel> hotelStreamByName) {
         ArrayList<Hotel> findHotelsResult = new ArrayList<>();
         if (nameOfHotel == null) {
             findHotelsResult = new ArrayList<>(hotelStreamByName.values());
@@ -56,13 +56,13 @@ public class FindHelper {
                 }
             }
         } else {
-            for (CommandsEnum ignored : CommandsEnum.values()) {
-                if (CommandsEnum.AMENITIES.getName().equalsIgnoreCase(nameOfCommand)) {
+            for (CommandsEnum commandsEnum : CommandsEnum.values()) {
+                if (commandsEnum.getName().equalsIgnoreCase(nameOfCommand)) {
                     finderHotelString
                             .append("Отель \"")
                             .append(nameOfHotel)
                             .append("\"\n")
-                            .append(printServices(hotelStreamByName.get(nameOfHotel).getApartments()));
+                            .append(printServices(hotelStreamByName.get(nameOfHotel.toLowerCase()).getApartments()));
                     numberOfHotelsFound = searchResult.size();
                     break;
                 }

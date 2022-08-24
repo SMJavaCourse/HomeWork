@@ -1,12 +1,14 @@
 package org.course.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.course.entity.properties.Services;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
 public class Hotel {
     private String name;
     private ArrayList<Apartment> apartments;
