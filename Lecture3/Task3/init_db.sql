@@ -1,13 +1,13 @@
 CREATE TABLE  hotels
 (
-    id              TEXT NOT NULL PRIMARY KEY,
+    id              TEXT NOT NULL UNIQUE PRIMARY KEY,
     "name"          TEXT NOT NULL UNIQUE,
     startTime       TEXT NOT NULL
 );
 
 CREATE TABLE apartments
 (
-    id              TEXT NOT NULL PRIMARY KEY,
+    id              TEXT NOT NULL UNIQUE PRIMARY KEY,
     hotelId         TEXT NOT NULL,
     rooms           INTEGER NOT NULL,
     numberOfRoom    INTEGER NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE apartments
 
 CREATE TABLE services
 (
-    id              TEXT NOT NULL PRIMARY KEY,
+    id              TEXT NOT NULL UNIQUE PRIMARY KEY,
     serviceName     TEXT NOT NULL,
     serviceNameRu   TEXT NOT NULL,
     defaultProperty TEXT
@@ -25,7 +25,7 @@ CREATE TABLE services
 
 CREATE TABLE apartmentServices
 (
-    id              TEXT NOT NULL PRIMARY KEY,
+    id              TEXT NOT NULL UNIQUE PRIMARY KEY,
     apartmentsId    TEXT NOT NULL,
     serviceId       TEXT NOT NULL,
     customProperty  TEXT
