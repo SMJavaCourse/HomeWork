@@ -1,12 +1,13 @@
 package org.course.cities.service;
 
 import org.course.cities.dto.Region;
-import org.course.cities.repository.CountryRepository;
 import org.course.cities.repository.RegionsRepository;
+import org.course.cities.repository.stub.CountryStubRepository;
+import org.course.cities.repository.stub.RegionsStubRepository;
 
 public class RegionService {
-    private final RegionsRepository regionsRepository = new RegionsRepository();
-    private final CountryRepository countryRepository = new CountryRepository();
+    private final RegionsRepository regionsRepository = new RegionsStubRepository();
+    private final CountryStubRepository countryRepository = new CountryStubRepository();
 
     public Region getCity(String id) {
         var regionEntity = regionsRepository.getById(id);

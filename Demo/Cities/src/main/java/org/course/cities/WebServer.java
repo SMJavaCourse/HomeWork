@@ -13,15 +13,17 @@ import java.net.URI;
 import java.util.concurrent.Executors;
 
 public class WebServer {
+    private GlobalStorage globalStorage;
     private HttpServer server;
     private CitiesService citiesService;
     private ObjectMapper objectMapper;
 
-    public WebServer(Integer port) {
-        server = createServer(port);
+    public WebServer(GlobalStorage globalStorage) {
+        this.globalStorage = globalStorage;
+        server = createServer(globalStorage.getServerPort());
         objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        citiesService = new CitiesService();
+        citiesService = new CitiesService(globalStorage);
     }
 
     public void start() {

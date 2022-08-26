@@ -2,16 +2,18 @@ package org.course.cities.repository.jdbc;
 
 import lombok.SneakyThrows;
 import org.course.cities.entity.CityEntity;
+import org.course.cities.repository.CitiesRepository;
 
 import javax.sql.DataSource;
 
-public class CitiesJdbcRepository {
+public class CitiesJdbcRepository implements CitiesRepository {
     private DataSource dataSource;
 
     public CitiesJdbcRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    @Override
     @SneakyThrows
     public CityEntity getById(String id) {
         try (var statement = dataSource.getConnection()

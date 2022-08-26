@@ -1,14 +1,23 @@
 package org.course.cities.service;
 
+import org.course.cities.GlobalStorage;
 import org.course.cities.dto.City;
 import org.course.cities.repository.CitiesRepository;
 import org.course.cities.repository.CountryRepository;
 import org.course.cities.repository.RegionsRepository;
 
 public class CitiesService {
-    private final CitiesRepository citiesRepository = new CitiesRepository();
-    private final RegionsRepository regionsRepository = new RegionsRepository();
-    private final CountryRepository countryRepository = new CountryRepository();
+    private final GlobalStorage globalStorage;
+    private final CitiesRepository citiesRepository;
+    private final RegionsRepository regionsRepository;
+    private final CountryRepository countryRepository;
+
+    public CitiesService(GlobalStorage globalStorage) {
+        this.globalStorage = globalStorage;
+        citiesRepository = globalStorage.getCitiesRepository();
+        regionsRepository = globalStorage.getRegionsJdbcRepository();
+        countryRepository = globalStorage.getCountryJdbcRepository();
+    }
 
     public City getCity(String id) {
         var cityEntity = citiesRepository.getById(id);
