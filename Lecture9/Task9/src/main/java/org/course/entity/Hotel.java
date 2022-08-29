@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.course.entity.properties.Services;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 @Getter
@@ -28,7 +30,6 @@ public class Hotel {
 
     @Override
     public String toString() throws NullPointerException {
-
         StringBuilder hotelToString = new StringBuilder()
                 .append("Отель \"")
                 .append(name)
@@ -45,7 +46,7 @@ public class Hotel {
         return hotelToString.toString();
     }
 
-    public static ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
+    public ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
         ArrayList<Apartment> findApartmentsResult = new ArrayList<>();
         for (Apartment apartment : apartments) {
             if (numberOfGuests <= apartment.getCapacity()) {
@@ -55,7 +56,7 @@ public class Hotel {
         return findApartmentsResult;
     }
 
-    public static String printServices(ArrayList<Apartment> apartments) {
+    public String printServices(ArrayList<Apartment> apartments) {
         HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
         for (Apartment apartment : apartments) {
             for (Services service : apartment.getServices()) {

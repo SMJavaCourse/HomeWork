@@ -1,14 +1,11 @@
 package org.course.entity;
 
-import lombok.Builder;
 import lombok.Data;
 import org.course.entity.properties.Services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
-@Builder
 @Data
 public class Apartment {
     private String name;
@@ -62,18 +59,4 @@ public class Apartment {
                 .append(soutServices());
         return apartmentToString.toString();
     }
-
-   public static class ApartmentBuilder {
-
-        public Apartment.ApartmentBuilder services(Services... services) {
-            this.services = new ArrayList<>(Arrays.asList(services));
-            return this;
-        }
-
-        public Apartment build() {
-            return new Apartment(this.rooms, this.numberOfRoom, this.price, this.capacity, this.services);
-        }
-
-    }
-
 }
