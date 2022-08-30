@@ -1,23 +1,27 @@
 package org.course;
 
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class Apartment {
     private String name;
+    private String luxuryName;
     private int numberOfApart;
     private int rooms;
     private float price;
     private String time;
     private int capacity;
 
+
     public boolean isBalcony;
     public boolean isClean;
     public boolean isInternet;
     public boolean isConditioner;
     public boolean isShashlik;
-
-
-    public int getCapacity() {
-        return capacity;
-    }
 
     public Apartment(int num, int rooms, float price, String time, int people, boolean isBalcony, boolean isClean, boolean isInternet, boolean isСonditioner, boolean isShashlik) {
         this.numberOfApart = num;
@@ -32,61 +36,40 @@ public class Apartment {
         this.isShashlik = isShashlik;
     }
 
-    public String getName(int rooms) {
+
+    public void print() {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
             name = "Двухкомнатный номер";
         } else if (rooms == 3) {
             name = "Трёхкомнатный номер";
+        } else if (rooms == 4) {
+            name = "Четырёхкомнатный номер";
         }
-        return name;
+
+
+            System.out.print(name);
+            System.out.println(" (комната номер: " + numberOfApart + ")");
+            System.out.println("    Цена: " + price + " р/сутки");
+            System.out.println("    Вместимость до " + capacity + " человек");
+            System.out.println("    Время заселения: " + time);
+            String s = "    Дополнительный услуги: ";
+            if (isBalcony) {
+                s = s + "балкон, ";
+            }
+            if (isClean) {
+                s = s + "уборка номера, ";
+            }
+            if (isInternet) {
+                s = s + "интернет, ";
+            }
+            if (isConditioner) {
+                s = s + "кондиционер, ";
+            }
+            if (isShashlik) {
+                s = s + "шашлычок в номер, ";
+            }
+            System.out.println(s);
+        }
     }
-
-    public void print() {
-        String a = "";
-        switch (rooms) {
-            case 1:
-                a = "Однокомнатный номер";
-                break;
-            case 2:
-                a = "Двухкомнатый номер";
-                break;
-            case 3:
-                a = "Трехкомнатный номер";
-                break;
-            case 4:
-                a = "Четырехкомнатный номер";
-        }
-
-        System.out.print(a);
-        System.out.println(" (комната номер: " + numberOfApart + ")");
-        System.out.println("    Цена: " + price + " р/сутки");
-        System.out.println("    Вместимость до " + capacity + " человек");
-        System.out.println("    Время заселения: " + time);
-        String s = "    Дополнительный услуги: ";
-        if (isBalcony) {
-            s = s + "балкон, ";
-        }
-        if (isClean) {
-            s = s + "уборка номера, ";
-
-        }
-        if (isInternet) {
-            s = s + "интернет, ";
-
-
-        }
-        if (isConditioner) {
-            s = s + "кондиционер, ";
-
-        }
-        if (isShashlik) {
-            s = s + "шашлычок в номер, ";
-
-        }
-        System.out.println(s);
-    }
-
-
-}

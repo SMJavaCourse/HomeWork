@@ -3,10 +3,9 @@ package org.course;
 import constructors.HotelFactory;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.course.Hotel.*;
 
@@ -17,6 +16,10 @@ public class Task3 {
         ArrayList<Hotel> hotels = new ArrayList<>();
         hotels.add(secondHotel);
         hotels.add(firstHotel);
+//        Map<String, Hotel> nameOfHotels = hotelNameToMap(hotels);
+//        nameOfHotels.put(firstHotel.getName(), firstHotel);
+//        nameOfHotels.put(secondHotel.getName(), secondHotel);
+
         Scanner scanner = new Scanner(System.in);
         while (true) {
             try {
@@ -37,6 +40,12 @@ public class Task3 {
                         System.out.println("Введенное количество гостей должно быть больше нуля");
                         continue;
                     }
+
+//                var a = inputAll.stream()
+//                        .allMatch(x -> hotelName == null && numberOfGuests <= 0);
+//                System.out.println("Введенное количество гостей должно быть больше нуля");
+//                continue;
+
                     int numberOfHotelsFound = 0;
                     int numFoundApartments = 0;
                     String foundHotelName = "";

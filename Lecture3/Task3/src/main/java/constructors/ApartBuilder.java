@@ -4,7 +4,7 @@ import org.course.Apartment;
 
 public class ApartBuilder {
     private int num;
-    private int apartment;
+    private int rooms;
     private float price;
     private String time;
     private int people;
@@ -15,14 +15,16 @@ public class ApartBuilder {
     private boolean isAirConditioner;
     private boolean isKebab;
 
+    public ApartBuilder() {
+    }
 
     public ApartBuilder num(int num) {
         this.num = num;
         return this;
     }
 
-    public ApartBuilder apartment(int apartment) {
-        this.apartment = apartment;
+    public ApartBuilder rooms(int rooms) {
+        this.rooms = rooms;
         return this;
     }
 
@@ -67,6 +69,6 @@ public class ApartBuilder {
     }
 
     public Apartment build() {
-        return new Apartment(num, apartment, price, time, people, isBalcony, isClean, isInternet, isAirConditioner, isKebab);
+        return new Apartment(num, rooms, price, time, people, isBalcony, isClean, isInternet, isAirConditioner, isKebab);
     }
 }
