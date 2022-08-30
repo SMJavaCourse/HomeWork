@@ -3,33 +3,23 @@ package org.course.dao;
 import org.course.entity.Apartment;
 import org.course.entity.CommandsEnum;
 import org.course.entity.Hotel;
-import org.course.entity.ServicesEnum;
-import org.course.entity.properties.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
 public class HotelRepository {
-    private ArrayList<Hotel> findHotel(String nameOfHotel) {
+    private ArrayList<Hotel> findHotelByName(String nameOfHotel) {
         ArrayList<Hotel> hotels = new ArrayList<>();
         try (var connection = DataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE UPPER(name) = UPPER(?)")) {
             statement.setString(1, nameOfHotel);
             try (var rs = statement.executeQuery()) {
                 if (rs.next()) {
+                    var id = rs.getString(1);
                     var name = rs.getString(2);
                     var startTime = rs.getString(3);
-                    var apartments = findHotelsApartments(rs.getString(1));
-                    hotels.add(new Hotel(name, startTime, apartments));
-                } else {
-                    try (var allResults = connection.createStatement().executeQuery("SELECT id, name, starttime FROM hotels")) {
-                        while (allResults.next()) {
-                            var name = allResults.getString(2);
-                            var startTime = allResults.getString(3);
-                            var apartments = findHotelsApartments(allResults.getString(1));
-                            hotels.add(new Hotel(name, startTime, apartments));
-                        }
-                    }
+                    hotels.add(new Hotel(id, name, startTime));
                 }
                 return hotels;
             }
@@ -37,85 +27,32 @@ public class HotelRepository {
             throw new RuntimeException();
         }
     }
-    private ArrayList<Apartment> findHotelsApartments(String hotelId) {
-        ArrayList<Apartment> result = new ArrayList<>();
+
+    private ArrayList<Hotel> getAllHotels(){
+        ArrayList<Hotel> hotels = new ArrayList<>();
         try (var connection = DataSource.getConnection();
-             var statement = connection.prepareStatement("SELECT id, rooms, numberofroom, price," +
-                     " capacity FROM apartments WHERE hotelid = ?")) {
-            statement.setString(1, hotelId);
-            try (var rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    var apartment = new Apartment(0, 0, 0, 0, null);
-                    if (rs.getInt(2) == 1) {
-                        apartment.setName("Однокомнатный номер");
-                    } else if (rs.getInt(2) == 2) {
-                        apartment.setName("Двухкомнатный номер");
-                    } else if (rs.getInt(2) == 3) {
-                        apartment.setName("Трехкомнатный номер");
-                    }
-                    apartment.setNumberOfRoom(rs.getInt(3));
-                    apartment.setPrice(rs.getInt(4));
-                    apartment.setCapacity(rs.getInt(5));
-                    apartment.setServices(findApartmentsServices(rs.getString(1)));
-                    result.add(apartment);
-                }
+             var allResults = connection.createStatement().executeQuery("SELECT id, name, starttime FROM hotels")) {
+            while (allResults.next()) {
+                var id = allResults.getString(1);
+                var name = allResults.getString(2);
+                var startTime = allResults.getString(3);
+                hotels.add(new Hotel(id, name, startTime));
             }
+            return hotels;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return result;
     }
-    private ArrayList<Services> findApartmentsServices(String apartmentsId) {
-        ArrayList<Services> services = new ArrayList<>();
-        try (var connection = DataSource.getConnection();
-             var statement = connection.prepareStatement("SELECT serviceName, serviceNameRu, " +
-                     "defaultProperty, customProperty FROM apartmentServices LEFT JOIN services on" +
-                     " services.id = apartmentServices.serviceId WHERE apartmentsId = ?;")) {
-            statement.setString(1, apartmentsId);
-            try (var rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    services.add(servicesBuilder(
-                            rs.getString("servicename"),
-                            rs.getString("customproperty"),
-                            rs.getString("defaultproperty")));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return services;
-    }
-    private Services servicesBuilder(String nameOfService, String customProperty, String defaultProperty) {
-        switch (ServicesEnum.valueOf(nameOfService.toUpperCase())) {
-            case BALCONY -> {
-                return new Balcony();
-            }
-            case CLEANING -> {
-                return new Cleaning();
-            }
-            case CONDITIONER -> {
-                return new Conditioner();
-            }
-            case JACUZZI -> {
-                return new Jacuzzi();
-            }
-            case MEAT -> {
-                return new Meat();
-            }
-            case INTERNET -> {
-                if (customProperty == null || "".equals(customProperty)) {
-                    return new Internet(Integer.parseInt(defaultProperty));
-                } else {
-                    return new Internet(Integer.parseInt(customProperty));
-                }
-            }
-        }
-        throw new RuntimeException();
-    }
+
     public String hotelFinder(String nameOfHotel, String nameOfCommand, int numberOfGuests) {
         StringBuilder finderHotelString = new StringBuilder();
+        ArrayList<Hotel> searchResult;
         int numberOfHotelsFound = 0;
-        ArrayList<Hotel> searchResult = findHotel(nameOfHotel);
+        if (nameOfHotel == null || "".equals(nameOfHotel)) {
+            searchResult = getAllHotels();
+        } else {
+            searchResult = findHotelByName(nameOfHotel);
+        }
         if (searchResult.size() == 0) {
             finderHotelString
                     .append("У нас нет информации по отелю \"")
@@ -125,7 +62,8 @@ public class HotelRepository {
         }
         if (nameOfCommand == null) {
             for (Hotel hotel : searchResult) {
-                long numberCount = hotel.findApartment(hotel.getApartments() ,numberOfGuests).size();
+                ArrayList<Apartment> apartmentsInHotel = ApartmentRepository.suitableApartments(hotel.getId(), numberOfGuests);
+                long numberCount = apartmentsInHotel.size();
                 if (numberCount > 0) {
                     finderHotelString
                             .append("Отель \"")
@@ -133,10 +71,11 @@ public class HotelRepository {
                             .append("\":\nПодходящих номеров: ")
                             .append(numberCount)
                             .append("\nНомера:\n")
-                            .append(hotel.findApartment(hotel.getApartments(), numberOfGuests)
+                            .append(apartmentsInHotel
                                     .stream()
                                     .map(Apartment::toString)
-                                    .collect(Collectors.joining("")));
+                                    .collect(Collectors.joining("\n")))
+                            .append("\n");
                     numberOfHotelsFound += 1;
                 }
             }
@@ -147,7 +86,7 @@ public class HotelRepository {
                             .append("Отель \"")
                             .append(nameOfHotel)
                             .append("\"\n")
-                            .append(searchResult.get(0).printServices(searchResult.get(0).getApartments()));
+                            .append(searchResult.get(0).printServices(searchResult.get(0).getId()));
                     numberOfHotelsFound = searchResult.size();
                     break;
                 }
@@ -160,18 +99,59 @@ public class HotelRepository {
         }
     }
 
-    public Hotel saveHotel(Hotel hotel){
-
+    public Hotel save(Hotel hotel){
+        if (findById(hotel.getId()) != null) {
+            try (var connection = DataSource.getConnection();
+                 var statement = connection.prepareStatement("UPDATE hotels SET name = ?, starttime = ? WHERE id = ?")) {
+                statement.setString(1, hotel.getName());
+                statement.setString(2, hotel.getStartTime());
+                statement.setString(3, hotel.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try (var connection = DataSource.getConnection();
+                 var statement = connection.prepareStatement("INSERT INTO hotels VALUES (?, ?, ?)")) {
+                statement.setString(1, hotel.getId());
+                statement.setString(2, hotel.getName());
+                statement.setString(3, hotel.getStartTime());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return hotel;
+    }
+    public int deleteById(String hotelId) {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM hotels WHERE id = ?")) {
+            statement.setString(1, hotelId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Hotel findById(String hotelId) {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE id = ?")) {
+            statement.setString(1, hotelId);
+            var result = statement.executeQuery();
+            if (result.next()) {
+                return new Hotel(result.getString(1),
+                        result.getString(2),
+                        result.getString(3));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     public void deleteAll(){
         try (var connection = DataSource.getConnection();
              var statement = connection.createStatement()) {
-            statement.executeUpdate("drop table apartmentservices;\n" +
-                    "drop table apartments;\n" +
-                    "drop table hotels;\n" +
-                    "drop table services;");
+            statement.executeUpdate("DELETE FROM hotels;");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -1,31 +1,24 @@
 package org.course.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.course.dao.ServiceRepository;
 import org.course.entity.properties.Services;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
-@Getter
-@Setter
+import static org.course.dao.ApartmentRepository.allApartmentsInHotel;
+
+@Data
 public class Hotel {
     private String name;
-    private ArrayList<Apartment> apartments;
+    private String id;
     private String startTime;
 
-    public Hotel(String name, String startTime, ArrayList<Apartment> apartments) {
+    public Hotel(String id, String name, String startTime) {
+        this.id = id;
         this.name = name;
-        this.apartments = apartments;
         this.startTime = startTime;
-
-        var mostExpensiveApartment = apartments
-                .stream()
-                .max(Comparator.comparing(Apartment::getPrice))
-                .get();
-        mostExpensiveApartment.setName(mostExpensiveApartment.getName() + " LUXURY");
     }
 
     @Override
@@ -33,33 +26,20 @@ public class Hotel {
         StringBuilder hotelToString = new StringBuilder()
                 .append("Отель \"")
                 .append(name)
-                .append("\"\nКоличество номеров: ")
-                .append(apartments.size())
                 .append("\nВремя заселение/выселения: ")
-                .append(startTime)
-                .append("\nНомера:\n")
-                .append(apartments
-                        .stream()
-                        .map(Apartment::toString)
-                        .collect(Collectors.joining("")));
-
+                .append(startTime);
         return hotelToString.toString();
     }
 
-    public ArrayList<Apartment> findApartment(ArrayList<Apartment> apartments, int numberOfGuests) {
-        ArrayList<Apartment> findApartmentsResult = new ArrayList<>();
-        for (Apartment apartment : apartments) {
-            if (numberOfGuests <= apartment.getCapacity()) {
-                findApartmentsResult.add(apartment);
-            }
-        }
-        return findApartmentsResult;
-    }
-
-    public String printServices(ArrayList<Apartment> apartments) {
+    public String printServices(String hotelId) {
         HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
-        for (Apartment apartment : apartments) {
-            for (Services service : apartment.getServices()) {
+        var allApartments = allApartmentsInHotel(hotelId);
+        if (allApartments.size() == 0) {
+            return "У отеля нет доступных номеров";
+        }
+        for (Apartment apartment : allApartments) {
+            var allServicesInApartments = ServiceRepository.allServicesInApartment(apartment.getId());
+            for(Services service : allServicesInApartments){
                 ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
                 if (apartmentList == null) {
                     apartmentList = new ArrayList<>();
@@ -74,7 +54,7 @@ public class Hotel {
             stringServices
                     .append("Удобство \"")
                     .append(key)
-                    .append("\" доступно в номерах:\n\n");
+                    .append("\" доступно в номерах:\n");
             for (Apartment apartment : value) {
                 stringServices
                         .append("\t\u2219")
