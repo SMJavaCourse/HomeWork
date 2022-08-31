@@ -8,15 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Apartment {
-    private String name;
-    private String luxuryName;
     private int numberOfApart;
     private int rooms;
     private float price;
     private String time;
     private int capacity;
 
-
+    public boolean isLuxury;
     public boolean isBalcony;
     public boolean isClean;
     public boolean isInternet;
@@ -38,6 +36,7 @@ public class Apartment {
 
 
     public void print() {
+        String name = null;
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -46,6 +45,9 @@ public class Apartment {
             name = "Трёхкомнатный номер";
         } else if (rooms == 4) {
             name = "Четырёхкомнатный номер";
+        }
+        if(isLuxury){
+            name += " LUXURY";
         }
 
 

@@ -1,13 +1,15 @@
 package org.course;
 
 import lombok.Getter;
+
 import java.util.*;
 
 @Getter
 public class Hotel {
     private final String name;
     private final List<Apartment> apartments;
-    private String startTime;
+    Map<Integer, List<Apartment>> apartmentByCapacity = new HashMap<>();
+    private final String startTime;
 
     public Hotel(String name, String startTime, List<Apartment> apartments) {
         this.name = name;
@@ -18,9 +20,19 @@ public class Hotel {
                 .stream()
                 .max(Comparator.comparing(Apartment::getPrice))
                 .get();
-        apartLuxury.setName(" LUXURY");
-    }
+        apartLuxury.isLuxury = true;
 
+        for (Apartment apartment : this.getApartments()) {
+            List<Apartment> apartsByCapacity = apartmentByCapacity.get(apartment.getCapacity());
+            if (apartsByCapacity == null) {
+                apartsByCapacity = new ArrayList<>();
+                apartsByCapacity.add(apartment);
+                apartmentByCapacity.put(apartment.getCapacity(), apartsByCapacity);
+            } else {
+                apartsByCapacity.add(apartment);
+            }
+        }
+    }
 
 
 //    public static Hotel search(String hotelsName, List<Hotel> hotels) {
@@ -33,41 +45,33 @@ public class Hotel {
 //        }
 //        return null;
 //    }
-
-//    public static Hotel hotelNameToMap(List<Hotel> hotels) {
-//        HashMap<String, Hotel> hotelName = new HashMap<>();
-//        for (Hotel hotel : hotels) {
-//            hotelName.put(hotel.name.toLowerCase(), hotel);
-//        }
-//        return ;
-//    }
-
-    public static Hotel search(String hotelsName, List<Hotel> hotels) {
-        for (Hotel hotel : hotels) {
-            String currentName = hotel.getName();
-            if (hotelsName.equalsIgnoreCase(currentName)) {
-                System.out.println("Для вас найден отель" + " " + "\n\"" + hotel.getName() + "\"\n");
-                return hotel;
+    public static List<Hotel> searchByHotelName(String nameHotel, Map<String, List<Hotel>> hotelsByName){
+        List<Hotel> hotelName = new ArrayList<>();
+        for (Map.Entry<String, List<Hotel>> entry : hotelsByName.entrySet()) {
+            String nameOfHotel = entry.getKey();
+            if (nameOfHotel.equalsIgnoreCase(nameHotel)) {
+                List<Hotel> hotelsNames = entry.getValue();
+                hotelName.addAll(hotelsNames);
+                System.out.println("Для вас найден отель" + " " + "\n\"" + nameOfHotel + "\"\n");
             }
         }
-        return null;
+        return hotelName;
     }
 
-
-        public List<Apartment> searchRoom(int people) {
+    public static List<Apartment> searchRoom(int people, Map<Integer, List<Apartment>> apartsByCapacity) {
         if (people >= 0) {
-            List<Apartment> foundRooms = new ArrayList<>();
-            for (int i = 0; i < this.getApartments().size(); i++) {
-                Apartment apartment = this.getApartments().get(i);
-                if (people <= apartment.getCapacity()) {
-                    foundRooms.add(apartment);
+            List<Apartment> roomList = new ArrayList<>();
+            for (Map.Entry<Integer, List<Apartment>> entry : apartsByCapacity.entrySet()) {
+                int apartCapacity = entry.getKey();
+                if (people <= apartCapacity) {
+                    List<Apartment> aparts = entry.getValue();
+                    roomList.addAll(aparts);
                 }
             }
-            return foundRooms;
+            return roomList;
         }
         return null;
     }
-
 
     public static void printApartments(List<Apartment> apartments) {
         System.out.println("Количество найденных аппартаментов: " + apartments.size() + "\n");

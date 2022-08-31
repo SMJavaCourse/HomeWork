@@ -16,9 +16,17 @@ public class Task3 {
         ArrayList<Hotel> hotels = new ArrayList<>();
         hotels.add(secondHotel);
         hotels.add(firstHotel);
-//        Map<String, Hotel> nameOfHotels = hotelNameToMap(hotels);
+        Map<String, List<Hotel>> nameOfHotels = new HashMap<>();
 //        nameOfHotels.put(firstHotel.getName(), firstHotel);
 //        nameOfHotels.put(secondHotel.getName(), secondHotel);
+// сделала реализацию для автоматического добавления отелей по имени в хэшмапу
+        for (Hotel hotel : hotels) {
+            List<Hotel> hotelsByName = new ArrayList<>();
+            hotelsByName.add(hotel);
+            String hotelName = hotel.getName();
+            nameOfHotels.put(hotelName, hotelsByName);
+        }
+        String foundHotelName = "";
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -41,16 +49,11 @@ public class Task3 {
                         continue;
                     }
 
-//                var a = inputAll.stream()
-//                        .allMatch(x -> hotelName == null && numberOfGuests <= 0);
-//                System.out.println("Введенное количество гостей должно быть больше нуля");
-//                continue;
-
                     int numberOfHotelsFound = 0;
                     int numFoundApartments = 0;
-                    String foundHotelName = "";
+//                    String foundHotelName = "";
                     for (Hotel hotel : hotels) {
-                        List<Apartment> foundApartments = hotel.searchRoom(numberOfGuests);
+                        List<Apartment> foundApartments = hotel.searchRoom(numberOfGuests, hotel.getApartmentByCapacity());
                         if (foundApartments.size() != 0) {
                             foundHotelName = hotel.getName();
                             numFoundApartments++;
@@ -68,13 +71,15 @@ public class Task3 {
                         System.out.println("Введенное количество гостей должно быть больше нуля\n");
                         continue;
                     }
-                    Hotel foundHotel = search(hotelName, hotels);
+                    List<Hotel> foundHotel = searchByHotelName(hotelName, nameOfHotels);
                     if (foundHotel == null) {
                         System.out.println("Отель не существует!\n");
                         continue;
                     }
-                    List<Apartment> foundApartments = foundHotel.searchRoom(numberOfGuests);
-                    Hotel.printApartments(foundApartments);
+                    for(Hotel hotel : foundHotel){
+                        List<Apartment> foundApartments = hotel.searchRoom(numberOfGuests, hotel.getApartmentByCapacity());
+                        Hotel.printApartments(foundApartments);
+                    }
                 }
             } catch (NullPointerException e) {
                 System.out.println("Отель не найден!\n");
@@ -88,14 +93,14 @@ public class Task3 {
         }
     }
 
-    private static String getHotelName(List<String> inputs) {
-        if (inputs.size() <= 1) {
-            return null;
+        private static String getHotelName (List < String > inputs) {
+            if (inputs.size() <= 1) {
+                return null;
+            }
+            String hotelName = "";
+            for (int i = 1; i < inputs.size(); i++) {
+                hotelName = hotelName + " " + inputs.get(i);
+            }
+            return hotelName.trim();
         }
-        String hotelName = "";
-        for (int i = 1; i < inputs.size(); i++) {
-            hotelName = hotelName + " " + inputs.get(i);
-        }
-        return hotelName.trim();
     }
-}
