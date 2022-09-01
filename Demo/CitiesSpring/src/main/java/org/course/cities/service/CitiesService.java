@@ -4,13 +4,21 @@ import org.course.cities.dto.City;
 import org.course.cities.repository.CitiesRepository;
 import org.course.cities.repository.CountryRepository;
 import org.course.cities.repository.RegionsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CitiesService {
-    private final CitiesRepository citiesRepository = new CitiesRepository();
-    private final RegionsRepository regionsRepository = new RegionsRepository();
-    private final CountryRepository countryRepository = new CountryRepository();
+    private final CitiesRepository citiesRepository;
+    private final RegionsRepository regionsRepository;
+    private final CountryRepository countryRepository;
+
+    @Autowired
+    public CitiesService(CitiesRepository citiesRepository, RegionsRepository regionsRepository, CountryRepository countryRepository) {
+        this.citiesRepository = citiesRepository;
+        this.regionsRepository = regionsRepository;
+        this.countryRepository = countryRepository;
+    }
 
     public City getCity(String id) {
         var cityEntity = citiesRepository.getById(id);

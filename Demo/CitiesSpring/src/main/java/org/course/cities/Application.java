@@ -11,6 +11,6 @@ public class Application {
         var context = SpringApplication.run(Application.class, args);
         var citiesRepository = context.getBean(CitiesRepository.class);
         var byId = citiesRepository.getById("1");
-        System.out.println("Done");
+        System.out.println(byId);
     }
 }
