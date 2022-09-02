@@ -1,6 +1,5 @@
 package org.course;
 
-import org.course.entity.properties.Services;
 import org.course.entity.Apartment;
 import org.course.entity.Hotel;
 
@@ -11,7 +10,7 @@ public class SearchTimeDemo {
     public static void main(String[] args) {
 
         ArrayList<Apartment> apartment = new ArrayList<>();
-        apartment.add(new Apartment(1, 11, 1000, 2, new ArrayList<Services>()));
+        apartment.add(new Apartment(1, 11, 1000, 2, new ArrayList<>()));
         int numberOfHotels = 10_000_000;
         String nameOfHotelToFind = "имя отеля9999999";
 

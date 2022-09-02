@@ -2,7 +2,7 @@ package org.course.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.course.entity.properties.Services;
+import org.course.entity.services.Services;
 
 import java.util.*;
 import java.util.stream.Collectors;

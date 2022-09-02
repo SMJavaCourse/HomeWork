@@ -1,4 +1,4 @@
-package org.course.entity.properties;
+package org.course.entity.services;
 
 public abstract class Services {
 

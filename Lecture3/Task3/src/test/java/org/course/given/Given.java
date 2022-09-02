@@ -2,7 +2,7 @@ package org.course.given;
 
 import org.course.entity.Apartment;
 import org.course.entity.Hotel;
-import org.course.entity.properties.*;
+import org.course.entity.services.*;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
 import org.jeasy.random.api.Randomizer;
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Given {
 
-    private static ArrayList<Services> sourceServices = new ArrayList<>();
+    private static final ArrayList<Services> sourceServices = new ArrayList<>();
     Random random = new Random();
 
     public Apartment randomApartment(EasyRandom easyRandom) {

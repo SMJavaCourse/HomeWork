@@ -1,6 +1,6 @@
 package org.course;
 
-import org.course.dao.HotelRepository;
+import org.course.repository.HotelRepository;
 import org.course.entity.Hotel;
 
 import java.util.UUID;

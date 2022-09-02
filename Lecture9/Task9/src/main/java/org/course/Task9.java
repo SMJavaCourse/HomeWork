@@ -1,8 +1,8 @@
 package org.course;
 
-import org.course.dao.HotelRepository;
+import org.course.repository.HotelRepository;
 import org.course.dto.SearchInput;
-import org.course.entity.CommandsEnum;
+import org.course.dto.CommandsEnum;
 
 import java.util.Scanner;
 

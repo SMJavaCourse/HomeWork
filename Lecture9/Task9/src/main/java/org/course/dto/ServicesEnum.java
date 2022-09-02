@@ -1,4 +1,4 @@
-package org.course.entity;
+package org.course.dto;
 
 public enum ServicesEnum {
     BALCONY,

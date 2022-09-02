@@ -2,7 +2,7 @@ package org.course.given;
 
 import org.course.entity.Apartment;
 import org.course.entity.Hotel;
-import org.course.entity.properties.*;
+import org.course.entity.services.*;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
 import org.jeasy.random.api.Randomizer;
@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Given {
 
-    private static ArrayList<Services> sourceServices = new ArrayList<>();
+    private static final ArrayList<ServicesAbstract> sourceServices = new ArrayList<>();
     Random random = new Random();
 
     public Apartment randomApartment(EasyRandom easyRandom) {
@@ -48,9 +48,9 @@ public class Given {
         EasyRandomParameters parameters = new EasyRandomParameters();
         parameters.collectionSizeRange(1, sourceServices.size());
         parameters.stringLengthRange(10,50);
-        parameters.randomize(Services.class, new Randomizer<>() {
+        parameters.randomize(ServicesAbstract.class, new Randomizer<>() {
             @Override
-            public Services getRandomValue() {
+            public ServicesAbstract getRandomValue() {
                 int number = random.nextInt(sourceServices.size());
                 return sourceServices.get(number);
             }
@@ -58,19 +58,12 @@ public class Given {
         return new EasyRandom(parameters);
     }
 
-    public Hotel randomHotel(EasyRandom easyRandom) {
+    private Hotel randomHotel(EasyRandom easyRandom) {
         ArrayList time = new ArrayList<>(Arrays.asList("07:00", "08:00", "09:00", "10:00", "11:00", "12:00",
                 "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"));
         String startTime = time.get(random.nextInt(time.size())).toString();
-
-        ArrayList<Apartment> apartments = new ArrayList<>();
-        for (int i = 0; i < random.nextInt(5) + 1; i++) {
-            apartments.add(randomApartment(easyRandom));
-        }
         var hotel = easyRandom.nextObject(Hotel.class);
         hotel.setStartTime(startTime);
-        hotel.setApartments(apartments);
-
         return hotel;
     }
     public ArrayList<Hotel> getSomeHotels(int count, EasyRandom easyRandom){

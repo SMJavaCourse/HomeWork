@@ -1,19 +1,26 @@
 package org.course.entity;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.course.dao.ApartmentRepository;
+import org.course.repository.ApartmentRepository;
 
 @Data
-@RequiredArgsConstructor
 public class Apartment {
-    private final String id;
-    private final String hotelId;
-    private final int rooms;
-    private final int numberOfRoom;
-    private final int price;
-    private final int capacity;
+    private String id;
+    private String hotelId;
+    private int rooms;
+    private int numberOfRoom;
+    private int price;
+    private int capacity;
     private String name;
+
+    public Apartment(String id, String hotelId, int rooms, int numberOfRoom, int price, int capacity) {
+        this.id = id;
+        this.hotelId = hotelId;
+        this.rooms = rooms;
+        this.numberOfRoom = numberOfRoom;
+        this.price = price;
+        this.capacity = capacity;
+    }
 
     @Override
     public String toString() {

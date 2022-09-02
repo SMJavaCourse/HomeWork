@@ -1,14 +1,14 @@
-package org.course.dao;
+package org.course.repository;
 
-import org.course.entity.ServicesEnum;
-import org.course.entity.properties.*;
+import org.course.dto.ServicesEnum;
+import org.course.entity.services.*;
 
 import java.sql.SQLException;
 import java.util.UUID;
 
 public class ServiceRepository {
 
-    public static Services servicesBuilder(String nameOfService, String customProperty, String defaultProperty) {
+    public static ServicesAbstract servicesBuilder(String nameOfService, String customProperty, String defaultProperty) {
         switch (ServicesEnum.valueOf(nameOfService.toUpperCase())) {
             case BALCONY -> {
                 return new Balcony();

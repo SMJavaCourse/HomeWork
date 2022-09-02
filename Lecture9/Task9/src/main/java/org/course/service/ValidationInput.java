@@ -2,7 +2,7 @@ package org.course.service;
 
 import org.apache.commons.lang3.StringUtils;
 import org.course.dto.SearchInput;
-import org.course.entity.CommandsEnum;
+import org.course.dto.CommandsEnum;
 
 public class ValidationInput {
 

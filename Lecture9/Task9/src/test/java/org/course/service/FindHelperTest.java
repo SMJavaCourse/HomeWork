@@ -1,7 +1,7 @@
 package org.course.service;
 
 import org.course.TestBase;
-import org.course.entity.CommandsEnum;
+import org.course.dto.CommandsEnum;
 import org.course.entity.Hotel;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeAll;

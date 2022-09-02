@@ -3,7 +3,7 @@ package org.course.service;
 import org.course.entity.Apartment;
 import org.course.entity.Hotel;
 import org.course.exception .HotelFactoryException;
-import org.course.entity.properties.*;
+import org.course.entity.services.*;
 import java.util.ArrayList;
 
 

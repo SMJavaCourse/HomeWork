@@ -1,16 +1,16 @@
-package org.course.dao;
+package org.course.repository;
 
 import org.course.entity.Apartment;
-import org.course.entity.CommandsEnum;
+import org.course.dto.CommandsEnum;
 import org.course.entity.Hotel;
-import org.course.entity.properties.Services;
+import org.course.entity.services.ServicesAbstract;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-import static org.course.dao.ApartmentRepository.allApartmentsInHotel;
+import static org.course.repository.ApartmentRepository.allApartmentsInHotel;
 
 public class HotelRepository {
     private ArrayList<Hotel> findHotelByName(String nameOfHotel) {
@@ -97,7 +97,7 @@ public class HotelRepository {
             }
         }
         if (("".equals(finderHotelString.toString()) && nameOfHotel == null) || !finderHotelString.toString().equals("")) {
-            return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "\nНовый поиск:";
+            return "Найдено отелей: " + numberOfHotelsFound + "\n" + finderHotelString + "Новый поиск:";
         } else {
             return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
         }
@@ -111,7 +111,7 @@ public class HotelRepository {
         }
         for (Apartment apartment : allApartments) {
             var allServicesInApartments = ApartmentRepository.allServicesInApartment(apartment.getId());
-            for(Services service : allServicesInApartments){
+            for(ServicesAbstract service : allServicesInApartments){
                 ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
                 if (apartmentList == null) {
                     apartmentList = new ArrayList<>();

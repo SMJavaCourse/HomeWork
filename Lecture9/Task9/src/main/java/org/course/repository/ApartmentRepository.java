@@ -1,7 +1,7 @@
-package org.course.dao;
+package org.course.repository;
 
 import org.course.entity.Apartment;
-import org.course.entity.properties.Services;
+import org.course.entity.services.ServicesAbstract;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,8 +79,8 @@ public class ApartmentRepository {
         result.add(apartment);
     }
 
-    public static ArrayList<Services> allServicesInApartment(String apartmentsId) {
-        ArrayList<Services> services = new ArrayList<>();
+    public static ArrayList<ServicesAbstract> allServicesInApartment(String apartmentsId) {
+        ArrayList<ServicesAbstract> services = new ArrayList<>();
         try (var connection = DataSource.getConnection();
              var statement = connection.prepareStatement("SELECT serviceName, serviceNameRu, " +
                      "defaultProperty, customProperty FROM apartmentServices LEFT JOIN services on" +
@@ -99,14 +99,14 @@ public class ApartmentRepository {
         }
         return services;
     }
-    public static String soutServices(ArrayList<Services> services) {
+    public static String soutServices(ArrayList<ServicesAbstract> services) {
         if (services.size() == 0) {
             return "отсутствуют \n";
         } else {
             return services
                     .stream()
-                    .map(Services::getName)
-                    .collect(Collectors.joining(", ")) + "\n";
+                    .map(ServicesAbstract::getName)
+                    .collect(Collectors.joining(", "));
         }
     }
 

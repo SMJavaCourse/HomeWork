@@ -2,7 +2,7 @@ package org.course.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import org.course.entity.properties.Services;
+import org.course.entity.services.Services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ public class Apartment {
         buildNameOfRoom(rooms);
     }
 
-    private String buildNameOfRoom(int rooms) {
+    private void buildNameOfRoom(int rooms) {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -35,7 +35,6 @@ public class Apartment {
         } else if (rooms == 3) {
             name = "Трёхкомнатный номер";
         }
-        return name;
     }
 
     private String soutServices() {
