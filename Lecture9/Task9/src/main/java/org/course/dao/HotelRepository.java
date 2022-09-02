@@ -3,10 +3,14 @@ package org.course.dao;
 import org.course.entity.Apartment;
 import org.course.entity.CommandsEnum;
 import org.course.entity.Hotel;
+import org.course.entity.properties.Services;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.stream.Collectors;
+
+import static org.course.dao.ApartmentRepository.allApartmentsInHotel;
 
 public class HotelRepository {
     private ArrayList<Hotel> findHotelByName(String nameOfHotel) {
@@ -86,7 +90,7 @@ public class HotelRepository {
                             .append("Отель \"")
                             .append(nameOfHotel)
                             .append("\"\n")
-                            .append(searchResult.get(0).printServices(searchResult.get(0).getId()));
+                            .append(printServices(searchResult.get(0).getId()));
                     numberOfHotelsFound = searchResult.size();
                     break;
                 }
@@ -97,6 +101,42 @@ public class HotelRepository {
         } else {
             return "В отеле \"" + nameOfHotel + "\" нет достаточного количества мест\nНовый поиск:";
         }
+    }
+
+    private String printServices(String hotelId) {
+        HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
+        var allApartments = allApartmentsInHotel(hotelId);
+        if (allApartments.size() == 0) {
+            return "У отеля нет доступных номеров";
+        }
+        for (Apartment apartment : allApartments) {
+            var allServicesInApartments = ApartmentRepository.allServicesInApartment(apartment.getId());
+            for(Services service : allServicesInApartments){
+                ArrayList<Apartment> apartmentList = servicesMap.get(service.getName());
+                if (apartmentList == null) {
+                    apartmentList = new ArrayList<>();
+                    servicesMap.put(service.getName(), apartmentList);
+                }
+                apartmentList.add(apartment);
+            }
+        }
+        StringBuilder stringServices = new StringBuilder("Количество доступных удобств: " + servicesMap.size() + "\n");
+        for (String key : servicesMap.keySet()) {
+            ArrayList<Apartment> value = servicesMap.get(key);
+            stringServices
+                    .append("Удобство \"")
+                    .append(key)
+                    .append("\" доступно в номерах:\n");
+            for (Apartment apartment : value) {
+                stringServices
+                        .append("\t\u2219")
+                        .append(apartment.getName())
+                        .append(" (комната номер ")
+                        .append(apartment.getNumberOfRoom())
+                        .append(")\n");
+            }
+        }
+        return stringServices.toString();
     }
 
     public Hotel save(Hotel hotel){
@@ -123,6 +163,14 @@ public class HotelRepository {
         }
         return hotel;
     }
+    public void deleteAll(){
+        try (var connection = DataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM hotels;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public int deleteById(String hotelId) {
         try (var connection = DataSource.getConnection();
              var statement = connection.prepareStatement("DELETE FROM hotels WHERE id = ?")) {
@@ -148,12 +196,4 @@ public class HotelRepository {
         return null;
     }
 
-    public void deleteAll(){
-        try (var connection = DataSource.getConnection();
-             var statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM hotels;");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

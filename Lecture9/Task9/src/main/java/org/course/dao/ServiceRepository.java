@@ -4,33 +4,11 @@ import org.course.entity.ServicesEnum;
 import org.course.entity.properties.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class ServiceRepository {
 
-    public static ArrayList<Services> allServicesInApartment(String apartmentsId) {
-        ArrayList<Services> services = new ArrayList<>();
-        try (var connection = DataSource.getConnection();
-             var statement = connection.prepareStatement("SELECT serviceName, serviceNameRu, " +
-                     "defaultProperty, customProperty FROM apartmentServices LEFT JOIN services on" +
-                     " services.id = apartmentServices.serviceId WHERE apartmentsId = ?;")) {
-            statement.setString(1, apartmentsId);
-            try (var rs = statement.executeQuery()) {
-                while (rs.next()) {
-                    services.add(servicesBuilder(
-                            rs.getString("servicename"),
-                            rs.getString("customproperty"),
-                            rs.getString("defaultproperty")));
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return services;
-    }
-
-    private static Services servicesBuilder(String nameOfService, String customProperty, String defaultProperty) {
+    public static Services servicesBuilder(String nameOfService, String customProperty, String defaultProperty) {
         switch (ServicesEnum.valueOf(nameOfService.toUpperCase())) {
             case BALCONY -> {
                 return new Balcony();
@@ -58,24 +36,6 @@ public class ServiceRepository {
         throw new RuntimeException();
     }
 
-    public void deleteAll() {
-        try (var connection = DataSource.getConnection();
-             var statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM apartmentservices;");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public int deleteServiceByName(String serviceName) {
-        try (var connection = DataSource.getConnection();
-             var baseStatement = connection.prepareStatement("DELETE FROM apartmentservices WHERE id = ?")) {
-            baseStatement.setString(1, getIdByServiceName(serviceName));
-            return baseStatement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public String getIdByServiceName(String serviceName) {
         try (var connection = DataSource.getConnection();
@@ -91,15 +51,6 @@ public class ServiceRepository {
         return null;
     }
 
-    public int deleteById(String apartmentServiceId) {
-        try (var connection = DataSource.getConnection();
-             var statement = connection.prepareStatement("DELETE FROM apartmentservices WHERE id = ?")) {
-            statement.setString(1, apartmentServiceId);
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public String save(String apartmentId, String serviceName, String customValue) {
         var getIdByServiceName = getIdByServiceName(serviceName);
@@ -118,6 +69,33 @@ public class ServiceRepository {
             return "Successful, apartmentServiceId is " + uuId;
         } else {
             return "Unsuccessful, service not found";
+        }
+    }
+    public void deleteAll() {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM apartmentservices;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int deleteById(String apartmentServiceId) {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM apartmentservices WHERE id = ?")) {
+            statement.setString(1, apartmentServiceId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int deleteServiceByName(String serviceName) {
+        try (var connection = DataSource.getConnection();
+             var baseStatement = connection.prepareStatement("DELETE FROM apartmentservices WHERE id = ?")) {
+            baseStatement.setString(1, getIdByServiceName(serviceName));
+            return baseStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,12 +1,14 @@
 package org.course.dao;
 
 import org.course.entity.Apartment;
+import org.course.entity.properties.Services;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class ApartmentRepository {
 
@@ -18,7 +20,8 @@ public class ApartmentRepository {
             statement.setString(1, hotelId);
             try (var rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    if (rs.getInt(6) >= numberOfGuests) {
+                    var sdfsdf =rs.getInt(6);
+                    if (sdfsdf >= numberOfGuests) {
                         apartmentConstructor(result, rs);
                     }
                 }
@@ -76,12 +79,34 @@ public class ApartmentRepository {
         result.add(apartment);
     }
 
-    public void deleteAll() {
+    public static ArrayList<Services> allServicesInApartment(String apartmentsId) {
+        ArrayList<Services> services = new ArrayList<>();
         try (var connection = DataSource.getConnection();
-             var statement = connection.createStatement()) {
-            statement.executeUpdate("DELETE FROM apartments;");
+             var statement = connection.prepareStatement("SELECT serviceName, serviceNameRu, " +
+                     "defaultProperty, customProperty FROM apartmentServices LEFT JOIN services on" +
+                     " services.id = apartmentServices.serviceId WHERE apartmentsId = ?;")) {
+            statement.setString(1, apartmentsId);
+            try (var rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    services.add(ServiceRepository.servicesBuilder(
+                            rs.getString("servicename"),
+                            rs.getString("customproperty"),
+                            rs.getString("defaultproperty")));
+                }
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+        return services;
+    }
+    public static String soutServices(ArrayList<Services> services) {
+        if (services.size() == 0) {
+            return "отсутствуют \n";
+        } else {
+            return services
+                    .stream()
+                    .map(Services::getName)
+                    .collect(Collectors.joining(", ")) + "\n";
         }
     }
 
@@ -112,6 +137,24 @@ public class ApartmentRepository {
         }
         return apartment;
     }
+    public void deleteAll() {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM apartments;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int deleteById(String apartmentId) {
+        try (var connection = DataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM apartments WHERE id = ?")) {
+            statement.setString(1, apartmentId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Apartment findById(String apartmentId) {
         try (var connection = DataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, rooms, numberofroom, price, capacity FROM apartments WHERE id = ?")) {
@@ -132,13 +175,4 @@ public class ApartmentRepository {
         return null;
     }
 
-    public int deleteById(String apartmentId) {
-        try (var connection = DataSource.getConnection();
-             var statement = connection.prepareStatement("DELETE FROM apartments WHERE id = ?")) {
-            statement.setString(1, apartmentId);
-            return statement.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

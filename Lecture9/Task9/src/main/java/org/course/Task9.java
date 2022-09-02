@@ -8,13 +8,15 @@ import java.util.Scanner;
 
 import static org.course.service.ValidationInput.validator;
 
-public class Task3 {
+public class Task9 {
 
     public static void main(String[] args) {
         HotelRepository hotelRepository = new HotelRepository();
 
-        System.out.println("\n============================ Поиск вободных номеров =============================\n" +
-                "введите запрос в формате \"N\" или \"N \u00ABНазвание отеля\u00BB\", где N - количество гостей:");
+        System.out.println("""
+
+                ============================ Поиск вободных номеров =============================
+                введите запрос в формате "N" или "N \u00ABНазвание отеля\u00BB", где N - количество гостей:""");
 
         Scanner in = new Scanner((System.in));
         boolean exit = true;

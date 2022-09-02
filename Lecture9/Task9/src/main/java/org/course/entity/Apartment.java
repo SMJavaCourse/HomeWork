@@ -1,29 +1,22 @@
 package org.course.entity;
 
 import lombok.Data;
-import org.course.dao.ServiceRepository;
+import lombok.RequiredArgsConstructor;
+import org.course.dao.ApartmentRepository;
 
 @Data
+@RequiredArgsConstructor
 public class Apartment {
-    private String id;
-    private String hotelId;
+    private final String id;
+    private final String hotelId;
+    private final int rooms;
+    private final int numberOfRoom;
+    private final int price;
+    private final int capacity;
     private String name;
-    private int price;
-    private int rooms;
-    private int numberOfRoom;
-    private int capacity;
 
-    public Apartment(String id, String hotelId, int rooms, int numberOfRoom, int price, int capacity) {
-        this.id = id;
-        this.hotelId = hotelId;
-        this.rooms = rooms;
-        this.numberOfRoom = numberOfRoom;
-        this.price = price;
-        this.capacity = capacity;
-        buildNameOfRoom(rooms);
-    }
-
-    private void buildNameOfRoom(int rooms) {
+    @Override
+    public String toString() {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -31,10 +24,6 @@ public class Apartment {
         } else if (rooms == 3) {
             name = "Трёхкомнатный номер";
         }
-    }
-
-    @Override
-    public String toString() {
         StringBuilder apartmentToString = new StringBuilder()
                 .append("\t\u2219 ")
                 .append(name)
@@ -43,7 +32,7 @@ public class Apartment {
                 .append("):\n\t\t\u25e6 Цена: ")
                 .append(price)
                 .append("\n\t\t\u25e6 Дополнительные услуги: ")
-                .append(ServiceRepository.allServicesInApartment(id));
+                .append(ApartmentRepository.soutServices(ApartmentRepository.allServicesInApartment(id)));
         return apartmentToString.toString();
     }
 }
