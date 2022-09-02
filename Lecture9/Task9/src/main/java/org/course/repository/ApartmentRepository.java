@@ -11,7 +11,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class ApartmentRepository {
-
     public static ArrayList<Apartment> suitableApartments(String hotelId, int numberOfGuests) {
         ArrayList<Apartment> result = new ArrayList<>();
         try (var connection = DataSource.getConnection();
@@ -69,11 +68,11 @@ public class ApartmentRepository {
                 rs.getInt(4),
                 rs.getInt(5),
                 rs.getInt(6));
-        if (rs.getInt(2) == 1) {
+        if (rs.getInt(3) == 1) {
             apartment.setName("Однокомнатный номер");
-        } else if (rs.getInt(2) == 2) {
+        } else if (rs.getInt(3) == 2) {
             apartment.setName("Двухкомнатный номер");
-        } else if (rs.getInt(2) == 3) {
+        } else if (rs.getInt(3) == 3) {
             apartment.setName("Трехкомнатный номер");
         }
         result.add(apartment);

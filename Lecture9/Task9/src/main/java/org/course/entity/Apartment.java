@@ -20,10 +20,9 @@ public class Apartment {
         this.numberOfRoom = numberOfRoom;
         this.price = price;
         this.capacity = capacity;
+        buildNameOfRoom(rooms);
     }
-
-    @Override
-    public String toString() {
+    private String buildNameOfRoom(int rooms) {
         if (rooms == 1) {
             name = "Однокомнатный номер";
         } else if (rooms == 2) {
@@ -31,6 +30,10 @@ public class Apartment {
         } else if (rooms == 3) {
             name = "Трёхкомнатный номер";
         }
+        return name;
+    }
+    @Override
+    public String toString() {
         StringBuilder apartmentToString = new StringBuilder()
                 .append("\t\u2219 ")
                 .append(name)

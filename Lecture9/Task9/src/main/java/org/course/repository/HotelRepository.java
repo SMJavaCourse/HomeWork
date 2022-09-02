@@ -1,7 +1,7 @@
 package org.course.repository;
 
-import org.course.entity.Apartment;
 import org.course.dto.CommandsEnum;
+import org.course.entity.Apartment;
 import org.course.entity.Hotel;
 import org.course.entity.services.ServicesAbstract;
 
@@ -9,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
-
-import static org.course.repository.ApartmentRepository.allApartmentsInHotel;
 
 public class HotelRepository {
     private ArrayList<Hotel> findHotelByName(String nameOfHotel) {
@@ -105,7 +103,7 @@ public class HotelRepository {
 
     private String printServices(String hotelId) {
         HashMap<String, ArrayList<Apartment>> servicesMap = new HashMap<>();
-        var allApartments = allApartmentsInHotel(hotelId);
+        var allApartments = ApartmentRepository.allApartmentsInHotel(hotelId);
         if (allApartments.size() == 0) {
             return "У отеля нет доступных номеров";
         }
