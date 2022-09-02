@@ -1,8 +1,8 @@
-package facilities;
+package services;
 
 import lombok.Getter;
 
 @Getter
-public class AirConditioner {
+public class AirConditioner extends Services{
     private String name = "кондицонер";
 }

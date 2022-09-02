@@ -1,8 +1,9 @@
 package constructors;
 
-import lombok.Builder;
-import org.course.Apartment;
+import org.course.Apartament;
 import org.course.Hotel;
+import services.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class HotelFactory {
 
     private static HotelFactory instance;
 
-    private HotelFactory( ) {
+    private HotelFactory() {
     }
 
     public static HotelFactory getInstance() {
@@ -21,73 +22,61 @@ public class HotelFactory {
     }
 
     public Hotel createHotel(String nameOfHotel) {
-        ApartBuilder builder = new ApartBuilder();
+        var builder = Apartament.builder();
 
         switch (nameOfHotel) {
             case "У мамы лучше" -> {
-                List<Apartment> apartmentsHotelGMama = new ArrayList<>();
-                builder
-                        .rooms(1).num(1).price(1000).capacity(2)
-                        .isClean(false)
-                        .isInternet(false)
-                        .isAirConditioner(false)
-                        .isBalcony(true)
-                        .isKebab(false);
-                apartmentsHotelGMama.add(builder.build());
-                builder
-                        .rooms(2).num(2).price(3000.0F).time("12:00").capacity(4)
-                        .isClean(true)
-                        .isInternet(true)
-                        .isAirConditioner(true)
-                        .isBalcony(true);
-                apartmentsHotelGMama.add(builder.build());
-                builder
-                        .rooms(2).num(3).price(3000.0F).capacity(4)
-                        .isClean(true)
-                        .isInternet(true)
-                        .isAirConditioner(true)
-                        .isBalcony(true);
-                apartmentsHotelGMama.add(builder.build());
-                builder
-                        .rooms(3).num(4).price(2500.0F).capacity(6)
-                        .isClean(false)
-                        .isInternet(false)
-                        .isAirConditioner(false)
-                        .isBalcony(false);
-                apartmentsHotelGMama.add(builder.build());
-                builder
-                        .rooms(4).num(5).price(3500.0F).capacity(6)
-                        .isClean(false)
-                        .isInternet(true)
-                        .isAirConditioner(false)
-                        .isBalcony(true);
-                apartmentsHotelGMama.add(builder.build());
+                List<Apartament> apartmentsHotelGMama = new ArrayList<>();
+                apartmentsHotelGMama.add(builder
+                        .numberOfApart(1).rooms(1).capacity(2).price(1000).services(
+                                new Balcony())
+                        .build());
+                apartmentsHotelGMama.add(
+                        builder
+                                .numberOfApart(2).rooms(2).capacity(4).price(3000).services(
+                                        new Cleaning(),
+                                        new Internet(),
+                                        new AirConditioner(),
+                                        new Balcony())
+                                .build());
+                apartmentsHotelGMama.add(
+                        builder
+                                .numberOfApart(3).rooms(2).capacity(4).price(3100).services(
+                                        new Cleaning(),
+                                        new Internet(),
+                                        new AirConditioner(),
+                                        new Balcony())
+                                .build());
+                apartmentsHotelGMama.add(
+                        builder
+                                .numberOfApart(4).rooms(3).capacity(6).price(2500).services()
+                                .build());
+                apartmentsHotelGMama.add(
+                        builder
+                                .numberOfApart(5).rooms(4).capacity(6).price(3500).services(
+                                        new Internet(),
+                                        new Balcony())
+                                .build());
                 return new Hotel("У мамы лучше", "12:00", apartmentsHotelGMama);
             }
             case "Шашлычок" -> {
-                List<Apartment> apartmentsHotelShashlik = new ArrayList<>();
+                List<Apartament> apartmentsHotelShashlik = new ArrayList<>();
+                apartmentsHotelShashlik.add(builder
+                        .numberOfApart(6).rooms(1).capacity(2).price(1000).services(
+                                new Balcony(),
+                                new Kebab())
+                        .build());
+                apartmentsHotelShashlik.add(
                 builder
-                        .rooms(1).num(6).price(1000.0F).time("09:00").capacity(2)
-                        .isClean(false)
-                        .isInternet(false)
-                        .isAirConditioner(false)
-                        .isBalcony(true)
-                        .isKebab(true);
-                apartmentsHotelShashlik.add(builder.build());
+                        .numberOfApart(7).rooms(2).capacity(4).price(1000).services(
+                                new Cleaning(),
+                                new Balcony())
+                                .build());
+                apartmentsHotelShashlik.add(
                 builder
-                        .rooms(2).num(7).price(1000.0F).capacity(4)
-                        .isClean(true)
-                        .isInternet(false)
-                        .isAirConditioner(false)
-                        .isBalcony(true);
-                apartmentsHotelShashlik.add(builder.build());
-                builder
-                        .rooms(3).num(8).price(4000.0F).capacity(7)
-                        .isClean(true)
-                        .isInternet(false)
-                        .isAirConditioner(false)
-                        .isBalcony(false);
-                apartmentsHotelShashlik.add(builder.build());
+                        .numberOfApart(8).rooms(3).capacity(7).price(4000).services(
+                                new Cleaning())
+                        .build());
                 return new Hotel("Шашлычок", "09:00", apartmentsHotelShashlik);
             }
         }
