@@ -18,7 +18,7 @@ public class Task9 {
                 ============================ Поиск вободных номеров =============================
                 введите запрос в формате "N" или "N \u00ABНазвание отеля\u00BB", где N - количество гостей:""");
 
-        Scanner in = new Scanner((System.in));
+        Scanner in = new Scanner(System.in);
         boolean exit = true;
 
         while (exit) {

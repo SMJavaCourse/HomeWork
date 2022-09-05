@@ -1,4 +1,4 @@
-package org.course.repository;
+package org.course.service;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

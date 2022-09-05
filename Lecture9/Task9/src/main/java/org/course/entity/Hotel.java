@@ -11,7 +11,7 @@ public class Hotel {
     private String startTime;
 
     @Override
-    public String toString() throws NullPointerException {
+    public String toString() {
         StringBuilder hotelToString = new StringBuilder()
                 .append("Отель \"")
                 .append(name)
