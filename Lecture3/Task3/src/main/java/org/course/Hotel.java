@@ -1,6 +1,7 @@
 package org.course;
 
 import lombok.Getter;
+import services.Services;
 
 import java.util.*;
 
@@ -23,13 +24,13 @@ public class Hotel {
         apartLuxury.setName(apartLuxury.getName() + " LUXURY");
 
         for (Apartament apartment : this.getApartments()) { //создаем мапу, где ключ - capacity, а value - апартаменты
-            List<Apartament> apartsByCapacity = apartmentByCapacity.get(apartment.getCapacity());
-            if (apartsByCapacity == null) {
-                apartsByCapacity = new ArrayList<>();
-                apartsByCapacity.add(apartment);
-                apartmentByCapacity.put(apartment.getCapacity(), apartsByCapacity);
-            } else {
-                apartsByCapacity.add(apartment);
+            List<Apartament> apartsByCapacity = apartmentByCapacity.get(apartment.getCapacity()); //создаем лист с апартаментами по capacity
+            if (apartsByCapacity == null) { //если лист пустой (такого capacity нет)
+                apartsByCapacity = new ArrayList<>(); // то создаем новый лист
+                apartsByCapacity.add(apartment); //добавляем туда найденный апартамент
+                apartmentByCapacity.put(apartment.getCapacity(), apartsByCapacity); //добавляем в нашу мапу ключ - capacity и лист с апартаментом
+            } else { //если лист не пустой (такой capacity уже есть)
+                apartsByCapacity.add(apartment); //добавляем апартамент в лист с апартаментам по найденному ключу - capacity
             }
         }
     }
@@ -47,5 +48,39 @@ public class Hotel {
             return roomList;
         }
         return null;
+    }
+
+    public static String searchServices(List<Apartament> apartments) {
+        HashMap<String, List<Apartament>> mapOfServices = new HashMap<>(); //создаем мапу, где ключ - имя сервиса, а value - апартамент
+        for (Apartament apartServices : apartments) { //проходимся по всем апартаментам
+            for (Services services : apartServices.getServices()) { //проходимся по всем сервисам апартаментов
+                List<Apartament> listApart = mapOfServices.get(services.getName()); //создаем лист апартов по конкретному сервису
+                if (listApart == null) { //если лист пустой (такого сервиса нет)
+                    listApart = new ArrayList<>(); // то создаем новый лист с апартами
+                    listApart.add(apartServices);
+                    mapOfServices.put(services.getName(), listApart); //добавляем в нашу мапу ключ - capacity и лист с апартаментом
+                } else { //если лист не пустой (такой capacity уже есть)
+                    listApart.add(apartServices); //добавляем апартамент в лист с апартаментам по найденному ключу - capacity
+                }
+            }
+        }
+        StringBuilder printServiceSearch = new StringBuilder("Количество доступных удобств: " + mapOfServices.keySet().size());
+        for (String serviceKey : mapOfServices.keySet()) {
+            List<Apartament> apartByServiceName = mapOfServices.get(serviceKey);
+            printServiceSearch
+                    .append("\n\nУдобство \"")
+                    .append(serviceKey)
+                    .append("\" доступно в номерах:");
+            for (Apartament apart : apartByServiceName) {
+                printServiceSearch
+                        .append(" \n\t\t\u25e6")
+                        .append(apart.getName())
+                        .append(" (комната номер ")
+                        .append(apart.getNumberOfApart())
+                        .append(")");
+            }
+
+        }
+        return printServiceSearch.toString();
     }
 }

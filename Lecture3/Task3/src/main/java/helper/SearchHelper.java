@@ -2,6 +2,8 @@ package helper;
 
 import org.course.Apartament;
 import org.course.Hotel;
+import org.course.SearchInput;
+import services.Services;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,6 +11,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.course.Hotel.searchRoom;
+import static org.course.Hotel.searchServices;
 
 public class SearchHelper {
     public static ArrayList<Hotel> findHotel(String nameHotel, Map<String, Hotel> hotelsByName) {
@@ -27,7 +30,7 @@ public class SearchHelper {
     }
 
 
-    public static String searchHotelString(String nameHotel, int numberOfGuests, Map<String, Hotel> hotelsByName) {
+    public static String searchHotelString(String nameHotel, String commandService, int numberOfGuests, Map<String, Hotel> hotelsByName) {
         StringBuilder stringHotelSearch = new StringBuilder(); // стринга билдер
         int numberOfHotelsFound = 0; //кол-во найденных отелей
         ArrayList<Hotel> foundHotel = findHotel(nameHotel, hotelsByName); //лист найденных отелей
@@ -38,22 +41,31 @@ public class SearchHelper {
                     .append("\"");
             return stringHotelSearch.toString(); //возвращаем стрингу с информацией
         }
-        for (Hotel hotel : foundHotel) {
-            ArrayList foundApartmentsList = searchRoom(numberOfGuests, hotel.getApartmentByCapacity());
-            int numberFoundApart = foundApartmentsList.size(); //кол-во найденных номеров
-            if (numberFoundApart > 0) { //кол-во найденных номеров больше 0
-                stringHotelSearch
-                        .append("Отель \"")
-                        .append(hotel.getName())
-                        .append("\"\nНайдено номеров: ")
-                        .append(numberFoundApart)
-                        .append("\nНомера:\n")
-                        .append(searchRoom(numberOfGuests, hotel.getApartmentByCapacity())
-                                .stream()
-                                .map(Apartament::toString)
-                                .collect(Collectors.joining()));
-                numberOfHotelsFound += 1;
+        if (commandService == null) {
+            for (Hotel hotel : foundHotel) {
+                ArrayList foundApartmentsList = searchRoom(numberOfGuests, hotel.getApartmentByCapacity());
+                int numberFoundApart = foundApartmentsList.size(); //кол-во найденных номеров
+                if (numberFoundApart > 0) { //кол-во найденных номеров больше 0
+                    stringHotelSearch
+                            .append("Отель \"")
+                            .append(hotel.getName())
+                            .append("\"\nНайдено номеров: ")
+                            .append(numberFoundApart)
+                            .append("\nНомера:\n")
+                            .append(searchRoom(numberOfGuests, hotel.getApartmentByCapacity())
+                                    .stream()
+                                    .map(Apartament::toString)
+                                    .collect(Collectors.joining()));
+                    numberOfHotelsFound += 1;
+                }
             }
+        } else {
+            stringHotelSearch
+                    .append("Отель: \"")
+                    .append(nameHotel)
+                    .append("\"\n")
+                    .append(searchServices(hotelsByName.get(nameHotel).getApartments()));
+            numberOfHotelsFound += 1;
         }
         if (("".equals(stringHotelSearch.toString()) && nameHotel == null) || !stringHotelSearch.toString().equals("")) {
             return "Найдено отелей: " + numberOfHotelsFound + "\n" + stringHotelSearch;
@@ -61,8 +73,5 @@ public class SearchHelper {
             return "В отеле \"" + nameHotel + "\" нет достаточного количества мест";
         }
     }
-//    public static String searchServicesString(String commandServices, Map<String, Hotel> hotelsByName) {
-//
-//    }
 }
 
