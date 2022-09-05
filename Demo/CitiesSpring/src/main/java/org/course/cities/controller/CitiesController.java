@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class CitiesController {
     private final CitiesService citiesService;
@@ -19,6 +21,6 @@ public class CitiesController {
 
     @GetMapping("/cities/{id}")
     public ResponseEntity<City> helloworld(@PathVariable String id) {
-        return ResponseEntity.ok(citiesService.getCity(id));
+        return ResponseEntity.of(Optional.ofNullable(citiesService.getCity(id)));
     }
 }

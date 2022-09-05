@@ -4,11 +4,13 @@ import lombok.SneakyThrows;
 import org.course.cities.entity.CityEntity;
 import org.course.cities.repository.CitiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
 @Repository
+@ConditionalOnProperty(name = "cities.repo.jdbc", havingValue = "true")
 public class CitiesJdbcRepository implements CitiesRepository {
     private final DataSource dataSource;
 

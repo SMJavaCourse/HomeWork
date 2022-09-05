@@ -18,7 +18,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Repository
-@ConditionalOnProperty(name = "cities.repository.stub", havingValue = "true")
+@ConditionalOnProperty(name = "cities.repo.stub", havingValue = "true")
 public class CitiesStubRepository implements CitiesRepository {
     @Value("classpath:stub/cities.json")
     private Resource resource;
