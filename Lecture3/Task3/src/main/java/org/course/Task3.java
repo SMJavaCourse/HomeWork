@@ -8,11 +8,10 @@ import java.util.List;
 public class Task3 {
     public static HotelsRepo hotelsRepo = HotelsRepo.getInstance();
     public static void main(String[] args) throws HotelException, ParseException {
-        // вывести по каждому из отелей:
-        // общее количество номеров
-        // список номеров с их описанием
 
-        hotelsRepo.generateMoreHotels(); // нагенерить > 1000000 отелей для теста
+
+
+        hotelsRepo.generateHotels(); // или generateMoreHotels() - нагенерить > 1000000 отелей для теста
         var list = List.of(Hotel.builder()
                 .name("Спб")
                 .apartments(List.of(new ApartmentOneRoom(5000f, 2, 11)

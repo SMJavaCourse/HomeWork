@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  postgres-db:
+    container_name: hotel-service-postgres
+    image: postgres:14.1-alpine
+    restart: always
+    ports:
+      - '5433:5432'
+    environment:
+      - POSTGRES_DB=hotels
+      - POSTGRES_USER=hotels
+      - POSTGRES_PASSWORD=hotels
