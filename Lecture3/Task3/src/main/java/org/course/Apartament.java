@@ -3,6 +3,7 @@ package org.course;
 import lombok.Builder;
 import lombok.Data;
 import services.Services;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -85,6 +86,7 @@ public class Apartament {
             this.services = new ArrayList<>(Arrays.asList(services));
             return this;
         }
+
         public ApartBuilder name(String name) {
             this.name = name;
             return this;
@@ -107,11 +109,6 @@ public class Apartament {
 
         public ApartBuilder price(int price) {
             this.price = price;
-            return this;
-        }
-
-        public ApartBuilder services(ArrayList<Services> services) {
-            this.services = services;
             return this;
         }
 

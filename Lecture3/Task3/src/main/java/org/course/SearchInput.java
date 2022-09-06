@@ -2,6 +2,7 @@ package org.course;
 
 import constructors.HotelFactory;
 import helper.SearchHelper;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +25,39 @@ public class SearchInput {
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n\uD83C\uDF88" + " Поиск свободных номеров " + "\uD83C\uDF88" +
-                    "\nВведите запрос в формате: \"N\" или \"N \u00ABНазвание отеля\u00BB\", \nгде N - количество гостей:");
+            try {
+                System.out.println("\n\uD83C\uDF88" + " Поиск свободных номеров " + "\uD83C\uDF88" +
+                        "\nВведите запрос в формате: \"N\" или \"N \u00ABНазвание отеля\u00BB\", \nгде N - количество гостей:");
 
-            String input = scanner.nextLine().trim(); //ввод значений
-            List<String> inputAll = List.of(input.split(" "));//вырезаем стрингу из ввода и режем на отдельные слова
-            if (inputAll.get(0).equals("удобства")){
-                commandService = inputAll.get(0);
-            }
-            else {
-                numberOfGuests = Integer.parseInt(inputAll.get(0)); //распарсиваем количество введенных гостей
-            }
+                String input =  scanner.nextLine().trim(); //ввод значений
+
+                if ("exit".equalsIgnoreCase(input) || "выход".equalsIgnoreCase(input)) { //проверка команды "выход"
+                    return;
+                }
+                if (StringUtils.isBlank(input)) {   //проверка на пустоту
+                    continue;
+                }
+
+                List<String> inputAll = List.of(input.split(" "));//вырезаем стрингу из ввода и режем на отдельные слова
+                if (inputAll.get(0).equals("удобства")) {
+                    commandService = inputAll.get(0);
+                } else {
+                    numberOfGuests = Integer.parseInt(inputAll.get(0)); //распарсиваем количество введенных гостей
+                    if (numberOfGuests <= 0) {
+                        System.out.println("Введенное количество гостей должно быть больше нуля\n");
+                        continue;
+                    }
+                }
                 String hotelName = getHotelName(inputAll); //получаем имя отеля выполнив метод getHotelName
                 System.out.println(SearchHelper.searchHotelString(hotelName, commandService, numberOfGuests, nameOfHotels));
+            } catch (RuntimeException e) {
+                System.out.println("Количество гостей это число, повторите ввод.");
             }
+        }
     }
-        private static String getHotelName(List<String> inputs) { //склеиваем имя отеля из введенных слов
+
+
+    private static String getHotelName(List<String> inputs) { //склеиваем имя отеля из введенных слов
         if (inputs.size() <= 1) {
             return null;
         }
