@@ -2,16 +2,22 @@ package org.course.cities.repository.jdbc;
 
 import lombok.SneakyThrows;
 import org.course.cities.entity.CountryEntity;
+import org.course.cities.repository.CountryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
-public class CountryJdbcRepository {
+@Repository
+public class CountryJdbcRepository implements CountryRepository {
     private DataSource dataSource;
 
+    @Autowired
     public CountryJdbcRepository(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+    @Override
     @SneakyThrows
     public CountryEntity getById(String id) {
         try (var statement = dataSource.getConnection()

@@ -17,45 +17,13 @@
         <module>Lecture1/HelloWorld</module>
         <module>Lecture2/Task2</module>
         <module>Lecture3/Task3</module>
+        <module>Lecture10/Task10</module>
         <module>Demo/MarkBrook</module>
         <module>Demo/PhoneBook</module>
         <module>Demo/Generics</module>
         <module>Demo/StreamAPI-Lambda-Lombok</module>
         <module>Demo/JUnit</module>
+        <module>Demo/jdbc</module>
+        <module>Demo/CitiesSpring</module>
     </modules>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.12.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jeasy</groupId>
-            <artifactId>easy-random-core</artifactId>
-            <version>5.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.5.0</version>
-        </dependency>
-    </dependencies>
 </project>
