@@ -10,9 +10,6 @@ create table hotels
     rooms_total_count integer not null
 );
 
-alter table hotels
-    owner to hotels;
-
 create unique index hotels_id_uindex
     on hotels (id);
 
@@ -27,8 +24,6 @@ create table apartment_params
     places      integer          not null
 );
 
-alter table apartment_params
-    owner to hotels;
 
 create unique index apartment_params_id_uindex
     on apartment_params (id);
@@ -43,8 +38,12 @@ create table apartments
     apartment_params_id integer not null
 );
 
-alter table apartments
-    owner to hotels;
 
 create unique index apartments_id_uindex
     on apartments (id);
+
+insert into apartments (id, apartment_name, apartment_params_id)
+values (2, 'Однокомнатный номер', 1);
+
+insert into hotels (id, name, apartments_id, checkin_time, rooms_total_count)
+values (1, 'Отельчик', 2, '12:00', 5);

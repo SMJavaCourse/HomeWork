@@ -1,4 +1,4 @@
-package org.course;
+package org.course.utils;
 
 public class SearchTimeDemo {
     private Long startTime;
