@@ -1,0 +1,24 @@
+package org.course.hotels.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.course.hotels.entity.services.ServicesAbstract;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Apartment {
+    private String id;
+    private String name;
+    private int rooms;
+    private int roomNumber;
+    private int price;
+    private int capacity;
+    private ArrayList<String> services;
+}
