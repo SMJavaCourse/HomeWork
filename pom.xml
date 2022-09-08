@@ -23,7 +23,7 @@
         <module>Demo/Generics</module>
         <module>Demo/StreamAPI-Lambda-Lombok</module>
         <module>Demo/JUnit</module>
-        <module>Demo/jdbc</module>
+        <module>Demo/Jdbc</module>
         <module>Demo/CitiesSpring</module>
     </modules>
 </project>

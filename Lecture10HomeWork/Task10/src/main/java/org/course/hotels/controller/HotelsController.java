@@ -41,4 +41,10 @@ public class HotelsController {
 
         return ResponseEntity.ok(hotel);
     }
+
+    @GetMapping("api/hotels/{id}")
+    public ResponseEntity<Hotel> getHotelById(@PathVariable String id) {
+        var hotel = hotelService.getHotel(id);
+        return ResponseEntity.of(hotel);
+    }
 }

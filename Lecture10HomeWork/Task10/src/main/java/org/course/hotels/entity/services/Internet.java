@@ -1,4 +1,4 @@
-package org.course.entity.services;
+package org.course.hotels.entity.services;
 
 
 import lombok.AllArgsConstructor;

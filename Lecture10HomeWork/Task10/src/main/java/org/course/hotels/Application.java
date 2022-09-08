@@ -13,6 +13,6 @@ public class Application {
         var applicationContext = SpringApplication.run(Application.class, args);
         var hotelRepository = applicationContext.getBean(HotelRepository.class);
         var hotelEntity = hotelRepository.getById("1");
-        System.out.println("sdsd");
+        System.out.println(hotelEntity);
     }
 }

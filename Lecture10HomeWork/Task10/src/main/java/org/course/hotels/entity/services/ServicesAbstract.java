@@ -1,4 +1,4 @@
-package org.course.entity.services;
+package org.course.hotels.entity.services;
 
 public abstract class ServicesAbstract {
 
