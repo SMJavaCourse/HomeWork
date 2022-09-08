@@ -6,11 +6,11 @@ import lombok.Data;
 @Data
 @Builder
 public class ErrorResponse {
-    private String code;
+    private int statusCode;
     private String message;
 
-    public ErrorResponse(String code, String message) {
-        this.code = code;
+    public ErrorResponse(int statusCode, String message) {
+        this.statusCode = statusCode;
         this.message = message;
     }
 }

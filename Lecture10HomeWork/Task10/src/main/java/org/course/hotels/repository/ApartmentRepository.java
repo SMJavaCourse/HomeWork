@@ -24,26 +24,26 @@ public class ApartmentRepository {
     }
 
 
-//    public ArrayList<Apartment> suitableApartments(String hotelId, int numberOfGuests) {
-//        ArrayList<Apartment> result = new ArrayList<>();
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement("SELECT id, hotelId, rooms, numberofroom, price," +
-//                     " capacity FROM apartments WHERE hotelid = ?")) {
-//            statement.setString(1, hotelId);
-//            try (var rs = statement.executeQuery()) {
-//                while (rs.next()) {
-//                    var sdfsdf =rs.getInt(6);
-//                    if (sdfsdf >= numberOfGuests) {
-//                        apartmentConstructor(result, rs);
-//                    }
-//                }
-//            }
-//            mostExpensiveApartment(result);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return result;
-//    }
+    public ArrayList<Apartment> suitableApartments(String hotelId, int numberOfGuests) {
+        ArrayList<Apartment> result = new ArrayList<>();
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("SELECT id, hotelId, rooms, numberofroom, price," +
+                     " capacity FROM apartments WHERE hotelid = ?")) {
+            statement.setString(1, hotelId);
+            try (var rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    var capacity =rs.getInt(6);
+                    if (capacity >= numberOfGuests) {
+                        apartmentConstructor(result, rs);
+                    }
+                }
+            }
+            mostExpensiveApartment(result);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
 
     private static void mostExpensiveApartment(ArrayList<Apartment> apartments) throws NoSuchElementException {
         if (apartments.size() != 0) {
@@ -113,16 +113,16 @@ public class ApartmentRepository {
         return services;
     }
 
-//    public String soutServices(ArrayList<ServicesAbstract> services) {
-//        if (services.size() == 0) {
-//            return "отсутствуют \n";
-//        } else {
-//            return services
-//                    .stream()
-//                    .map(ServicesAbstract::getName)
-//                    .collect(Collectors.joining(", "));
-//        }
-//    }
+    public String soutServices(ArrayList<ServicesAbstract> services) {
+        if (services.size() == 0) {
+            return "отсутствуют \n";
+        } else {
+            return services
+                    .stream()
+                    .map(ServicesAbstract::getName)
+                    .collect(Collectors.joining(", "));
+        }
+    }
 
 //    public Apartment save(Apartment apartment){
 //        if (findApartmentById(apartment.getId()) != null) {
@@ -152,24 +152,24 @@ public class ApartmentRepository {
 //        return apartment;
 //    }
 
-//    public void deleteAll() {
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.createStatement()) {
-//            statement.executeUpdate("DELETE FROM apartments;");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public int deleteById(String apartmentId) {
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement("DELETE FROM apartments WHERE id = ?")) {
-//            statement.setString(1, apartmentId);
-//            return statement.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public void deleteAll() {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM apartments;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int deleteById(String apartmentId) {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM apartments WHERE id = ?")) {
+            statement.setString(1, apartmentId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Apartment findApartmentById(String apartmentId) {
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, hotelid, rooms, numberofroom, price, capacity FROM apartments WHERE id = ?")) {

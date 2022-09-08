@@ -31,4 +31,16 @@ public class HotelService {
             return hotel;
         });
     }
+
+    public Optional<Hotel> hotelQuery(int people, String name) {
+        var hotelEntity = Optional.ofNullable(hotelRepository.findHotelByName(name, people));
+        return hotelEntity.map(he -> {
+            var hotel = new Hotel();
+            hotel.setId(he.getId());
+            hotel.setName(he.getName());
+            hotel.setStartTime(he.getStartTime());
+            hotel.setApartments(he.getApartments());
+            return hotel;
+        });
+    }
 }

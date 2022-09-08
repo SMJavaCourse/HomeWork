@@ -24,42 +24,41 @@ public class HotelRepository {
         this.apartmentRepository = apartmentRepository;
     }
 
-//    private ArrayList<Hotel> findHotelByName(String nameOfHotel) {
-//        ArrayList<Hotel> hotels = new ArrayList<>();
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE UPPER(name) = UPPER(?)")) {
-//            statement.setString(1, nameOfHotel);
-//            try (var rs = statement.executeQuery()) {
-//                if (rs.next()) {
-//                    var id = rs.getString(1);
-//                    var name = rs.getString(2);
-//                    var startTime = rs.getString(3);
-//                    var apartments = apartmentRepository.allApartmentsInHotel(rs.getString(1));
-//                    hotels.add(new Hotel(id, name, startTime, apartments));
-//                }
-//                return hotels;
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException();
-//        }
-//    }
-//
-//    private ArrayList<Hotel> getAllHotels(){
-//        ArrayList<Hotel> hotels = new ArrayList<>();
-//        try (var connection = dataSource.getConnection();
-//             var allResults = connection.createStatement().executeQuery("SELECT id, name, starttime FROM hotels")) {
-//            while (allResults.next()) {
-//                var id = allResults.getString(1);
-//                var name = allResults.getString(2);
-//                var startTime = allResults.getString(3);
-//                var apartments = apartmentRepository.allApartmentsInHotel(allResults.getString(1));
-//                hotels.add(new Hotel(id, name, startTime, apartments));
-//            }
-//            return hotels;
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public Hotel findHotelByName(String nameOfHotel, int numberOfGuests) {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE UPPER(name) = UPPER(?)")) {
+            statement.setString(1, nameOfHotel);
+            try (var rs = statement.executeQuery()) {
+                if (rs.next()) {
+                    var id = rs.getString(1);
+                    var name = rs.getString(2);
+                    var startTime = rs.getString(3);
+                    var apartments = apartmentRepository.suitableApartments(rs.getString(1),numberOfGuests);
+                    return new Hotel(id, name, startTime, apartments);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return null;
+    }
+
+    private ArrayList<Hotel> getAllHotels(){
+        ArrayList<Hotel> hotels = new ArrayList<>();
+        try (var connection = dataSource.getConnection();
+             var allResults = connection.createStatement().executeQuery("SELECT id, name, starttime FROM hotels")) {
+            while (allResults.next()) {
+                var id = allResults.getString(1);
+                var name = allResults.getString(2);
+                var startTime = allResults.getString(3);
+                var apartments = apartmentRepository.allApartmentsInHotel(allResults.getString(1));
+                hotels.add(new Hotel(id, name, startTime, apartments));
+            }
+            return hotels;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 //    public String hotelFinder(String nameOfHotel, String nameOfCommand, int numberOfGuests) {
 //        StringBuilder finderHotelString = new StringBuilder();
@@ -96,7 +95,8 @@ public class HotelRepository {
 //                    numberOfHotelsFound += 1;
 //                }
 //            }
-//        } else {
+//        }
+//        else {
 //            for (CommandsEnum commandsEnum : CommandsEnum.values()) {
 //                if (commandsEnum.getName().equalsIgnoreCase(nameOfCommand)) {
 //                    finderHotelString
@@ -152,47 +152,47 @@ public class HotelRepository {
 //        return stringServices.toString();
 //    }
 
-//    public Hotel save(Hotel hotel){
-//        if (findById(hotel.getId()) != null) {
-//            try (var connection = dataSource.getConnection();
-//                 var statement = connection.prepareStatement("UPDATE hotels SET name = ?, starttime = ? WHERE id = ?")) {
-//                statement.setString(1, hotel.getName());
-//                statement.setString(2, hotel.getStartTime());
-//                statement.setString(3, hotel.getId());
-//                statement.executeUpdate();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        } else {
-//            try (var connection = dataSource.getConnection();
-//                 var statement = connection.prepareStatement("INSERT INTO hotels VALUES (?, ?, ?)")) {
-//                statement.setString(1, hotel.getId());
-//                statement.setString(2, hotel.getName());
-//                statement.setString(3, hotel.getStartTime());
-//                statement.executeUpdate();
-//            } catch (SQLException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
-//        return hotel;
-//    }
-//    public void deleteAll(){
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.createStatement()) {
-//            statement.executeUpdate("DELETE FROM hotels;");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//    public int deleteById(String hotelId) {
-//        try (var connection = dataSource.getConnection();
-//             var statement = connection.prepareStatement("DELETE FROM hotels WHERE id = ?")) {
-//            statement.setString(1, hotelId);
-//            return statement.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    public Hotel save(Hotel hotel){
+        if (findById(hotel.getId()) != null) {
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.prepareStatement("UPDATE hotels SET name = ?, starttime = ? WHERE id = ?")) {
+                statement.setString(1, hotel.getName());
+                statement.setString(2, hotel.getStartTime());
+                statement.setString(3, hotel.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.prepareStatement("INSERT INTO hotels VALUES (?, ?, ?)")) {
+                statement.setString(1, hotel.getId());
+                statement.setString(2, hotel.getName());
+                statement.setString(3, hotel.getStartTime());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return hotel;
+    }
+    public void deleteAll(){
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM hotels;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int deleteById(String hotelId) {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM hotels WHERE id = ?")) {
+            statement.setString(1, hotelId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public Hotel findById(String hotelId) {
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE id = ?")) {
