@@ -185,9 +185,11 @@ public class HotelRepository {
             statement.setString(1, hotelId);
             var result = statement.executeQuery();
             if (result.next()) {
-                return new Hotel(result.getString(1),
-                        result.getString(2),
-                        result.getString(3));
+                var hotel = new Hotel();
+                hotel.setId(result.getString(1));
+                hotel.setName(result.getString(2));
+                hotel.setStartTime(result.getString(3));
+                return hotel;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
