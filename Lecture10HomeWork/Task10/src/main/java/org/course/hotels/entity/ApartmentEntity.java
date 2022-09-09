@@ -2,8 +2,6 @@ package org.course.hotels.entity;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class ApartmentEntity {
     private String id;
