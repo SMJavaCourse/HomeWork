@@ -3,22 +3,16 @@ package org.course;
 import org.course.Factory.HotelFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Apartment {
-    //    private String name;
+
     private final int numberOfApart;
     private final int rooms;
     private final float price;
     private final String checkInTime;
     private final int capacity;
-
-//    public boolean isBalcony;
-//    public boolean isCleaning;
-//    public boolean isInternet;
-//    public boolean isCooling;
-//    public boolean isGrillInNumber;
-    private List<Amenity> amenities;
-
+    private final List<Amenity> amenities;
 
     public int getCapacity() {
         return capacity;
@@ -32,20 +26,6 @@ public class Apartment {
         this.capacity = capacity;
         this.amenities = amenities;
     }
-
-    //    public Apartment(int num, int rooms, float price, String checkInTime, int people, boolean isBalcony, boolean isCleaning, boolean isInternet, boolean isCooling, boolean isGrillInNumber) {
-//        this.numberOfApart = num;
-//        this.rooms = rooms;
-//        this.price = price;
-//        this.checkInTime = checkInTime;
-//        this.capacity = people;
-//
-//        this.isBalcony = isBalcony;
-//        this.isCleaning = isCleaning;
-//        this.isInternet = isInternet;
-//        this.isCooling = isCooling;
-//        this.isGrillInNumber = isGrillInNumber;
-//    }
 
     public void print() {
         String a = switch (rooms) {
@@ -61,28 +41,11 @@ public class Apartment {
         System.out.println("    Цена: " + price + " р/сутки");
         System.out.println("    Вместимость до " + capacity + " человек");
         System.out.println("    Время заселения: " + checkInTime);
-        String s = "    Дополнительные услуги: " + amenities;
+        System.out.println("    Дополнительные услуги: " + amenitiesToString(amenities));
+    }
 
-//        if (isBalcony) {
-//            s = s + "балкон, ";
-//
-//        }
-//        if (isCleaning) {
-//            s = s + "уборка номера, ";
-//
-//        }
-//        if (isInternet) {
-//            s = s + "интернет, ";
-//
-//        }
-//        if (isCooling) {
-//            s = s + "кондиционер, ";
-//
-//        }
-//        if (isGrillInNumber) {
-//            s = s + "шашлычок в номер, ";
-//
-//        }
-        System.out.println(s);
+    private String amenitiesToString(List<Amenity> amenities) {
+        return amenities.stream().map(Amenity::getName)
+                .collect(Collectors.joining(", "));
     }
 }

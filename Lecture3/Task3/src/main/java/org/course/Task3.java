@@ -47,7 +47,7 @@ public class Task3 {
                             numFoundApartments++;
                             numberOfHotelsFound += 1;
                             System.out.println("\nОтель \u00AB" + foundHotelName + "\u00BB");
-                            Hotel.printApartsment(foundApartments);
+                            printApartments(foundApartments);
                         }
                         if (numFoundApartments == 0) {
                             System.out.println("Подходящих номеров не найдено=(");
@@ -64,21 +64,25 @@ public class Task3 {
                     if (foundHotel == null) {
                         System.out.println("Отель не существует!");
                         continue;
+                    } else {
+                        System.out.println("Для вас найден отель " + "\n\u00AB" + foundHotel.getName() + "\u00BB\n");
                     }
                     List<Apartment> foundApartments = foundHotel.searchRoom(numberOfGuests);
-                    Hotel.printApartsment(foundApartments);
+                    printApartments(foundApartments);
                 }
             } catch (NullPointerException e) {
                 System.out.println("Отель не найден!\n");
-                break;
-            } catch (InputMismatchException e) {
-                System.out.println("Количество гостей это число, повторите ввод:");
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Количество гостей это число, повторите ввод:");
+//                break;
+//            } catch (InputMismatchException e) {
+//                System.out.println("Количество гостей это число, повторите ввод:");
+//                break;
+//            } catch (NumberFormatException e) {
+//                System.out.println("Количество гостей это число, повторите ввод:");
+            } catch (Throwable e) {
+                System.out.println("Message: " + e.getMessage() + "Количество гостей это число, повторите ввод:" +"\nError code: \n" + Arrays.toString(e.getStackTrace()));
+//                myExceptions.printStackTrace();
             }
         }
-
     }
 
     private static String getHotelName(List<String> inputs) {

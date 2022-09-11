@@ -2,12 +2,11 @@ package org.course;
 
 import java.util.*;
 
-
 public class Hotel {
     private final String name;
     private final List<Apartment> apartments;
     private Map<Amenity, List<Apartment>> apartmentListByAmenity;
-    private String checkInTime;
+    private final String checkInTime;
 
     public Hotel(String name, String checkInTime, List<Apartment> apartments) {
         this.name = name;
@@ -20,11 +19,11 @@ public class Hotel {
         return name;
     }
 
-    public List<Apartment> getApartments() {
+    private List<Apartment> getApartments() {
         return apartments;
     }
 
-    public static Map<String, Hotel> toHotelsByNameMap(List<Hotel> hotels){
+    public static Map<String, Hotel> toHotelsByNameMap(List<Hotel> hotels) {
         Map<String, Hotel> hotelsByName = new HashMap<>();
         for (Hotel hotel : hotels) {
             hotelsByName.put(hotel.name.toLowerCase(), hotel);
@@ -32,13 +31,8 @@ public class Hotel {
         return hotelsByName;
     }
 
-
     public static Hotel search(String hotelsName, Map<String, Hotel> hotelByName) {
-        Hotel hotel = hotelByName.get(hotelsName.toLowerCase());
-        if (hotel != null) {
-            System.out.println("Для вас найден отель " + "\n\u00AB" + hotel.getName() + "\u00BB\n");
-        }
-        return hotel;
+        return hotelByName.get(hotelsName.toLowerCase());
     }
 
     public List<Apartment> searchRoom(int people) {
@@ -55,19 +49,10 @@ public class Hotel {
         return null;
     }
 
-
-    public static void printApartsment(List<Apartment> apartments) {
+    public static void printApartments(List<Apartment> apartments) {
         System.out.println("Количество найденных апартаментов: " + apartments.size() + "\n");
         for (Apartment apartment : apartments) {
             apartment.print();
         }
     }
-
-//    @Override
-//    public String toString() {
-//        return "Hotel{" +
-//                "name='" + name + '\'' +
-//                ", apartments=" + Arrays.toString(apartments) +
-//                '}';
-//    }
 }
