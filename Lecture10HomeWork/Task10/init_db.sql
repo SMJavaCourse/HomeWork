@@ -81,3 +81,6 @@ INSERT INTO apartmentServices VALUES ('16','7','2','');
 INSERT INTO apartmentServices VALUES ('17','8','2','');
 INSERT INTO apartmentServices VALUES ('18','8','5','');
 
+CREATE UNIQUE INDEX ON hotels(id);
+CREATE UNIQUE INDEX ON hotels(name);
+CREATE UNIQUE INDEX ON apartments(id);
