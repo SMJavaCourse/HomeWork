@@ -1,6 +1,7 @@
 package org.course.hotels.repository;
 
 import org.course.hotels.dto.Apartment;
+import org.course.hotels.entity.ApartmentEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,7 +15,25 @@ import java.util.NoSuchElementException;
 @Repository
 public class ApartmentRepository {
 
-    private final DataSource dataSource;
+    private static DataSource dataSource;
+    private static volatile ApartmentRepository instance;
+
+    public ApartmentRepository() {
+
+    }
+
+    public static ApartmentRepository getInstance() {
+        var localInstance = instance;
+        if (localInstance == null) {
+            synchronized (ApartmentRepository.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new ApartmentRepository();
+                }
+            }
+        }
+        return localInstance;
+    }
 
     @Autowired
     public ApartmentRepository(DataSource dataSource) {
@@ -81,7 +100,7 @@ public class ApartmentRepository {
         apartment.setRoomNumber(rs.getInt(4));
         apartment.setPrice(rs.getInt(5));
         apartment.setCapacity(rs.getInt(6));
-        apartment.setServices(allServicesInApartment(rs.getString(1)));
+//        apartment.setServices(allServicesInApartment(rs.getString(1)));
         result.add(apartment);
     }
     public ArrayList<String> allServicesInApartment(String apartmentsId) {
@@ -103,6 +122,72 @@ public class ApartmentRepository {
             throw new RuntimeException(e);
         }
         return services;
+    }
+    public int deleteById(String apartmentId) {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("DELETE FROM apartments WHERE id = ?")) {
+            statement.setString(1, apartmentId);
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Apartment save(Apartment apartment, String hotelId){
+        if (findById(apartment.getId()) != null) {
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.prepareStatement("UPDATE apartments SET price = ?, capacity = ?  WHERE id = ?")) {
+                statement.setInt(1, apartment.getPrice());
+                statement.setInt(2, apartment.getCapacity());
+                statement.setString(3, apartment.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try (var connection = dataSource.getConnection();
+                 var statement = connection.prepareStatement("INSERT INTO apartments VALUES (?, ?, ?, ?, ?, ?)")) {
+                statement.setString(1, apartment.getId());
+                statement.setString(2, hotelId);
+                statement.setInt(3, apartment.getRooms());
+                statement.setInt(4, apartment.getRoomNumber());
+                statement.setInt(5, apartment.getPrice());
+                statement.setInt(6, apartment.getCapacity());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return apartment;
+    }
+
+    public ApartmentEntity findById(String apartmentId) {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.prepareStatement("SELECT id, hotelId, rooms, numberofroom, price, capacity FROM apartments WHERE id = ?")) {
+            statement.setString(1, apartmentId);
+            var result = statement.executeQuery();
+            if (result.next()) {
+                ApartmentEntity apartmentEntity = new ApartmentEntity();
+                apartmentEntity.setId(result.getString(1));
+                apartmentEntity.setHotelId(result.getString(2));
+                apartmentEntity.setRooms(result.getInt(3));
+                apartmentEntity.setRoomNumber(result.getInt(4));
+                apartmentEntity.setPrice(result.getInt(5));
+                apartmentEntity.setCapacity(result.getInt(6));
+                return apartmentEntity;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    public void deleteAll() {
+        try (var connection = dataSource.getConnection();
+             var statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM apartments;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

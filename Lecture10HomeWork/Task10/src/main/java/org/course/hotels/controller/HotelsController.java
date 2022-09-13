@@ -21,7 +21,7 @@ public class HotelsController {
     }
 
     @GetMapping("api/hotels/{id}")
-    public ResponseEntity findHotel(@PathVariable String id) {
+    public ResponseEntity getHotelById(@PathVariable String id) {
         var hotel = hotelService.getHotel(id);
         if (hotel.isPresent()) {
             return ResponseEntity.of(hotel);
@@ -30,7 +30,7 @@ public class HotelsController {
     }
 
     @PostMapping("api/hotels/query")
-    public ResponseEntity findApartments(@Valid @RequestBody queryRequest request) {
+    public ResponseEntity getHotel(@Valid @RequestBody queryRequest request) {
         var people = request.people();
         var name = request.name();
         var hotel = hotelService.hotelQuery(Integer.parseInt(people), name);

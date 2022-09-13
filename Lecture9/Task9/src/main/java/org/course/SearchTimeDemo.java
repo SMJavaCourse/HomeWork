@@ -10,7 +10,7 @@ public class SearchTimeDemo {
     public static void main(String[] args) {
 
         HotelRepository hotelRepository = new HotelRepository();
-        hotelRepository.deleteAll();
+        var ttt = hotelRepository.deleteById("11");
 
 
         int numberOfHotels = 1000;
