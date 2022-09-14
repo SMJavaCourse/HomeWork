@@ -22,6 +22,10 @@ public class HotelService {
         return HOTEL_REPOSITORY.save(hotel);
     }
 
+    public Integer removeHotels() {
+        return HOTEL_REPOSITORY.dropAll().size();
+    }
+
     @SneakyThrows
     public Hotel getHotelById(String id) {
         var hotel = HOTEL_REPOSITORY.byId(id.toLowerCase(Locale.ROOT));
@@ -29,6 +33,14 @@ public class HotelService {
             throw new HotelException("No such hotel with id=" + id);
         }
         return hotel;
+    }
+
+    public List<Hotel> getAllHotels() throws HotelException {
+        if (HOTEL_REPOSITORY.all().size() == 0) {
+            throw new HotelException("There is no one hotel found");
+        }
+        System.out.println("Hotel list: \n");
+        return HOTEL_REPOSITORY.all();
     }
 
     public List<Hotel> generateHotels() {

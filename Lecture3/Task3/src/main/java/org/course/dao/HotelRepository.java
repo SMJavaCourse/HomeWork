@@ -2,14 +2,19 @@ package org.course.dao;
 
 import lombok.SneakyThrows;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.course.Apartment;
 import org.course.ApartmentOneRoom;
 import org.course.Hotel;
 import org.course.HotelException;
 import org.course.HotelFactory;
 import org.course.ServicesImpl;
+import org.course.utils.DbConnect;
+import org.course.utils.DbUtils;
 
+import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,17 +42,85 @@ public class HotelRepository extends Repository<Hotel, String>{
 
     @Override
     public List<Hotel> all() {
-        return hotelByName.values().stream().sorted().toList();
+        List<Hotel> hotelList = new ArrayList<>();
+        List<Apartment> apartmentList = new ArrayList<>();
+        try (var connection = DbConnect.getConnection()) {
+            var statementHotel = connection.createStatement();
+
+            var rsHotel = statementHotel.executeQuery("select * from hotels");
+
+//            while (rsAparts.next()) {
+//                apartmentList.add(ApartmentOneRoom.builder()
+//                        .roomNumber(rsAparts.getInt(2))
+//                        .price(rsAparts.getInt(3))
+//                        .places(rsAparts.getInt(4))
+//                        .build());
+//            }
+            while (rsHotel.next()) {
+                var apId = rsHotel.getInt("apartments_id");
+                var sql = "select * from apartments left join apartment_params ap " +
+                        "on ap.id = apartments.apartment_params_id where apartments.id = ?";
+                try (var statementAparts = connection.prepareStatement(sql)) {
+                    statementAparts.setInt(1, apId);
+                    statementAparts.execute();
+                }
+//                var rsAparts = statementAparts
+//                        .setInt(apId)
+//                        .executeQuery();
+                hotelList.add(Hotel.builder()
+                        .name(rsHotel.getString(2))
+                        .apartments(apartmentList)
+                        .checkInTime(rsHotel.getTime(4).toLocalTime())
+                        .build());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return hotelList;
     }
 
     @SneakyThrows
     public Hotel save(Hotel hotel) {
-        if (StringUtils.isBlank(hotel.getName())) {
-            throw new HotelException("Hotel name cannot be blank");
+        try (var connection = DbConnect.getConnection()) {
+            var hotelList = all();
+            if (hotelList.stream().map(h -> h.getName()).collect(Collectors.toList()).contains(hotel.getName())) {
+                throw new HotelException("Hotel with name " + hotel.getName() + " already exist");
+            }
+            var sql = "insert into hotels values (?, ?, ?, ?, ?)";
+            try (var insertStatement = connection.prepareStatement(sql)) {
+                insertStatement.setString(1, DbUtils.generateUniqueId());
+                insertStatement.setString(2, hotel.getName());
+                insertStatement.setInt(3, 1);
+                insertStatement.setTime(4, Time.valueOf(hotel.getCheckInTime()));
+                insertStatement.setInt(5, hotel.getRoomsTotalCount());
+                insertStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        hotelByName.put(hotel.getName().toLowerCase(), hotel);
-        return hotel;
+        return Hotel.builder().build();
     }
+
+    @SneakyThrows
+    public List<Hotel> dropAll() {
+        List<Hotel> hotelList = new ArrayList();
+        try (var connection = DbConnect.getConnection()) {
+            hotelList.addAll(all());
+            var sql = "truncate hotels";
+            var truncateStatement = connection.prepareStatement(sql);
+            truncateStatement.executeUpdate();
+        }
+        return hotelList;
+    }
+
+//    @SneakyThrows
+//    public Hotel save(Hotel hotel) {
+//        if (StringUtils.isBlank(hotel.getName())) {
+//            throw new HotelException("Hotel name cannot be blank");
+//        }
+//        hotelByName.put(hotel.getName().toLowerCase(), hotel);
+//        return hotel;
+//    }
 
     public List<Hotel> save(List<Hotel> hotelsList) {
         var hotels = all();
@@ -55,7 +128,6 @@ public class HotelRepository extends Repository<Hotel, String>{
         Map<String, Hotel> newMap = hotelsList.stream()
                 .collect(Collectors.toMap(name -> name.getName().toLowerCase(), Function.identity()));
         hotelByName.putAll(newMap);
-
         return hotels;
     }
 
