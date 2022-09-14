@@ -3,12 +3,16 @@ package org.course.jdbc.service;
 import lombok.RequiredArgsConstructor;
 import org.course.jdbc.converter.Converter;
 import org.course.jdbc.dto.ClientInfo;
+import org.course.jdbc.entity.CarEntity;
 import org.course.jdbc.repository.CarRepository;
 import org.course.jdbc.repository.ClientRepository;
 import org.course.jdbc.repository.RepairRequestHistoryRepository;
 import org.course.jdbc.repository.RepairRequestRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -25,6 +29,17 @@ public class ClientService {
         var car = carRepository.findById("1FF2F2F2123324").get();
         var repairRequest = repairRequestRepository.findById("38acfb91-552f-46ed-9bdd-8d70f2814db0").get();
         var requestHistory = repairRequestHistoryRepository.findById("0b5c98d5-09d3-4514-943c-cfe99992dc15").get();
+
+        car.setModel("Tesla");
+        carRepository.save(car);
+
+        CarEntity carEntity = new CarEntity();
+        carEntity.setVin(UUID.randomUUID().toString());
+        carEntity.setModel("Kalina");
+        carEntity.setMake("Lada");
+        carEntity.setClients(List.of(client));
+
+        carRepository.save(carEntity);
         return ClientInfo.builder()
                 .client(converter.toDto(client))
                 .cars(null)
