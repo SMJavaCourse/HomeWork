@@ -3,7 +3,6 @@ package org.course.jdbc.dto;
 import lombok.Data;
 import org.course.jdbc.entity.RepairRequestStatus;
 
-import java.time.OffsetDateTime;
 import java.util.List;
 
 @Data

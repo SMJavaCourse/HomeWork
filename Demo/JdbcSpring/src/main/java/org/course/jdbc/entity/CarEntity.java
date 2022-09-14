@@ -1,10 +1,11 @@
 package org.course.jdbc.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,4 +17,12 @@ public class CarEntity {
     private String vin;
     private String make;
     private String model;
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @ManyToMany
+    @JoinTable(
+            name = "car_client",
+            joinColumns = @JoinColumn(name = "car_vin"),
+            inverseJoinColumns = @JoinColumn(name = "client_id"))
+    private List<ClientEntity> clients;
 }

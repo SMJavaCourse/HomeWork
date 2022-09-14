@@ -4,7 +4,9 @@ import org.course.jdbc.entity.RepairRequestHistoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface RepairRequestHistoryRepository extends JpaRepository<RepairRequestHistoryEntity, String> {
-    RepairRequestHistoryEntity getById(String id);
+    Optional<RepairRequestHistoryEntity> findById(String id);
 }

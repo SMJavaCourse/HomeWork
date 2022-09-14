@@ -14,7 +14,9 @@ public class RepairRequestHistoryEntity {
 
     @Id
     private String id;
-    private String repairRequestId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "repair_request_id", nullable = false)
+    private RepairRequestEntity repairRequest;
     @Enumerated(EnumType.STRING)
     private RepairRequestStatus fromStatus;
     @Enumerated(EnumType.STRING)

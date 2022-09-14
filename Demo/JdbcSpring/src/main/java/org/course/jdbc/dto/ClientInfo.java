@@ -2,7 +2,6 @@ package org.course.jdbc.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import org.course.jdbc.entity.RepairRequestEntity;
 
 import java.util.List;
 
