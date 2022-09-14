@@ -2,6 +2,7 @@ package org.course.hotels.repository;
 
 import org.course.hotels.dto.Apartment;
 import org.course.hotels.entity.ApartmentEntity;
+import org.course.hotels.entity.services.ServicesAbstract;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -100,11 +101,11 @@ public class ApartmentRepository {
         apartment.setRoomNumber(rs.getInt(4));
         apartment.setPrice(rs.getInt(5));
         apartment.setCapacity(rs.getInt(6));
-//        apartment.setServices(allServicesInApartment(rs.getString(1)));
+        apartment.setServices(allServicesInApartment(rs.getString(1)));
         result.add(apartment);
     }
-    public ArrayList<String> allServicesInApartment(String apartmentsId) {
-        ArrayList<String> services = new ArrayList<>();
+    public ArrayList<ServicesAbstract> allServicesInApartment(String apartmentsId) {
+        ArrayList<ServicesAbstract> services = new ArrayList<>();
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("SELECT serviceName, serviceNameRu, " +
                      "defaultProperty, customProperty FROM apartmentServices LEFT JOIN services on" +
@@ -115,7 +116,7 @@ public class ApartmentRepository {
                     services.add(ServiceRepository.servicesBuilder(
                             rs.getString("servicename"),
                             rs.getString("customproperty"),
-                            rs.getString("defaultproperty")).getName());
+                            rs.getString("defaultproperty")));
                 }
             }
         } catch (SQLException e) {

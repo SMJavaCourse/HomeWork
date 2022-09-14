@@ -22,23 +22,21 @@ public class Given {
         int capacity = (random.nextInt(2) + 1) * rooms;
         int price = random.nextInt(100) * 100 + 100;
 
-        var apartament = easyRandom.nextObject(Apartment.class);
-        apartament.setPrice(price);
-        apartament.setRooms(rooms);
-        apartament.setRoomNumber(numberOfRoom);
-        apartament.setCapacity(capacity);
+        var apartment = easyRandom.nextObject(Apartment.class);
+        apartment.setPrice(price);
+        apartment.setRooms(rooms);
+        apartment.setRoomNumber(numberOfRoom);
+        apartment.setCapacity(capacity);
 
         if (rooms == 1) {
-            apartament.setName("Однокомнатный номер");
+            apartment.setName("Однокомнатный номер");
         } else if (rooms == 2) {
-            apartament.setName("Двухкомнатный номер");
+            apartment.setName("Двухкомнатный номер");
         } else {
-            apartament.setName("Трёхкомнатный номер");
+            apartment.setName("Трёхкомнатный номер");
         }
-        var qerqweqwe = apartament.getServices();
-        var q12erqweqwe = apartament.getServices().get(0).getName();
 
-        return apartament;
+        return apartment;
     }
 
     public EasyRandom getEasyRandom() {
