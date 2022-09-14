@@ -26,24 +26,12 @@ public class ClientService {
 
     public ClientInfo getClientInfo(String id) {
         var client = clientRepository.findById("14fbd742-ab98-4730-a58d-9f0ac72126bf").get();
-        var car = carRepository.findById("1FF2F2F2123324").get();
-        var repairRequest = repairRequestRepository.findById("38acfb91-552f-46ed-9bdd-8d70f2814db0").get();
-        var requestHistory = repairRequestHistoryRepository.findById("0b5c98d5-09d3-4514-943c-cfe99992dc15").get();
+        var repairRequests = repairRequestRepository.findAllByClientId(client.getId());
 
-        car.setModel("Tesla");
-        carRepository.save(car);
-
-        CarEntity carEntity = new CarEntity();
-        carEntity.setVin(UUID.randomUUID().toString());
-        carEntity.setModel("Kalina");
-        carEntity.setMake("Lada");
-        carEntity.setClients(List.of(client));
-
-        carRepository.save(carEntity);
         return ClientInfo.builder()
                 .client(converter.toDto(client))
-                .cars(null)
-                .repairRequests(null)
+                .cars(converter.toDto(client.getCars()))
+                .repairRequests(converter.toRepairDto(repairRequests))
                 .build();
     }
 }
