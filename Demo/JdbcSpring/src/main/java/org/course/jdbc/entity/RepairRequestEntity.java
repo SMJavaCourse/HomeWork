@@ -2,7 +2,7 @@ package org.course.jdbc.entity;
 
 import lombok.Data;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Data
 public class RepairRequestEntity {
@@ -10,5 +10,5 @@ public class RepairRequestEntity {
     private RepairRequestStatus status;
     private String clientId;
     private String carVin;
-    private OffsetDateTime createdTs;
+    private LocalDateTime createdTs;
 }
