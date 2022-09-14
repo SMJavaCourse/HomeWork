@@ -21,7 +21,10 @@ public class ClientService {
     private final Converter converter;
 
     public ClientInfo getClientInfo(String id) {
-        var client = clientRepository.getById(id);
+        var client = clientRepository.getById("14fbd742-ab98-4730-a58d-9f0ac72126bf");
+        var car = carRepository.getById("1FF2F2F2123324");
+        var repairRequest = repairRequestRepository.getById("38acfb91-552f-46ed-9bdd-8d70f2814db0");
+        var requestHistory = repairRequestHistoryRepository.getById("0b5c98d5-09d3-4514-943c-cfe99992dc15");
         return ClientInfo.builder()
                 .client(converter.toDto(client))
                 .cars(null)
