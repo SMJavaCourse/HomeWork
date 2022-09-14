@@ -7,4 +7,4 @@ spring:
     username: postgres
     password: postgres
 course:
-  implement: true
+  implement: false

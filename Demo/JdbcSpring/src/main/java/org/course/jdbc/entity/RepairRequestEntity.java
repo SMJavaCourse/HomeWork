@@ -3,9 +3,7 @@ package org.course.jdbc.entity;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,6 +14,7 @@ public class RepairRequestEntity {
 
     @Id
     private String id;
+    @Enumerated(EnumType.STRING)
     private RepairRequestStatus status;
     private String clientId;
     private String carVin;
