@@ -1,7 +1,7 @@
 -- * table hotels * --
 create table hotels
 (
-    id                serial
+    id                text    not null
         constraint hotels_pk
             primary key,
     name              text    not null,
@@ -9,6 +9,7 @@ create table hotels
     checkin_time      time    not null,
     rooms_total_count integer not null
 );
+
 
 create unique index hotels_id_uindex
     on hotels (id);

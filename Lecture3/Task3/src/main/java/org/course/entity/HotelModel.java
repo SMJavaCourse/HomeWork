@@ -13,5 +13,4 @@ public class HotelModel {
     private LocalTime checkInTime;
     private Integer rooms;
 
-
 }
