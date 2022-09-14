@@ -1,9 +1,7 @@
 package helper;
 
-import org.course.Apartament;
+import org.course.Apartment;
 import org.course.Hotel;
-import org.course.SearchInput;
-import services.Services;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,7 +12,7 @@ import static org.course.Hotel.searchRoom;
 import static org.course.Hotel.searchServices;
 
 public class SearchHelper {
-    public static ArrayList<Hotel> findHotel(String nameHotel, Map<String, Hotel> hotelsByName) {
+    private static ArrayList<Hotel> findHotel(String nameHotel, Map<String, Hotel> hotelsByName) {
         ArrayList<Hotel> findHotelsResult = new ArrayList<>();
         if (nameHotel == null) { //имя отеля не задано
             findHotelsResult = new ArrayList<>(hotelsByName.values()); //создаем лист и кладем туда value отелей из мапы
@@ -38,7 +36,8 @@ public class SearchHelper {
             stringHotelSearch
                     .append("У нас нет информации по отелю \"")
                     .append(nameHotel)
-                    .append("\"");
+                    .append("\"")
+                    .append("\nПовторите ввод:");
             return stringHotelSearch.toString(); //возвращаем стрингу с информацией
         }
         if (commandService == null) {
@@ -54,7 +53,7 @@ public class SearchHelper {
                             .append("\nНомера:\n")
                             .append(searchRoom(numberOfGuests, hotel.getApartmentByCapacity())
                                     .stream()
-                                    .map(Apartament::toString)
+                                    .map(Apartment::toString)
                                     .collect(Collectors.joining()));
                     numberOfHotelsFound += 1;
                 }
@@ -68,9 +67,11 @@ public class SearchHelper {
             numberOfHotelsFound += 1;
         }
         if (("".equals(stringHotelSearch.toString()) && nameHotel == null) || !stringHotelSearch.toString().equals("")) {
-            return "Найдено отелей: " + numberOfHotelsFound + "\n" + stringHotelSearch;
+            return "Найдено отелей: " + numberOfHotelsFound + "\n" + stringHotelSearch
+                    + "\nНачните новый поиск, или введите \"выход\"";
+
         } else {
-            return "В отеле \"" + nameHotel + "\" нет достаточного количества мест";
+            return "В отеле \"" + nameHotel + "\" нет достаточного количества мест\nПовторите ввод:";
         }
     }
 }
