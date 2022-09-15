@@ -10,6 +10,7 @@ import org.jeasy.random.api.Randomizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.UUID;
 
 public class Given {
 
@@ -69,7 +70,9 @@ public class Given {
         for (int i = 0; i < random.nextInt(5) + 1; i++) {
             apartments.add(randomApartment(easyRandom));
         }
-        var hotel = easyRandom.nextObject(Hotel.class);
+        Hotel hotel = new Hotel();
+        hotel.setId(UUID.randomUUID().toString());
+        hotel.setName(UUID.randomUUID().toString());
         hotel.setStartTime(startTime);
         hotel.setApartments(apartments);
 

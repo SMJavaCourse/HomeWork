@@ -29,25 +29,28 @@ public class HotelsController {
         }
         return new ResponseEntity(new ErrorResponse(404, "Отель с id " + id + " не найден"), HttpStatus.NOT_FOUND);
     }
+
     @PostMapping("api/hotels/query")
     public ResponseEntity getHotels(@Valid @RequestBody queryRequest request) {
         var people = request.people();
         var name = request.name();
-        var hotels = hotelService.hotelFinder(Integer.parseInt(people), name);
+        if (people < 1) {
+            return new ResponseEntity(new ErrorResponse(400, "поле people обязательное и должно быть больше нуля"), HttpStatus.BAD_REQUEST);
+        }
+        var hotels = hotelService.hotelFinder(people, name);
         if (hotels.size() != 0) {
             return ResponseEntity.of(Optional.of(hotels));
         }
-        if (hotelService.hotelExist(name)){
-        return new ResponseEntity(new ErrorResponse(404, "В отеле '" + name + "' нет свободных мест"), HttpStatus.NOT_FOUND);
-    } return new ResponseEntity(new ErrorResponse(404, "Отель '" + name + "' не найден"), HttpStatus.NOT_FOUND);
+        if (hotelService.hotelExist(name)) {
+            return new ResponseEntity(new ErrorResponse(404, "В отеле '" + name + "' нет свободных мест"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(new ErrorResponse(404, "Отель '" + name + "' не найден"), HttpStatus.NOT_FOUND);
     }
 
     public record queryRequest(
             @NotNull
-            String people,
+            int people,
             String name
     ) {
     }
-
-
 }
