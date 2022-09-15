@@ -7,53 +7,35 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 @Repository
 public class HotelRepository {
     private DataSource dataSource;
-    private ApartmentRepository apartmentRepository;
-    private static HotelRepository instance;
-
 
     @Autowired
-    public HotelRepository(DataSource dataSource, ApartmentRepository apartmentRepository) {
+    public HotelRepository(DataSource dataSource) {
         this.dataSource = dataSource;
-        this.apartmentRepository = apartmentRepository;
     }
 
-    public HotelRepository() {
-    }
-
-    public static HotelRepository getInstance() {
-        var localInstance = instance;
-        if (localInstance == null) {
-            synchronized (HotelRepository.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new HotelRepository();
-                }
-            }
-        }
-        return localInstance;
-    }
     public HotelEntity findHotelByName(String nameOfHotel) {
+        HotelEntity hotelEntity = new HotelEntity();
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE UPPER(name) = UPPER(?)")) {
             statement.setString(1, nameOfHotel);
             try (var rs = statement.executeQuery()) {
                 if (rs.next()) {
-                    HotelEntity hotelEntity = new HotelEntity();
                     hotelEntity.setId(rs.getString(1));
                     hotelEntity.setName(rs.getString(2));
                     hotelEntity.setStartTime(rs.getString(3));
-                    return hotelEntity;
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException();
         }
-        return null;
+        return hotelEntity;
     }
+
     public HotelEntity findById(String hotelId) {
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("SELECT id, name, starttime FROM hotels WHERE id = ?")) {
@@ -72,7 +54,7 @@ public class HotelRepository {
         return null;
     }
 
-    public Hotel save (Hotel hotel){
+    public Hotel save(Hotel hotel) {
         if (findById(hotel.getId()) != null) {
             try (var connection = dataSource.getConnection();
                  var statement = connection.prepareStatement("UPDATE hotels SET name = ?, starttime = ? WHERE id = ?")) {
@@ -96,6 +78,7 @@ public class HotelRepository {
         }
         return hotel;
     }
+
     public int deleteById(String hotelId) {
         try (var connection = dataSource.getConnection();
              var statement = connection.prepareStatement("DELETE FROM hotels WHERE id = ?")) {
@@ -106,10 +89,26 @@ public class HotelRepository {
         }
     }
 
-    public void deleteAll(){
+    public void deleteAll() {
         try (var connection = dataSource.getConnection();
              var statement = connection.createStatement()) {
             statement.executeUpdate("DELETE FROM hotels;");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public ArrayList<HotelEntity> getAllHotels() {
+        ArrayList<HotelEntity> hotelEntities = new ArrayList<>();
+        try (var connection = dataSource.getConnection();
+             var allResults = connection.createStatement().executeQuery("SELECT id, name, starttime FROM hotels")) {
+            while (allResults.next()) {
+                HotelEntity hotelEntity = new HotelEntity();
+                hotelEntity.setId(allResults.getString(1));
+                hotelEntity.setName(allResults.getString(2));
+                hotelEntity.setStartTime(allResults.getString(3));
+                hotelEntities.add(hotelEntity);
+            }
+            return hotelEntities;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

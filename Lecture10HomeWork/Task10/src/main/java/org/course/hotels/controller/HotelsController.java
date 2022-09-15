@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 
 @RestController
@@ -22,22 +23,23 @@ public class HotelsController {
 
     @GetMapping("api/hotels/{id}")
     public ResponseEntity getHotelById(@PathVariable String id) {
-        var hotel = hotelService.getHotel(id);
+        var hotel = hotelService.getHotelById(id);
         if (hotel.isPresent()) {
             return ResponseEntity.of(hotel);
         }
         return new ResponseEntity(new ErrorResponse(404, "Отель с id " + id + " не найден"), HttpStatus.NOT_FOUND);
     }
-
     @PostMapping("api/hotels/query")
-    public ResponseEntity getHotel(@Valid @RequestBody queryRequest request) {
+    public ResponseEntity getHotels(@Valid @RequestBody queryRequest request) {
         var people = request.people();
         var name = request.name();
-        var hotel = hotelService.hotelQuery(Integer.parseInt(people), name);
-        if (hotel.isPresent()) {
-            return ResponseEntity.of(hotel);
+        var hotels = hotelService.hotelFinder(Integer.parseInt(people), name);
+        if (hotels.size() != 0) {
+            return ResponseEntity.of(Optional.of(hotels));
         }
-        return new ResponseEntity(new ErrorResponse(404, "Отель \"" + name + "\" не найден"), HttpStatus.NOT_FOUND);
+        if (hotelService.hotelExist(name)){
+        return new ResponseEntity(new ErrorResponse(404, "В отеле '" + name + "' нет свободных мест"), HttpStatus.NOT_FOUND);
+    } return new ResponseEntity(new ErrorResponse(404, "Отель '" + name + "' не найден"), HttpStatus.NOT_FOUND);
     }
 
     public record queryRequest(
@@ -46,5 +48,6 @@ public class HotelsController {
             String name
     ) {
     }
+
 
 }

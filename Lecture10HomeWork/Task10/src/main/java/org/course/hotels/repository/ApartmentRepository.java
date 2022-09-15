@@ -3,6 +3,7 @@ package org.course.hotels.repository;
 import org.course.hotels.dto.Apartment;
 import org.course.hotels.entity.ApartmentEntity;
 import org.course.hotels.entity.services.ServicesAbstract;
+import org.course.hotels.service.AmenitiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,24 +18,6 @@ import java.util.NoSuchElementException;
 public class ApartmentRepository {
 
     private static DataSource dataSource;
-    private static volatile ApartmentRepository instance;
-
-    public ApartmentRepository() {
-
-    }
-
-    public static ApartmentRepository getInstance() {
-        var localInstance = instance;
-        if (localInstance == null) {
-            synchronized (ApartmentRepository.class) {
-                localInstance = instance;
-                if (localInstance == null) {
-                    instance = localInstance = new ApartmentRepository();
-                }
-            }
-        }
-        return localInstance;
-    }
 
     @Autowired
     public ApartmentRepository(DataSource dataSource) {
@@ -61,7 +44,7 @@ public class ApartmentRepository {
         }
         return result;
     }
-    private static void mostExpensiveApartment(ArrayList<Apartment> apartments) throws NoSuchElementException {
+    private void mostExpensiveApartment(ArrayList<Apartment> apartments) throws NoSuchElementException {
         if (apartments.size() != 0) {
             var mostExpensiveApartment = apartments
                     .stream()
@@ -113,7 +96,7 @@ public class ApartmentRepository {
             statement.setString(1, apartmentsId);
             try (var rs = statement.executeQuery()) {
                 while (rs.next()) {
-                    services.add(ServiceRepository.servicesBuilder(
+                    services.add(AmenitiesService.servicesBuilder(
                             rs.getString("servicename"),
                             rs.getString("customproperty"),
                             rs.getString("defaultproperty")));
