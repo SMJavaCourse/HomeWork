@@ -139,12 +139,12 @@ class HotelsControllerTest extends TestBase {
     @Test
     @DisplayName("Поиск подходящих номеров по заданному количеству человек больше 1")
     public void getSuitableApartmentsByManyPeopleSuccess() {
-        var hotel = hotels.get(0);
+        var hotel1 = hotels.get(0);
+        var hotel2 = hotels.get(1);
         var people = "2";
         var requestString = "http://localhost:8080/api/hotels/query";
         Map<String, String> requestBody = new HashMap<>();
         requestBody.put("people", people);
-        requestBody.put("name", hotel.getName());
         RestAssured
                 .given().contentType("application/json")
                 .body(requestBody)
@@ -152,7 +152,9 @@ class HotelsControllerTest extends TestBase {
                 .assertThat()
                 .statusCode(200)
                 .and().body("size()", is(notNullValue()))
-                .and().body("[0].apartments.size()", lessThanOrEqualTo(hotel.getApartments().size()));
+                .and().body("[0].apartments.size()", lessThanOrEqualTo(hotel1.getApartments().size()))
+                .and().body("[1].apartments.size()", lessThanOrEqualTo(hotel2.getApartments().size()));
+
     }
 
     @Test
