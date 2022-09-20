@@ -2,9 +2,14 @@ package dto;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Getter
 public enum Command {
-    EXIT("выход"),
+    EXIT_RU("выход"),
+    EXIT_EN("exit"),
     FACILITIES("удобства");
 
     public final String name;
@@ -12,4 +17,5 @@ public enum Command {
     Command(String name) {
         this.name = name;
     }
+
 }

@@ -1,5 +1,6 @@
 package helper;
 
+import dto.Command;
 import org.course.Apartment;
 import org.course.Hotel;
 
@@ -28,7 +29,7 @@ public class SearchHelper {
     }
 
 
-    public static String searchHotelString(String nameHotel, String commandService, int numberOfGuests, Map<String, Hotel> hotelsByName) {
+    public static String searchHotelString(String nameHotel, Command commandService, int numberOfGuests, Map<String, Hotel> hotelsByName) {
         StringBuilder stringHotelSearch = new StringBuilder(); // стринга билдер
         int numberOfHotelsFound = 0; //кол-во найденных отелей
         ArrayList<Hotel> foundHotel = findHotel(nameHotel, hotelsByName); //лист найденных отелей
@@ -58,13 +59,15 @@ public class SearchHelper {
                     numberOfHotelsFound += 1;
                 }
             }
-        } else {
+        } else if (commandService == Command.FACILITIES){
             stringHotelSearch
                     .append("Отель: \"")
                     .append(nameHotel)
                     .append("\"\n")
                     .append(searchServices(hotelsByName.get(nameHotel).getApartments()));
             numberOfHotelsFound += 1;
+        }else {
+            throw new RuntimeException("Неизвестная комманда" + commandService);
         }
         if (("".equals(stringHotelSearch.toString()) && nameHotel == null) || !stringHotelSearch.toString().equals("")) {
             return "Найдено отелей: " + numberOfHotelsFound + "\n" + stringHotelSearch

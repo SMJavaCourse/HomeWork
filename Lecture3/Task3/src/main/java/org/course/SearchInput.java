@@ -31,13 +31,13 @@ public class SearchInput {
 
 
             Scanner scanner = new Scanner(System.in);
-            boolean exit = true;
+            boolean goon = true;
 
-            while (exit) {
+            while (goon) {
                 MainData input = ValidateInput.validateInput(scanner.nextLine().trim()); //ввод значений
 
-                if (Command.EXIT.name.equalsIgnoreCase(input.getCommandInput())) {
-                    exit = false;
+                if (Command.EXIT_RU == input.getCommandInput()) {
+                    goon = false;
                 } else if (input.getErrorMessage() != null) {
                     System.out.println(input.getErrorMessage());
                 } else {
