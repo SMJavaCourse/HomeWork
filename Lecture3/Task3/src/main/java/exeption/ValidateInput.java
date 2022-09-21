@@ -16,15 +16,13 @@ public class ValidateInput {
         Command commandInput = null;
         String errorMessage = null;
         int numberOfGuests = 0;
-        ArrayList<String> EXIT_COMMANDS = new ArrayList<>();
-        EXIT_COMMANDS.add(EXIT_EN.name);
-        EXIT_COMMANDS.add(EXIT_RU.name);
+        List<String> EXIT_COMMANDS = List.of(EXIT_EN.name, EXIT_RU.name);
 
         if (StringUtils.isBlank(input)) {
             errorMessage = "Пустая строка. Необходимо ввести данные для поиска";
             return MainData.errorMainData(errorMessage);
         } else if (EXIT_COMMANDS.contains(input.toLowerCase())) {
-            return MainData.commandMainData(Command.valueOf(input.toLowerCase()));
+            return MainData.commandMainData(EXIT_EN);
         }
 
         List<String> inputAll = List.of(input.split(" "));

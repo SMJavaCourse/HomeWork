@@ -36,7 +36,7 @@ public class SearchInput {
             while (goon) {
                 MainData input = ValidateInput.validateInput(scanner.nextLine().trim()); //ввод значений
 
-                if (Command.EXIT_RU == input.getCommandInput()) {
+                if (Command.EXIT_RU == input.getCommandInput() || Command.EXIT_EN == input.getCommandInput()) {
                     goon = false;
                 } else if (input.getErrorMessage() != null) {
                     System.out.println(input.getErrorMessage());
