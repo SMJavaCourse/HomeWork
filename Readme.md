@@ -42,13 +42,11 @@
 
 ### 9. JDBC
 
-### 10. Spring IoC
+### 10. Spring IoC. Прикладные возможность Spring Boot framework
 
-### 11. Прикладные возможность Spring Boot framework
+### 11. Spring JDBC
 
-### 12. Spring JDBC
-
-### 13. Тестирование Spring Boot приложения
+### 12. Тестирование Spring Boot приложения
 
 ### 13. Проект автоматизации
 

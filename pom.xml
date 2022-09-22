@@ -25,5 +25,6 @@
         <module>Demo/JUnit</module>
         <module>Demo/jdbc</module>
         <module>Demo/CitiesSpring</module>
+        <module>Demo/JdbcSpring</module>
     </modules>
 </project>
