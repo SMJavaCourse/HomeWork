@@ -113,6 +113,31 @@ public class HotelRepository extends Repository<Hotel, String>{
         return hotelList;
     }
 
+    @Override
+    @SneakyThrows
+    public Hotel byId(String id) { // id == hotelName in lowercase
+        try (var connection = DbConnect.getConnection()) {
+            var stmt= connection
+                    .prepareStatement("select name, apartments_id, checkin_time, rooms_total_count " +
+                            "from hotels where id = ?");
+            stmt.setString(1, id);
+            try (var res = stmt.executeQuery()) {
+                if (res.next()) {
+                    return Hotel.builder().name(res.getString(1))
+                            .apartments(List.of())
+                            .checkInTime(res.getTime(3).toLocalTime())
+                            .build();
+                }
+                return null;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 //    @SneakyThrows
 //    public Hotel save(Hotel hotel) {
 //        if (StringUtils.isBlank(hotel.getName())) {
@@ -122,23 +147,23 @@ public class HotelRepository extends Repository<Hotel, String>{
 //        return hotel;
 //    }
 
-    public List<Hotel> save(List<Hotel> hotelsList) {
-        var hotels = all();
-        hotels.addAll(hotelsList);
-        Map<String, Hotel> newMap = hotelsList.stream()
-                .collect(Collectors.toMap(name -> name.getName().toLowerCase(), Function.identity()));
-        hotelByName.putAll(newMap);
-        return hotels;
-    }
+//    public List<Hotel> save(List<Hotel> hotelsList) {
+//        var hotels = all();
+//        hotels.addAll(hotelsList);
+//        Map<String, Hotel> newMap = hotelsList.stream()
+//                .collect(Collectors.toMap(name -> name.getName().toLowerCase(), Function.identity()));
+//        hotelByName.putAll(newMap);
+//        return hotels;
+//    }
 
-    @Override
-    @SneakyThrows
-    public Hotel byId(String id) { // id == hotelName in lowercase
-        if (hotelByName.get(id.toLowerCase()) == null) {
-            throw new HotelException("No such hotel name \"" + id + "\"");
-        }
-        return hotelByName.get(id.toLowerCase());
-    }
+//    @Override
+//    @SneakyThrows
+//    public Hotel byId(String id) { // id == hotelName in lowercase
+//        if (hotelByName.get(id.toLowerCase()) == null) {
+//            throw new HotelException("No such hotel name \"" + id + "\"");
+//        }
+//        return hotelByName.get(id.toLowerCase());
+//    }
 //    public Optional<Hotel> getHotelByName(String id) {
 //        return Optional.ofNullable(hotelByName.get(id.toLowerCase()));
 //    }
