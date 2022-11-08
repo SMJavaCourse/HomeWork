@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Getter
-public class Hotel implements Hotels, Comparable{
+public class HotelImpl implements Hotels, Comparable{
     private String name;
     private LocalTime checkInTime;
     private List<Apartment> apartments;
@@ -16,7 +16,7 @@ public class Hotel implements Hotels, Comparable{
 
 
     @Builder
-    public Hotel(String name, List<Apartment> apartments, LocalTime checkInTime) {
+    public HotelImpl(String name, List<Apartment> apartments, LocalTime checkInTime) {
         this.name = name;
         this.apartments = apartments;
         this.checkInTime = checkInTime;
@@ -41,7 +41,7 @@ public class Hotel implements Hotels, Comparable{
 
     @Override
     public int compareTo(Object o) {
-        return this.getName().compareTo(((Hotel) o).getName());
+        return this.getName().compareTo(((HotelImpl) o).getName());
     }
 
 }

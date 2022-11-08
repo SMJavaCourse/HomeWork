@@ -6,7 +6,7 @@ import java.util.List;
 
 public class HotelFactory {
 
-    public static Hotel createHotel(String hotelName) {
+    public static HotelImpl createHotel(String hotelName) {
         try {
             switch (hotelName) {
                 case "У мамы лучше":
@@ -21,7 +21,7 @@ public class HotelFactory {
                     apartmentsForHotel1.add(new ApartmentThreeRooms(3500f, 6, 17)
                                     .setServices(new ServicesImpl().addBalcony().addInternet()));
 
-                    return Hotel.builder()
+                    return HotelImpl.builder()
                             .name(hotelName).apartments(apartmentsForHotel1).checkInTime(LocalTime.of(12, 0))
                             .build();
 
@@ -33,7 +33,7 @@ public class HotelFactory {
                                     .setServices(new ServicesImpl().addBalcony().addCleaning()));
                     apartmentsForHotel2.add(new ApartmentThreeRooms(4000f, 6, 15)
                                     .setServices(new ServicesImpl().addCleaning()));
-                    return Hotel.builder()
+                    return HotelImpl.builder()
                             .name(hotelName).apartments(apartmentsForHotel2).checkInTime(LocalTime.of(9, 0))
                             .build();
                 default:
@@ -42,6 +42,6 @@ public class HotelFactory {
         } catch (HotelException e) {
             System.out.println(e.getMessage());
         }
-        return Hotel.builder().build();
+        return HotelImpl.builder().build();
     }
 }

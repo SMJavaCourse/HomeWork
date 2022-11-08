@@ -7,8 +7,8 @@ public interface Hotels {
     List<Apartment> getApartments();
     Integer getRoomsTotalCount();
 
-    static void printHotelInfo(List<Hotel> hotels) {
-        for (Hotel hotel: hotels) {
+    static void printHotelInfo(List<HotelImpl> hotels) {
+        for (HotelImpl hotel: hotels) {
             System.out.println(hotel.toString());
             Apartments.printApartments(hotel.getApartments());
             System.out.println("\n*****************************\n");
