@@ -7,34 +7,35 @@ import com.sun.net.httpserver.HttpServer;
 import lombok.SneakyThrows;
 import org.course.service.HotelService;
 
-import javax.sql.DataSource;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.util.concurrent.Executors;
 
 public class WebServer {
+    private GlobalStorage globalStorage;
     private HttpServer httpServer;
     private HotelService hotelService;
     private ObjectMapper objectMapper;
 
-    public WebServer(Integer port, DataSource dataSource) {
-        httpServer = createServer(port);
+    public WebServer(GlobalStorage globalStorage) {
+        this.globalStorage = globalStorage;
+        httpServer = createServer(globalStorage.getServerPort());
         objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        hotelService = new HotelService(dataSource);
+        hotelService = new HotelService(globalStorage);
     }
 
     @SneakyThrows
     public HttpServer createServer(int port) {
         var httpServer = HttpServer.create(new InetSocketAddress("localhost", port), 1024);
-        httpServer.createContext("/hotels", this::handleGetCity);
+        httpServer.createContext("/hotels", this::handleGetHotel);
         httpServer.setExecutor(Executors.newFixedThreadPool(10));
         return httpServer;
     }
 
     @SneakyThrows
-    private void handleGetCity(HttpExchange exchange) {
+    private void handleGetHotel(HttpExchange exchange) {
         var id = getIdFromUri(exchange.getRequestURI());
         try {
             var hotel = hotelService.getHotel(id);

@@ -4,21 +4,11 @@ import lombok.SneakyThrows;
 
 
 public class App {
-    private static final int serverPort = 8080;
-
-    private static final String jdbcUrl = "jdbc:postgresql://localhost:5433/postgres";
-    private static final String username = "hotels";
-    private static final String password = "hotels";
 
     @SneakyThrows
     public static void main(String[] args) throws HotelException {
-        var dataSourceFactory = new DataSourceFactory();
-        dataSourceFactory.setJdbcUrl(jdbcUrl);
-        dataSourceFactory.setUsername(username);
-        dataSourceFactory.setPassword(password);
-        var dataSource = dataSourceFactory.getDataSource();
-
-        var webServer = new WebServer(serverPort, dataSource);
+        var globalStorage = new GlobalStorage();
+        var webServer = new WebServer(globalStorage);
         webServer.start();
 
 //        var hotelService = new HotelService();

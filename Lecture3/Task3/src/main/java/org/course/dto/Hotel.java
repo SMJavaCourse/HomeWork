@@ -1,7 +1,6 @@
 package org.course.dto;
 
 import lombok.Data;
-import org.course.Apartment;
 import org.course.entity.ApartmentEntity;
 
 import java.util.List;

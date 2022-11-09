@@ -30,7 +30,7 @@ public class HotelsRepo extends Repository<HotelEntity, String>{
                 .prepareStatement("select * from hotels where id = ?")) {
             statement.setString(1, id);
             try (var resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
+                if (!resultSet.next()) {
                     return null;
                 }
                 var hotelEntity = new HotelEntity();

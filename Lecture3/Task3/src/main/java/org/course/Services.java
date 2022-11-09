@@ -1,21 +1,65 @@
 package org.course;
 
-public interface Services {
+public class Services implements Service {
+    private boolean grillMeat;
+    private boolean balcony;
+    private boolean internet;
+    private boolean conditioner;
+    private boolean cleaning;
 
-    Services addBalcony();
-    boolean isBalcony();
+    @Override
+    public Service addBalcony() {
+        this.balcony = true;
+        return this;
+    }
+    @Override
+    public boolean isBalcony() {
+        return this.balcony;
+    }
+    @Override
+    public Service addGrillMeat() {
+        this.grillMeat = true;
+        return this;
+    }
+    @Override
+    public boolean isGrillMeat() {
+        return this.grillMeat;
+    }
+    @Override
+    public Service addInternet() {
+        this.internet = true;
+        return this;
+    }
+    @Override
+    public boolean isInternet() {
+        return this.internet;
+    }
+    @Override
+    public Service addConditioner() {
+        this.conditioner = true;
+        return this;
+    }
+    @Override
+    public boolean isConditioner() {
+        return this.conditioner;
+    }
+    @Override
+    public Service addCleaning() {
+        this.cleaning = true;
+        return this;
+    }
+    @Override
+    public boolean isCleaning() {
+        return this.cleaning;
+    }
 
-    Services addGrillMeat();
-    boolean isGrillMeat();
-
-    Services addInternet();
-    boolean isInternet();
-
-    Services addConditioner();
-    boolean isConditioner();
-
-    Services addCleaning();
-    boolean isCleaning();
-
-
+    @Override
+    public String toString() {
+        var b = isBalcony() ? "\"балкон\" " : "";
+        var cl = isCleaning() ? "\"уборка\" " : "";
+        var cn = isConditioner() ? "\"кондиционер\" " : "";
+        var i = isInternet() ? "\"интернет\" " : "";
+        var gm = isGrillMeat() ? "\"шашлычок в номер\" " : "";
+        return (b + cl + cn + i + gm).strip().replaceAll("\"\\s", "\", ");
+    }
 }

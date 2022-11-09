@@ -1,6 +1,7 @@
 package org.course.service;
 
 import lombok.SneakyThrows;
+import org.course.GlobalStorage;
 import org.course.dto.Hotel;
 import org.course.repository.ApartmentParamsRepo;
 import org.course.repository.ApartmentsRepo;
@@ -12,16 +13,18 @@ import javax.sql.DataSource;
 public class HotelService {
 
 //    private static final HotelsRepo HOTEL_REPOSITORY = HotelsRepo.getInstance();
+    private final GlobalStorage globalStorage;
     private final HotelsRepo hotelsRepo;
     private final ApartmentsRepo apartmentsRepo;
     private final ApartmentParamsRepo apartmentParamsRepo;
     private final ServicesRepo servicesRepo;
 
-    public HotelService(DataSource dataSource) {
-        hotelsRepo = new HotelsRepo(dataSource);
-        apartmentsRepo = new ApartmentsRepo(dataSource);
-        apartmentParamsRepo = new ApartmentParamsRepo(dataSource);
-        servicesRepo = new ServicesRepo(dataSource);
+    public HotelService(GlobalStorage globalStorage) {
+        this.globalStorage = globalStorage;
+        hotelsRepo = globalStorage.getHotelsRepo();
+        apartmentsRepo = globalStorage.getApartmentsRepo();
+        apartmentParamsRepo = globalStorage.getApartmentParamsRepo();
+        servicesRepo = globalStorage.getServicesRepo();
     }
 
     @SneakyThrows

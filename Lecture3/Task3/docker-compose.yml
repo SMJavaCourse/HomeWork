@@ -7,6 +7,6 @@ services:
     ports:
       - '5433:5432'
     environment:
-      - POSTGRES_DB=hotels
+      - POSTGRES_DB=postgres
       - POSTGRES_USER=hotels
       - POSTGRES_PASSWORD=hotels

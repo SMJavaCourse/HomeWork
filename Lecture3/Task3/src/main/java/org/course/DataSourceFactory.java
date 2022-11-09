@@ -9,7 +9,11 @@ public class DataSourceFactory {
     private HikariConfig hikariConfig = new HikariConfig();
 
     public DataSourceFactory() {
-        hikariConfig.addDataSourceProperty("cachePrepStats", "true");
+//        hikariConfig.addDataSourceProperty("cachePrepStats", "true");
+//        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
+//        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
         hikariConfig.addDataSourceProperty("prepStmtCacheSize", "250");
         hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
     }
