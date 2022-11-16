@@ -3,9 +3,7 @@ create table hotels
 (
     id                text    not null constraint hotels_pk primary key,
     name              text    not null,
-    checkin_time      time    not null,
-    rooms_total_count integer not null,
-    apartments_id     text not null
+    checkin_time      time    not null
 );
 
 -- * table apartments * --
@@ -13,7 +11,7 @@ create table apartments
 (
     id                  text not null constraint apartments_pk primary key,
     apartment_name      text    not null,
-    apartment_params_id text not null
+    hotel_id int not null
 );
 
 
@@ -24,7 +22,7 @@ create table apartment_params
     room_number text          not null,
     price       double precision not null,
     places      integer          not null,
-    services_id text not null
+    apartment_id int not null
 );
 
 
@@ -32,7 +30,15 @@ create table apartment_params
 create table services
 (
     id          text not null constraint services_pk primary key,
-    list_services text[]
+    service_name text
+);
+
+-- * table apartments_services (apartment_id <-> services_id)  * --
+create table apartments_services
+(
+    id          text not null constraint services_pk primary key,
+    apartment_id int not null,
+    service_id int not null 
 );
 
 insert into services (id, list_services) values ('1', '{"balcony", "air conditioner", "internet"}');

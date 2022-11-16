@@ -1,15 +1,19 @@
 package org.course;
 
 import lombok.SneakyThrows;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+@SpringBootApplication
 public class App {
 
     @SneakyThrows
     public static void main(String[] args) throws HotelException {
-        var globalStorage = new GlobalStorage();
-        var webServer = new WebServer(globalStorage);
-        webServer.start();
+        var applicationContext = SpringApplication.run(App.class, args);
+
+//        var globalStorage = new GlobalStorage();
+//        var webServer = new WebServer(globalStorage);
+//        webServer.start();
 
 //        var hotelService = new HotelService();
 
